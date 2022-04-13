@@ -12,11 +12,17 @@ public class PlayerCam : MonoBehaviour
     float xRotation;
     float yRotation;
 
+    PlayerMovement player;
+
     // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        if (orientation != null)
+        {
+            player = orientation.transform.GetComponentInParent<PlayerMovement>();
+        }
     }
 
     // Update is called once per frame
@@ -28,6 +34,10 @@ public class PlayerCam : MonoBehaviour
         yRotation += mouseX;
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        if (player.grabbingLedge)
+        {
+            yRotation = Mathf.Clamp(yRotation, -90f, 90f);
+        }
 
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
