@@ -32,12 +32,24 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rb;
 
+    // ledge variables
+    [Header("Ledge Grabbing")]
+    public float pullUpSpeed;
+    public float forwardDistance;
+
+    [HideInInspector]
+    public bool grabbingLedge;
+    private bool gettingUp;
+    private Vector3 GetUpPosition;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         readyToJump = true;
+        grabbingLedge = false;
+        gettingUp = false;
     }
 
     // Update is called once per frame
@@ -58,7 +70,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MovePlayer();
+        if (!grabbingLedge)
+        {
+            MovePlayer();
+        }
+        else if (gettingUp)
+        {
+            PullUpFromLedge();
+        }
     }
 
     private void PlayerInput()
@@ -74,6 +93,12 @@ public class PlayerMovement : MonoBehaviour
             Jump();
 
             Invoke(nameof(ResetJump), jumpCooldown);
+        }
+        // get up from ledge
+        else if (Input.GetKey(jumpKey) && grabbingLedge)
+        {
+            gettingUp = true;
+            PullUpFromLedge();
         }
     }
 
@@ -112,5 +137,25 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+    }
+
+    public void GrabLedge(Vector3 grabPosition, Vector3 getUpPosition, Vector3 ledgeForwardVector)
+    {
+        transform.position = new Vector3(transform.position.x, grabPosition.y, transform.position.z);
+        GetUpPosition = new Vector3(transform.position.x + ledgeForwardVector.x * forwardDistance, getUpPosition.y, transform.position.z + ledgeForwardVector.z * forwardDistance);
+        grabbingLedge = true;
+        rb.useGravity = false;
+        rb.velocity = Vector3.zero;
+    }
+
+    private void PullUpFromLedge()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, GetUpPosition, pullUpSpeed * Time.deltaTime);
+        if (transform.position == GetUpPosition)
+        {
+            grabbingLedge = false;
+            rb.useGravity = true;
+            gettingUp = false;
+        }
     }
 }
