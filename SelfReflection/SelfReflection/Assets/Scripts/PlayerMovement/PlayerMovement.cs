@@ -33,6 +33,10 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
 
     // ledge variables
+    [Header("Ledge Grabbing")]
+    public float pullUpSpeed;
+    public float forwardDistance;
+
     [HideInInspector]
     public bool grabbingLedge;
     private bool gettingUp;
@@ -135,12 +139,10 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true;
     }
 
-    public void GrabLedge(Vector3 grabPosition, Vector3 getUpPosition, Vector3 getUpDirection)
+    public void GrabLedge(Vector3 grabPosition, Vector3 getUpPosition, Vector3 ledgeForwardVector)
     {
         transform.position = new Vector3(transform.position.x, grabPosition.y, transform.position.z);
-        GetUpPosition = new Vector3(transform.position.x + getUpDirection.x * 2, getUpPosition.y, transform.position.z + getUpDirection.z * 2);
-        print(transform.position);
-        print(GetUpPosition);
+        GetUpPosition = new Vector3(transform.position.x + ledgeForwardVector.x * forwardDistance, getUpPosition.y, transform.position.z + ledgeForwardVector.z * forwardDistance);
         grabbingLedge = true;
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
@@ -148,7 +150,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void PullUpFromLedge()
     {
-        transform.position = Vector3.MoveTowards(transform.position, GetUpPosition, 3 * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, GetUpPosition, pullUpSpeed * Time.deltaTime);
         if (transform.position == GetUpPosition)
         {
             grabbingLedge = false;
