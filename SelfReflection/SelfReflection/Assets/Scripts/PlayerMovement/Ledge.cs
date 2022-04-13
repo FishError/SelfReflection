@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// ledge forward direction needs to face in the opposite direction of the ledge
+
 public class Ledge : MonoBehaviour
 {
     public Transform GrabPosition;
@@ -21,7 +23,7 @@ public class Ledge : MonoBehaviour
             {
                 if (GrabPosition != null)
                 {
-                    player.GrabLedge(GrabPosition.position, transform.position);
+                    player.GrabLedge(GrabPosition.position, transform.position, transform.forward);
                 }
             }
         }

@@ -135,17 +135,15 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true;
     }
 
-    public void GrabLedge(Vector3 grabPosition, Vector3 getUpPosition)
+    public void GrabLedge(Vector3 grabPosition, Vector3 getUpPosition, Vector3 getUpDirection)
     {
-        print(grabPosition);
+        transform.position = new Vector3(transform.position.x, grabPosition.y, transform.position.z);
+        GetUpPosition = new Vector3(transform.position.x + getUpDirection.x * 2, getUpPosition.y, transform.position.z + getUpDirection.z * 2);
         print(transform.position);
-        print(grabPosition - transform.position);
-        //transform.position = new Vector3(transform.position.x, grabPosition.y, grabPosition.z);
-        //GetUpPosition = new Vector3(transform.position.x, getUpPosition.y, getUpPosition.z);
-        transform.position = grabPosition;
-        GetUpPosition = getUpPosition;
+        print(GetUpPosition);
         grabbingLedge = true;
         rb.useGravity = false;
+        rb.velocity = Vector3.zero;
     }
 
     private void PullUpFromLedge()
