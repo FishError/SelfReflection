@@ -37,7 +37,6 @@ public class RaycastPickup : MonoBehaviour
                         ray = new Ray(hit.point, Vector3.Reflect(ray.direction, hit.normal));
                         if (hit.collider.CompareTag("Cube"))
                         {
-                            print("Hit");
                             PickupObject(hit.transform.gameObject);
 
                         }
