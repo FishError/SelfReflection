@@ -14,7 +14,8 @@ public class RaycastPickup : MonoBehaviour
     [SerializeField] private float pickupForce = 150.0f;
     public RaycastHit hit;
     private Ray ray;
-    private float remainingLength = 1000;
+    public float remainingLength;
+    public int reflection;
     private float mouseX, mouseY;
     public float sensX;
     public float sensY;
@@ -29,16 +30,15 @@ public class RaycastPickup : MonoBehaviour
             if (heldObject == null)
             {
                 ray = new Ray(transform.position, transform.TransformDirection(Vector3.forward));
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < reflection; i++)
                 {
                     if (Physics.Raycast(ray.origin, ray.direction, out hit, remainingLength))
                     {
                         remainingLength -= Vector3.Distance(ray.origin, hit.point);
                         ray = new Ray(hit.point, Vector3.Reflect(ray.direction, hit.normal));
-                        if (hit.collider.CompareTag("Cube"))
+                        if (hit.collider.CompareTag("Cube") && i > 0)
                         {
                             PickupObject(hit.transform.gameObject);
-
                         }
                         if (hit.collider.tag != "Mirror")
                         {
@@ -77,9 +77,10 @@ public class RaycastPickup : MonoBehaviour
         heldObjectrb.useGravity = true;
         heldObjectrb.drag = 1;
         heldObjectrb.constraints = RigidbodyConstraints.None;
-
         heldObject.transform.parent = null;
         heldObject = null;
     }
+
+    
 
 }
