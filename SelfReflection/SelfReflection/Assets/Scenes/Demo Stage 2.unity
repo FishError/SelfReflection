@@ -244,6 +244,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2987468310820401227, guid: 0988cffd299e6094a83c02b90cf45721, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 4964178607100883675, guid: 0988cffd299e6094a83c02b90cf45721, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
@@ -1174,7 +1178,7 @@ GameObject:
   - component: {fileID: 283245433}
   m_Layer: 0
   m_Name: Pressure Plate
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1211,7 +1215,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d2a80cd8b6139d841a25c68075426460, type: 2}
+  - {fileID: 2100000, guid: 2cb91816576276046ad2169e3ec2c4b7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1268,7 +1272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wall: {fileID: 1924285699}
-  sinkAmount: 1
+  sinkAmount: 0.1
 --- !u!1 &350582398
 GameObject:
   m_ObjectHideFlags: 0
@@ -1984,8 +1988,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 287449f087feb1c43aebde8a25a2cdf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensX: 400
-  sensY: 400
+  sensX: 200
+  sensY: 200
   orientation: {fileID: 1248008088}
 --- !u!81 &462024834
 AudioListener:
