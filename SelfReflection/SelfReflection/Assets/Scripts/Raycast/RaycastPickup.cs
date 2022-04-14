@@ -15,7 +15,7 @@ public class RaycastPickup : MonoBehaviour
     public RaycastHit hit;
     private Ray ray;
     public float remainingLength;
-    public int reflection;
+    public int reflections;
     private float mouseX, mouseY;
     public float sensX;
     public float sensY;
@@ -30,7 +30,7 @@ public class RaycastPickup : MonoBehaviour
             if (heldObject == null)
             {
                 ray = new Ray(transform.position, transform.TransformDirection(Vector3.forward));
-                for (int i = 0; i < reflection; i++)
+                for (int i = 0; i < reflections; i++)
                 {
                     if (Physics.Raycast(ray.origin, ray.direction, out hit, remainingLength))
                     {
