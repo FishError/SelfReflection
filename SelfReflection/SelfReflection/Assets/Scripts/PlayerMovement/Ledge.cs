@@ -23,7 +23,7 @@ public class Ledge : MonoBehaviour
             {
                 if (GrabPosition != null)
                 {
-                    player.GrabLedge(GrabPosition.position, transform.position, transform.forward);
+                    //player.GrabLedge(GrabPosition.position, transform.position, transform.forward);
                 }
             }
         }

@@ -34,13 +34,20 @@ public class PlayerMovement : MonoBehaviour
 
     // ledge variables
     [Header("Ledge Grabbing")]
-    public float pullUpSpeed;
+    public float climbUpSpeed;
     public float forwardDistance;
 
     [HideInInspector]
     public bool grabbingLedge;
-    private bool gettingUp;
-    private Vector3 GetUpPosition;
+    private bool ledgeCheck1;
+    private bool ledgeCheck2;
+    private RaycastHit ledge;
+
+    private bool climbingUp;
+    private Vector3 climbUpHeight;
+    private Vector3 climbUpForward;
+
+    public Transform playerCam;
 
     // Start is called before the first frame update
     void Start()
@@ -49,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
         readyToJump = true;
         grabbingLedge = false;
-        gettingUp = false;
+        climbingUp = false;
     }
 
     // Update is called once per frame
@@ -57,6 +64,10 @@ public class PlayerMovement : MonoBehaviour
     {
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, Ground);
+
+        // check for ledge
+        ledgeCheck1 = Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerHeight - 0.1f, transform.position.z), transform.forward, out ledge, 1.5f, Ground);
+        ledgeCheck2 = !Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerHeight, transform.position.z), transform.forward, 2f, Ground);
 
         PlayerInput();
         SpeedControl();
@@ -74,9 +85,9 @@ public class PlayerMovement : MonoBehaviour
         {
             MovePlayer();
         }
-        else if (gettingUp)
+        else if (climbingUp)
         {
-            PullUpFromLedge();
+            ClimbUpFromLedge();
         }
     }
 
@@ -97,8 +108,8 @@ public class PlayerMovement : MonoBehaviour
         // get up from ledge
         else if (Input.GetKey(jumpKey) && grabbingLedge)
         {
-            gettingUp = true;
-            PullUpFromLedge();
+            climbingUp = true;
+            ClimbUpFromLedge();
         }
     }
 
@@ -108,10 +119,18 @@ public class PlayerMovement : MonoBehaviour
 
         // on ground
         if (grounded)
+        {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        }
         // in air
         else if (!grounded)
+        {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+            if (ledgeCheck1 && ledgeCheck2)
+            {
+                GrabLedge();
+            }
+        }
     }
 
     private void SpeedControl()
@@ -139,23 +158,30 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true;
     }
 
-    public void GrabLedge(Vector3 grabPosition, Vector3 getUpPosition, Vector3 ledgeForwardVector)
+    private void GrabLedge()
     {
-        transform.position = new Vector3(transform.position.x, grabPosition.y, transform.position.z);
-        GetUpPosition = new Vector3(transform.position.x + ledgeForwardVector.x * forwardDistance, getUpPosition.y, transform.position.z + ledgeForwardVector.z * forwardDistance);
+        climbUpHeight = new Vector3(transform.position.x, transform.position.y + playerHeight + 1, transform.position.z);
+        climbUpForward = new Vector3(transform.position.x + transform.forward.x * forwardDistance, transform.position.y + playerHeight + 1, transform.position.z + transform.forward.z * forwardDistance);
         grabbingLedge = true;
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
     }
 
-    private void PullUpFromLedge()
+    private void ClimbUpFromLedge()
     {
-        transform.position = Vector3.MoveTowards(transform.position, GetUpPosition, pullUpSpeed * Time.deltaTime);
-        if (transform.position == GetUpPosition)
+        if (transform.position.y != climbUpHeight.y)
         {
-            grabbingLedge = false;
-            rb.useGravity = true;
-            gettingUp = false;
+            transform.position = Vector3.MoveTowards(transform.position, climbUpHeight, climbUpSpeed * Time.deltaTime);
+        }
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position, climbUpForward, climbUpSpeed * Time.deltaTime);
+            if (transform.position == climbUpForward)
+            {
+                grabbingLedge = false;
+                rb.useGravity = true;
+                climbingUp = false;
+            }
         }
     }
 }
