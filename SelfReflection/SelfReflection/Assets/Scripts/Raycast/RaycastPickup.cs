@@ -5,16 +5,13 @@ using UnityEngine;
 public class RaycastPickup : MonoBehaviour
 {
     [Header("Pickup Settings")]
-    [SerializeField] Transform holdArea;
     private GameObject heldObject;
     private Rigidbody heldObjectrb;
 
     [Header("Physics Parameters")]
-    [SerializeField] private float pickupRange = 5.0f;
-    [SerializeField] private float pickupForce = 150.0f;
     public RaycastHit hit;
     private Ray ray;
-    public float remainingLength;
+    public float maxDistance = 150f;
     public int reflections;
     private float mouseX, mouseY;
     public float sensX;
@@ -27,16 +24,20 @@ public class RaycastPickup : MonoBehaviour
         mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
         if (Input.GetMouseButtonDown(0))
         {
+            //print("Left Click");
             if (heldObject == null)
             {
                 ray = new Ray(transform.position, transform.TransformDirection(Vector3.forward));
                 for (int i = 0; i < reflections; i++)
                 {
-                    if (Physics.Raycast(ray.origin, ray.direction, out hit, remainingLength))
+                    if (Physics.Raycast(ray.origin, ray.direction, out hit, maxDistance))
                     {
-                        remainingLength -= Vector3.Distance(ray.origin, hit.point);
                         ray = new Ray(hit.point, Vector3.Reflect(ray.direction, hit.normal));
-                        if (hit.collider.CompareTag("Cube") && i > 0)
+                        if (hit.collider.CompareTag("Real") && i > 0)
+                        {
+                            PickupObject(hit.transform.gameObject);
+                        }
+                        else if (hit.collider.CompareTag("Ethereal"))
                         {
                             PickupObject(hit.transform.gameObject);
                         }
@@ -81,6 +82,6 @@ public class RaycastPickup : MonoBehaviour
         heldObject = null;
     }
 
-    
+
 
 }
