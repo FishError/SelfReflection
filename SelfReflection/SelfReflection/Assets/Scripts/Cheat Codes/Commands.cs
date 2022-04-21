@@ -19,6 +19,10 @@ public class Commands : MonoBehaviour
         {
             SceneManager.LoadScene(sceneBuildIndex: 2);
         }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            SceneManager.LoadScene(sceneBuildIndex: 3);
+        }
         else if (Input.GetKeyDown(KeyCode.R))
         {
             Scene scene = SceneManager.GetActiveScene();
