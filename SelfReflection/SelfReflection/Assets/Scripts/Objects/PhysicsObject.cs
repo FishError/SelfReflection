@@ -7,7 +7,7 @@ public class PhysicsObject : MonoBehaviour
     public float waitOnPickup = 0.2f;
     public float breakForce = 35f;
     [HideInInspector] public bool pickedUp = false;
-    [HideInInspector] public RaycastPickup raycastPickup;
+    [HideInInspector] public PickupThroughMirror pickupThroughMirror;
 
 
     private void OnCollisionEnter(Collision collision)
@@ -16,7 +16,7 @@ public class PhysicsObject : MonoBehaviour
         {
             if(collision.relativeVelocity.magnitude > breakForce)
             {
-                raycastPickup.BreakConnection();
+                pickupThroughMirror.BreakConnection();
             }
         }
     }

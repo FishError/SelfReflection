@@ -522,7 +522,7 @@ GameObject:
   - component: {fileID: 55376245}
   m_Layer: 7
   m_Name: Cube
-  m_TagString: Cube
+  m_TagString: Real
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -634,7 +634,7 @@ MonoBehaviour:
   waitOnPickup: 0.2
   breakForce: 35
   pickedUp: 0
-  raycastPickup: {fileID: 0}
+  pickupThroughMirror: {fileID: 0}
 --- !u!1 &55429979
 GameObject:
   m_ObjectHideFlags: 0
@@ -2259,8 +2259,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraHolder
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7140929500085889732, guid: 94d8956704e67a84aa728a0c8ed8e4bd, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94d8956704e67a84aa728a0c8ed8e4bd, type: 3}
 --- !u!1 &355734803 stripped
 GameObject:
@@ -2281,6 +2280,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attenuationObject: {fileID: 0}
   ListenerNumber: -1
+--- !u!114 &355734805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355734803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76d2e1243b9454343886d48f0d33d030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupParent: {fileID: 661707438}
+  currentlyPickedUpObject: {fileID: 0}
+  reflections: 5
+  interactableLayerIndex: 7
+  lookObject: {fileID: 0}
+  mainCamera: {fileID: 355734807}
+  sphereCastRadius: 0.5
+  ethereal: {fileID: 2100000, guid: 7a77c014fae3b4b40800d706cb2545b2, type: 2}
+  real: {fileID: 2100000, guid: a1c0a9da6c6652144889a26461968c4f, type: 2}
+  minSpeed: 0
+  maxSpeed: 3000
+  maxDistance: 100
+  rotationSpeed: 100
+--- !u!20 &355734807 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 7140929500085889733, guid: 94d8956704e67a84aa728a0c8ed8e4bd, type: 3}
+  m_PrefabInstance: {fileID: 355734802}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &397859451
 GameObject:
   m_ObjectHideFlags: 0
@@ -14809,6 +14838,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1690128039}
     m_Modifications:
+    - target: {fileID: 6869095915292211024, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 355734807}
     - target: {fileID: 7424943882225755772, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
@@ -14921,6 +14954,34 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 8469968573461780282, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469968573461780282, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469968573461780282, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -15.440001
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469968573461780282, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.95376974
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469968573461780282, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.06348302
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469968573461780282, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.29310846
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469968573461780282, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.019509332
+      objectReference: {fileID: 0}
     - target: {fileID: 8469968573461780283, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -14931,15 +14992,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8469968573461780284, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: field of view
-      value: 60
+      value: 43.52291
       objectReference: {fileID: 0}
     - target: {fileID: 8469968573461780284, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: m_FOVAxisMode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8469968573461780284, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
+      propertyPath: near clip plane
+      value: 15.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469968573461780284, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: m_CullingMask.m_Bits
       value: 503
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469968573461780284, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
+      propertyPath: m_projectionMatrixMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8469968573463980272, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: m_ReceiveGI

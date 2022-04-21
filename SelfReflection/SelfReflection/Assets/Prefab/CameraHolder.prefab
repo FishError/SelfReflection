@@ -154,9 +154,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7140929500085889730}
   - component: {fileID: 7140929500085889733}
-  - component: {fileID: 7140929500085889732}
   - component: {fileID: 7140929500085889731}
-  - component: {fileID: 7140929500085889728}
+  - component: {fileID: 1414669376302483394}
   m_Layer: 0
   m_Name: PlayerCam
   m_TagString: MainCamera
@@ -222,14 +221,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &7140929500085889732
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7140929500085889735}
-  m_Enabled: 1
 --- !u!114 &7140929500085889731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,10 +233,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 287449f087feb1c43aebde8a25a2cdf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensX: 400
-  sensY: 400
+  sensX: 200
+  sensY: 200
   orientation: {fileID: 0}
---- !u!114 &7140929500085889728
+--- !u!114 &1414669376302483394
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -257,13 +248,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15af00a344a523444ab146b3a6ad1244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holdArea: {fileID: 0}
-  pickupRange: 5
-  pickupForce: 100
-  remainingLength: 0
-  reflections: 0
-  sensX: 350
-  sensY: 350
+  maxDistance: 150
+  reflections: 5
+  sensX: 200
+  sensY: 200
 --- !u!1 &7140929500656145193
 GameObject:
   m_ObjectHideFlags: 0
