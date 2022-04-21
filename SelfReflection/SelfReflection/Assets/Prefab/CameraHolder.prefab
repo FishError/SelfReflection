@@ -156,6 +156,7 @@ GameObject:
   - component: {fileID: 7140929500085889733}
   - component: {fileID: 7140929500085889731}
   - component: {fileID: 1414669376302483394}
+  - component: {fileID: 6855910357985988617}
   m_Layer: 0
   m_Name: PlayerCam
   m_TagString: MainCamera
@@ -236,6 +237,9 @@ MonoBehaviour:
   sensX: 200
   sensY: 200
   orientation: {fileID: 0}
+  limitYRotation: 0
+  xRotation: 0
+  yRotation: 0
 --- !u!114 &1414669376302483394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,6 +256,31 @@ MonoBehaviour:
   reflections: 5
   sensX: 200
   sensY: 200
+--- !u!114 &6855910357985988617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7140929500085889735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76d2e1243b9454343886d48f0d33d030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupParent: {fileID: 0}
+  currentlyPickedUpObject: {fileID: 0}
+  reflections: 5
+  interactableLayerIndex: 0
+  lookObject: {fileID: 0}
+  mainCamera: {fileID: 7140929500085889733}
+  sphereCastRadius: 0.5
+  ethereal: {fileID: 0}
+  real: {fileID: 0}
+  minSpeed: 0
+  maxSpeed: 3000
+  maxDistance: 100
+  rotationSpeed: 100
 --- !u!1 &7140929500656145193
 GameObject:
   m_ObjectHideFlags: 0

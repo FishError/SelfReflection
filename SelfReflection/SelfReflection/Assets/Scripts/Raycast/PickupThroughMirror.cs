@@ -45,7 +45,7 @@ public class PickupThroughMirror : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            print("Right Clicked");
+            //print("Right Clicked");
             if (currentlyPickedUpObject == null)
             {
                 ray = new Ray(transform.position, transform.TransformDirection(Vector3.forward));
@@ -86,7 +86,7 @@ public class PickupThroughMirror : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetMouseButtonDown(0))
+        if (currentlyPickedUpObject != null && Input.GetMouseButtonDown(0))
         {
             BreakConnection();
         }
@@ -127,7 +127,7 @@ public class PickupThroughMirror : MonoBehaviour
     {
         physicsObject = lookObject.GetComponent<PhysicsObject>();
         currentlyPickedUpObject = lookObject;
-        print(currentlyPickedUpObject.name);
+        //print(currentlyPickedUpObject.name);
         pickupRB = currentlyPickedUpObject.GetComponent<Rigidbody>();
         pickupRB.constraints = RigidbodyConstraints.FreezeRotation;
         pickupRB.mass = 0;
@@ -143,32 +143,4 @@ public class PickupThroughMirror : MonoBehaviour
         currentDist = 0;
         pickupRB.mass = 1000;
     }
-
-
-    /*
-    void PickupObject(GameObject obj)
-    {
-        if (obj.GetComponent<Rigidbody>())
-        {
-            heldObjectrb = obj.GetComponent<Rigidbody>();
-            heldObjectrb.useGravity = false;
-            heldObjectrb.drag = 10;
-            heldObjectrb.constraints = RigidbodyConstraints.FreezeRotation;
-
-            heldObject = obj;
-            
-        }
-    }
-
-    void DropObject()
-    {
-        heldObjectrb.useGravity = true;
-        heldObjectrb.drag = 1;
-        heldObjectrb.constraints = RigidbodyConstraints.None;
-        heldObject.transform.parent = null;
-        heldObject = null;
-    }
-    */
-    
-
 }

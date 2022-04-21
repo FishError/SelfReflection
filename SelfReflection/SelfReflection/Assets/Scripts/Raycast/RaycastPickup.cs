@@ -24,7 +24,7 @@ public class RaycastPickup : MonoBehaviour
         mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
         if (Input.GetMouseButtonDown(0))
         {
-            print("Left Click");
+            //print("Left Click");
             if (heldObject == null)
             {
                 ray = new Ray(transform.position, transform.TransformDirection(Vector3.forward));
