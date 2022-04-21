@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2145350128881287519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5660290102652664502}
+  m_Layer: 0
+  m_Name: ModelPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5660290102652664502
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2145350128881287519}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 3373083612017355834}
+  m_Father: {fileID: 2987468310820401226}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &2211750364687483782
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -11,9 +42,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 1.848696
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: -0.060679913, z: 0}
 --- !u!1 &2987468310820401227
 GameObject:
   m_ObjectHideFlags: 0
@@ -40,14 +71,18 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2987468310820401227}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.1, z: 40}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 414965069639149165}
   - {fileID: 4964178607100883675}
+<<<<<<< HEAD
   - {fileID: 3373083612017355834}
   - {fileID: 5750400072831104238}
   - {fileID: 126801982952934379}
+=======
+  - {fileID: 5660290102652664502}
+>>>>>>> 159fb5253300fdd342ce68642f8968971ee98243
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -85,14 +120,15 @@ MonoBehaviour:
   jumpCooldown: 0.25
   airMultiplier: 0.4
   jumpKey: 32
-  playerHeight: 2
+  playerHeight: 1.8
   Ground:
     serializedVersion: 2
     m_Bits: 64
   orientation: {fileID: 4964178607100883675}
-  pullUpSpeed: 3
+  climbUpSpeed: 3
   forwardDistance: 2
   grabbingLedge: 0
+<<<<<<< HEAD
 --- !u!1 &3910853823904988637
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,6 +220,9 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+=======
+  playerCam: {fileID: 0}
+>>>>>>> 159fb5253300fdd342ce68642f8968971ee98243
 --- !u!1 &8583164247468769994
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,7 +277,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8982747273464786647}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.7, z: 0.15}
+  m_LocalPosition: {x: 0, y: 2.41, z: 0.166}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2987468310820401226}
@@ -249,7 +288,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 2987468310820401226}
+    m_TransformParent: {fileID: 5660290102652664502}
     m_Modifications:
     - target: {fileID: -9146308042156510892, guid: 5aab7582ad50dbc4e8206591884bb79e, type: 3}
       propertyPath: m_Layer
@@ -261,6 +300,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5aab7582ad50dbc4e8206591884bb79e, type: 3}
       propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5aab7582ad50dbc4e8206591884bb79e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5aab7582ad50dbc4e8206591884bb79e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5aab7582ad50dbc4e8206591884bb79e, type: 3}
+      propertyPath: m_LocalScale.z
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5aab7582ad50dbc4e8206591884bb79e, type: 3}
@@ -383,6 +434,34 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: -2656282302416250573, guid: 5aab7582ad50dbc4e8206591884bb79e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2656282302416250573, guid: 5aab7582ad50dbc4e8206591884bb79e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2656282302416250573, guid: 5aab7582ad50dbc4e8206591884bb79e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2656282302416250573, guid: 5aab7582ad50dbc4e8206591884bb79e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2656282302416250573, guid: 5aab7582ad50dbc4e8206591884bb79e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2656282302416250573, guid: 5aab7582ad50dbc4e8206591884bb79e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2656282302416250573, guid: 5aab7582ad50dbc4e8206591884bb79e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -2626124544750615053, guid: 5aab7582ad50dbc4e8206591884bb79e, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -437,7 +516,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5aab7582ad50dbc4e8206591884bb79e, type: 3}
       propertyPath: m_Name
-      value: vicent placeholder model
+      value: PlayerModel
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5aab7582ad50dbc4e8206591884bb79e, type: 3}
       propertyPath: m_Layer
