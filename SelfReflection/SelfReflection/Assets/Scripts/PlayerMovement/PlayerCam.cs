@@ -8,9 +8,10 @@ public class PlayerCam : MonoBehaviour
     public float sensY;
 
     public Transform orientation;
+    public float limitYRotation;
 
-    float xRotation;
-    float yRotation;
+    public float xRotation;
+    public float yRotation;
 
     PlayerMovement playerMovement;
 
@@ -31,6 +32,10 @@ public class PlayerCam : MonoBehaviour
         yRotation += mouseX;
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        if (playerMovement.grabbingLedge)
+        {
+            yRotation = Mathf.Clamp(yRotation, limitYRotation - 90f, limitYRotation + 90f);
+        }
 
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
