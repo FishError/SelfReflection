@@ -186,4 +186,9 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
+    public void ChangeJumpForce(float value)
+    {
+        jumpForce = value;
+    }
 }

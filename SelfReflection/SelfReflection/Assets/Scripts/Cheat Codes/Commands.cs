@@ -29,4 +29,24 @@ public class Commands : MonoBehaviour
             SceneManager.LoadScene(scene.name);
         }
     }
+
+    public void loadSceneOne()
+    {
+        SceneManager.LoadScene(sceneBuildIndex: 1);
+    }
+
+    public void loadSceneTwo()
+    {
+        SceneManager.LoadScene(sceneBuildIndex: 2);
+    }
+
+    public void loadSceneThree()
+    {
+        SceneManager.LoadScene(sceneBuildIndex: 3);
+    }
+
+    public void loadSceneFour()
+    {
+        SceneManager.LoadScene(sceneBuildIndex: 4);
+    }
 }

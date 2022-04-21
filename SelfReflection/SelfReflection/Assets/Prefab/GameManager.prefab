@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8963932246957420790}
   - component: {fileID: 8963932246957420791}
+  - component: {fileID: 3635602676427875548}
+  - component: {fileID: 3635602676427875549}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -43,3 +45,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0c7a6f5bd498e74693a7f02a5eee259, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3635602676427875548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8963932246957420785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d2368b2cd7975e45b72afcdce3b385d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseMenu: {fileID: 0}
+  isPaused: 0
+--- !u!114 &3635602676427875549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8963932246957420785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ce0d4ed2008c954590d2bcffd53f197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicVolume: 0.5
+  sfxVolume: 0.5
+  masterVolume: 1

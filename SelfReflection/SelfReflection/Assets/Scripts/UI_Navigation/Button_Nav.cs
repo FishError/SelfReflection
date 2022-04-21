@@ -33,6 +33,10 @@ public class Button_Nav : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+sceneNum);
         }
+        else if (button.name == "MainMenu_Button")
+        {
+            SceneManager.LoadScene(0);
+        }
         else
         {
             GameObject control = oldDisplay;
