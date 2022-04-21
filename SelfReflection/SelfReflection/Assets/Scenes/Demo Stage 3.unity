@@ -11974,7 +11974,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b6d16909fda77340aa637f6c5b9dbc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: Demo Stage 3
+  nextScene: Visual Presentation Scene
 --- !u!54 &1535770182
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12024,7 +12024,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a7588b5fafb56984d9c7b6988096c48f, type: 2}
+  - {fileID: 2100000, guid: 73d0535bc97eec34c8c073dc1ab266d9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -13422,7 +13422,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1708347230
 Transform:
   m_ObjectHideFlags: 0
@@ -16019,13 +16019,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1690128039}
     m_Modifications:
-    - target: {fileID: 6769805704717312164, guid: 0e3ea1925291f82499bb72d734be2c70, type: 3}
+    - target: {fileID: 6238961761303653376, guid: 0e3ea1925291f82499bb72d734be2c70, type: 3}
+      propertyPath: wall
+      value: 
+      objectReference: {fileID: 402187770}
+    - target: {fileID: 0}
       propertyPath: wall
       value: 
       objectReference: {fileID: 402187770}
     - target: {fileID: 6769805704717312165, guid: 0e3ea1925291f82499bb72d734be2c70, type: 3}
       propertyPath: m_Name
       value: Pressure Plate
+      objectReference: {fileID: 0}
+    - target: {fileID: 6769805704717312165, guid: 0e3ea1925291f82499bb72d734be2c70, type: 3}
+      propertyPath: m_TagString
+      value: Real
       objectReference: {fileID: 0}
     - target: {fileID: 6769805704717312168, guid: 0e3ea1925291f82499bb72d734be2c70, type: 3}
       propertyPath: m_RootOrder
@@ -16091,6 +16099,10 @@ PrefabInstance:
     - target: {fileID: 7527593170011550779, guid: 7e0ada2af46166b4d986781e7a1c2a22, type: 3}
       propertyPath: m_Name
       value: PortalMirror
+      objectReference: {fileID: 0}
+    - target: {fileID: 7527593170011550779, guid: 7e0ada2af46166b4d986781e7a1c2a22, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7527593170195523010, guid: 7e0ada2af46166b4d986781e7a1c2a22, type: 3}
       propertyPath: m_RootOrder
