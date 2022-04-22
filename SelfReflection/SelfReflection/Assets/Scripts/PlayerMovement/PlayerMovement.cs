@@ -64,11 +64,6 @@ public class PlayerMovement : MonoBehaviour
     {
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, Ground);
-        print(grounded);
-
-        // check for ledge
-        ledgeCheck1 = Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerHeight - 0.1f, transform.position.z), transform.forward, out ledge, 1.2f, Ground);
-        ledgeCheck2 = !Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerHeight, transform.position.z), transform.forward, 2f, Ground);
 
         // check for ledge
         ledgeCheck1 = Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerHeight - 0.1f, transform.position.z), transform.forward, out ledge, 1.2f, Ground);
