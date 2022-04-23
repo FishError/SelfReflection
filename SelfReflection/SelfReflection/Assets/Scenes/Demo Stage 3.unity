@@ -2007,6 +2007,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1414669376302483394, guid: 94d8956704e67a84aa728a0c8ed8e4bd, type: 3}
+      propertyPath: xSens
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 1414669376302483394, guid: 94d8956704e67a84aa728a0c8ed8e4bd, type: 3}
+      propertyPath: objectMoveSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1414669376302483394, guid: 94d8956704e67a84aa728a0c8ed8e4bd, type: 3}
+      propertyPath: mouseScrollSense
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1414669376302483394, guid: 94d8956704e67a84aa728a0c8ed8e4bd, type: 3}
+      propertyPath: interactableLayerIndex
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 6855910357985988617, guid: 94d8956704e67a84aa728a0c8ed8e4bd, type: 3}
       propertyPath: real
       value: 
@@ -14780,7 +14796,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 9b5a3b39f46df0d42ad79d2797428e6c, type: 2}
     - target: {fileID: 8469968573365206911, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8469968573461780282, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14812,7 +14828,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8469968573461780283, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8469968573461780284, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: m_ClearFlags
@@ -14900,7 +14916,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8469968573463980287, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8469968573463980287, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -14912,7 +14928,7 @@ PrefabInstance:
       objectReference: {fileID: 89995155}
     - target: {fileID: 8469968574141035541, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8469968574141035541, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: m_IsActive
@@ -14984,7 +15000,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8469968574166800287, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
@@ -16010,6 +16026,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5407183616095388053, guid: fea0100d82098ab459cc427873253f60, type: 3}
+      propertyPath: m_Drag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5407183616095388053, guid: fea0100d82098ab459cc427873253f60, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5407183616095388053, guid: fea0100d82098ab459cc427873253f60, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fea0100d82098ab459cc427873253f60, type: 3}
 --- !u!1001 &6769805705567122129
@@ -16020,10 +16048,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 1690128039}
     m_Modifications:
     - target: {fileID: 6238961761303653376, guid: 0e3ea1925291f82499bb72d734be2c70, type: 3}
-      propertyPath: wall
-      value: 
-      objectReference: {fileID: 402187770}
-    - target: {fileID: 0}
       propertyPath: wall
       value: 
       objectReference: {fileID: 402187770}

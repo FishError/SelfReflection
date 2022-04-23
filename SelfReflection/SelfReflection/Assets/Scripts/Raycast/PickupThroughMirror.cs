@@ -17,7 +17,7 @@ public class PickupThroughMirror : MonoBehaviour
     [Header("InteractableInfo")]
     public int interactableLayerIndex;
     private PhysicsObject physicsObject;
-    public GameObject lookObject;
+    public InteractableObject interactableObject;
     public Camera mainCamera;
     public float sphereCastRadius = 0.5f;
     [SerializeField] private Material ethereal;
@@ -51,37 +51,42 @@ public class PickupThroughMirror : MonoBehaviour
                 ray = new Ray(transform.position, transform.TransformDirection(Vector3.forward));
                 for (int i = 0; i < reflections; i++)
                 {
-                    if (Physics.Raycast(ray.origin, ray.direction, out hit, maxDistance, 1 << interactableLayerIndex))
+                    if (Physics.Raycast(ray.origin, ray.direction, out hit, maxDistance))
                     {
-                        ray = new Ray(hit.point, Vector3.Reflect(ray.direction, hit.normal));
                         if(i == 0)
                         {
                             spawnLocation = hit.point;
                         }
-                        if (hit.collider.CompareTag("Real") && i > 0)
+                        
+                        if (hit.collider.transform.gameObject.layer == interactableLayerIndex)
                         {
-                            hit.collider.gameObject.tag = "Ethereal";
-                            hit.collider.gameObject.GetComponent<MeshRenderer>().material = ethereal;
-                            hit.collider.gameObject.transform.position = spawnLocation;
-                            lookObject = hit.collider.transform.gameObject;
-                            Pickup();
-                        }
-                        else if(hit.collider.CompareTag("Ethereal") && i > 0)
-                        {
-                            hit.collider.gameObject.tag = "Real";
-                            hit.collider.gameObject.GetComponent<MeshRenderer>().material = real;
-                            hit.collider.gameObject.transform.position = spawnLocation;
-                            lookObject = hit.collider.transform.gameObject;
+                            interactableObject = hit.collider.transform.gameObject.GetComponent<InteractableObject>();
+
+                            if (i > 0 && interactableObject.IsEthereal())
+                            {
+                                // set object back to real
+                                interactableObject.SetToReal();
+                                interactableObject.transform.position = spawnLocation;
+                            }
+                            else if (i > 0 && !interactableObject.IsEthereal())
+                            {
+                                // pick up object through mirror
+                                interactableObject.SetToEthereal();
+                                interactableObject.transform.position = spawnLocation;
+                                Pickup();
+                            }
                         }
                         
                         if (hit.collider.tag != "Mirror")
                         {
                             break;
                         }
+
+                        ray = new Ray(hit.point, Vector3.Reflect(ray.direction, hit.normal));
                     }
                     else
                     {
-                        lookObject = null;
+                        interactableObject = null;
                     }
                 }
             }
@@ -115,7 +120,6 @@ public class PickupThroughMirror : MonoBehaviour
         }
     }
 
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
@@ -125,8 +129,8 @@ public class PickupThroughMirror : MonoBehaviour
 
     public void Pickup()
     {
-        physicsObject = lookObject.GetComponent<PhysicsObject>();
-        currentlyPickedUpObject = lookObject;
+        physicsObject = interactableObject.GetComponent<PhysicsObject>();
+        currentlyPickedUpObject = interactableObject.gameObject;
         //print(currentlyPickedUpObject.name);
         pickupRB = currentlyPickedUpObject.GetComponent<Rigidbody>();
         pickupRB.constraints = RigidbodyConstraints.FreezeRotation;
