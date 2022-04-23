@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickupThroughMirror : MonoBehaviour
+public class PickupThroughMirrorController : MonoBehaviour
 {
     [Header("Pickup")]
     [SerializeField] private Transform pickupParent;
     public GameObject currentlyPickedUpObject;
-    private Rigidbody pickupRB;
 
     [Header("Physics Parameters")]
     public RaycastHit hit;
     private Ray ray;
-    public int reflections;
+    public int maxReflections;
 
     [Header("InteractableInfo")]
     public int interactableLayerIndex;
@@ -20,9 +19,6 @@ public class PickupThroughMirror : MonoBehaviour
     public InteractableObject interactableObject;
     public Camera mainCamera;
     public float sphereCastRadius = 0.5f;
-    [SerializeField] private Material ethereal;
-    [SerializeField] private Material real;
-
 
     [Header("ObjectFollow")]
     [SerializeField] private float minSpeed = 0;
@@ -49,7 +45,7 @@ public class PickupThroughMirror : MonoBehaviour
             if (currentlyPickedUpObject == null)
             {
                 ray = new Ray(transform.position, transform.TransformDirection(Vector3.forward));
-                for (int i = 0; i < reflections; i++)
+                for (int i = 0; i < maxReflections; i++)
                 {
                     if (Physics.Raycast(ray.origin, ray.direction, out hit, maxDistance))
                     {
@@ -106,17 +102,17 @@ public class PickupThroughMirror : MonoBehaviour
     {
         if(currentlyPickedUpObject != null)
         {
-            currentDist = Vector3.Distance(pickupParent.position, pickupRB.position);
+            currentDist = Vector3.Distance(pickupParent.position, interactableObject.rb.position);
             currentSpeed = Mathf.SmoothStep(minSpeed, maxSpeed, currentDist / maxDistance);
             currentSpeed += Time.fixedDeltaTime;
-            Vector3 direction = pickupParent.position - pickupRB.position;
-            pickupRB.velocity = direction.normalized * currentSpeed;
+            Vector3 direction = pickupParent.position - interactableObject.rb.position;
+            interactableObject.rb.velocity = direction.normalized * currentSpeed;
 
 
             //Rotation
-            lookRot = Quaternion.LookRotation(pickupParent.transform.position - pickupRB.position);
+            lookRot = Quaternion.LookRotation(pickupParent.transform.position - interactableObject.rb.position);
             lookRot = Quaternion.Slerp(pickupParent.transform.rotation, lookRot, rotationSpeed * Time.fixedDeltaTime);
-            pickupRB.MoveRotation(lookRot);
+            interactableObject.rb.MoveRotation(lookRot);
         }
     }
 
@@ -132,19 +128,16 @@ public class PickupThroughMirror : MonoBehaviour
         physicsObject = interactableObject.GetComponent<PhysicsObject>();
         currentlyPickedUpObject = interactableObject.gameObject;
         //print(currentlyPickedUpObject.name);
-        pickupRB = currentlyPickedUpObject.GetComponent<Rigidbody>();
-        pickupRB.constraints = RigidbodyConstraints.FreezeRotation;
-        pickupRB.mass = 0;
+        interactableObject.SelectObject(this);
         physicsObject.pickupThroughMirror = this;
         StartCoroutine(physicsObject.PickUp());
     }
 
     public void BreakConnection()
     {
-        pickupRB.constraints = RigidbodyConstraints.None;
         currentlyPickedUpObject = null;
         physicsObject.pickedUp = false;
         currentDist = 0;
-        pickupRB.mass = 1;
+        interactableObject.UnselectObject();
     }
 }

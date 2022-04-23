@@ -8,13 +8,19 @@ public class InteractableObject : MonoBehaviour
 
     [SerializeField] private Material ethereal;
     [SerializeField] private Material real;
-    private Rigidbody rb;
+    [HideInInspector] public Rigidbody rb;
     private bool selectedByPlayer;
     private MoveObjectController moveObjectController;
+    private PickupThroughMirrorController pickUpThroughMirrorController;
+    private GameObject player;
 
     private void Start()
     {
         rb = transform.GetComponent<Rigidbody>();
+
+        player = GameObject.Find("Player");
+        if (player)
+            Physics.IgnoreCollision(player.GetComponentInChildren<Collider>(), GetComponent<Collider>(), true);
 
         if (IsEthereal())
             transform.GetComponent<MeshRenderer>().material = ethereal;
@@ -34,12 +40,16 @@ public class InteractableObject : MonoBehaviour
     {
         transform.tag = "Ethereal";
         transform.GetComponent<MeshRenderer>().material = ethereal;
+
+        Physics.IgnoreCollision(player.GetComponentInChildren<Collider>(), GetComponent<Collider>(), false);
     }
 
     public void SetToReal()
     {
         transform.tag = "Real";
         transform.GetComponent<MeshRenderer>().material = real;
+
+        Physics.IgnoreCollision(player.GetComponentInChildren<Collider>(), GetComponent<Collider>(), true);
     }
 
     public void SelectObject(MoveObjectController controller)
@@ -51,10 +61,20 @@ public class InteractableObject : MonoBehaviour
         moveObjectController = controller;
     }
 
+    public void SelectObject(PickupThroughMirrorController controller)
+    {
+        rb.mass = 0f;
+        rb.useGravity = false;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
+        selectedByPlayer = true;
+        pickUpThroughMirrorController = controller;
+    }
+
     public void UnselectObject()
     {
         rb.useGravity = true;
-        rb.drag = 1;
+        rb.mass = 1f;
+        rb.drag = 1f;
         rb.constraints = RigidbodyConstraints.None;
         selectedByPlayer = false;
         moveObjectController = null;
@@ -67,7 +87,7 @@ public class InteractableObject : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (selectedByPlayer)
+        if (selectedByPlayer && moveObjectController)
             moveObjectController.DropObject();
     }
 }

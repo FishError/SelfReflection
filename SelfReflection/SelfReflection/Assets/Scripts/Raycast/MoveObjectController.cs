@@ -5,7 +5,7 @@ using UnityEngine;
 public class MoveObjectController : MonoBehaviour
 {
     [Header("Pickup Settings")]
-    public InteractableObject interactableObject;
+    private InteractableObject interactableObject;
     public int interactableLayerIndex;
 
     [Header("Physics Parameters")]
@@ -19,7 +19,7 @@ public class MoveObjectController : MonoBehaviour
     public float mouseScrollSense;
     public float objectMoveSpeed;
 
-    public Transform relativeMirror;
+    private Transform relativeMirror;
 
     private void Start()
     {
@@ -34,7 +34,6 @@ public class MoveObjectController : MonoBehaviour
             //print("Left Click");
             if (interactableObject == null)
             {
-                print("hello?");
                 ray = new Ray(transform.position, transform.TransformDirection(Vector3.forward));
                 for (int i = 0; i < maxReflections; i++)
                 {
