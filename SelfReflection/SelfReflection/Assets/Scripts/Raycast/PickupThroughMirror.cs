@@ -145,6 +145,6 @@ public class PickupThroughMirror : MonoBehaviour
         currentlyPickedUpObject = null;
         physicsObject.pickedUp = false;
         currentDist = 0;
-        pickupRB.mass = 1000;
+        pickupRB.mass = 1;
     }
 }
