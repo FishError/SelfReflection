@@ -252,10 +252,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15af00a344a523444ab146b3a6ad1244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactableLayerIndex: 7
   maxDistance: 150
-  reflections: 5
+  maxReflections: 5
   sensX: 200
   sensY: 200
+  mouseScrollSense: 10
+  objectMoveSpeed: 3
 --- !u!114 &6855910357985988617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,13 +273,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupParent: {fileID: 0}
   currentlyPickedUpObject: {fileID: 0}
-  reflections: 5
-  interactableLayerIndex: 0
-  lookObject: {fileID: 0}
+  maxReflections: 5
+  interactableLayerIndex: 7
+  interactableObject: {fileID: 0}
   mainCamera: {fileID: 7140929500085889733}
   sphereCastRadius: 0.5
-  ethereal: {fileID: 0}
-  real: {fileID: 0}
   minSpeed: 0
   maxSpeed: 3000
   maxDistance: 100

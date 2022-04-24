@@ -7,7 +7,7 @@ public class PhysicsObject : MonoBehaviour
     public float waitOnPickup = 0.2f;
     public float breakForce = 35f;
     [HideInInspector] public bool pickedUp = false;
-    [HideInInspector] public PickupThroughMirror pickupThroughMirror;
+    [HideInInspector] public PickupThroughMirrorController pickupThroughMirror;
 
 
     private void OnCollisionEnter(Collision collision)
