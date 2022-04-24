@@ -31,7 +31,6 @@ public class MoveObjectController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            //print("Left Click");
             if (interactableObject == null)
             {
                 ray = new Ray(transform.position, transform.TransformDirection(Vector3.forward));
