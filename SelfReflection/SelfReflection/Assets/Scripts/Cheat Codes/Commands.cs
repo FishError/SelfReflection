@@ -9,40 +9,48 @@ public class Commands : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            SceneManager.LoadScene(sceneBuildIndex: 0);
+            SceneManager.LoadScene(sceneBuildIndex: 1);
+
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            SceneManager.LoadScene(sceneBuildIndex: 1);
+            SceneManager.LoadScene(sceneBuildIndex: 2);
+
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            SceneManager.LoadScene(sceneBuildIndex: 2);
+            SceneManager.LoadScene(sceneBuildIndex: 3);
+
         }
         else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            SceneManager.LoadScene(sceneBuildIndex: 3);
+            SceneManager.LoadScene(sceneBuildIndex: 4);
+
         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
             Scene scene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(scene.name);
+
         }
     }
 
     public void loadSceneOne()
     {
         SceneManager.LoadScene(sceneBuildIndex: 1);
+
     }
 
     public void loadSceneTwo()
     {
         SceneManager.LoadScene(sceneBuildIndex: 2);
+
     }
 
     public void loadSceneThree()
     {
         SceneManager.LoadScene(sceneBuildIndex: 3);
+
     }
 
     public void loadSceneFour()

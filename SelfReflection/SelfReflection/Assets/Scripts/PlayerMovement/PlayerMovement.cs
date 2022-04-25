@@ -193,4 +193,15 @@ public class PlayerMovement : MonoBehaviour
     {
         jumpForce = value;
     }
+
+    
+    public void ChangeMovementSpeed(float value)
+    {
+        moveSpeed = value;
+    }
+
+    public void ChangeClimbUpSpeed(float value)
+    {
+        climbUpSpeed = value;
+    }
 }
