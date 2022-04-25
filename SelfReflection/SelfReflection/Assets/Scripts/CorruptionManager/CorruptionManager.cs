@@ -10,10 +10,10 @@ enum CorruptionState
 }
 
 [Serializable]
-class CorruptedSections
+class CorruptedObject
 {
-    public List<GameObject> objects;
-    public List<LevelStage> corruptionLevels;
+    public CorruptionState state;
+    public GameObject gameObject;
     public Material normalMaterial;
     public Material corruptedMaterial;
 }
@@ -21,35 +21,18 @@ class CorruptedSections
 public class CorruptionManager : MonoBehaviour
 {
     [SerializeField]
-    List<CorruptedSections> sections;
+    List<CorruptedObject> objects;
 
     private void OnValidate()
     {
-        LevelManager.onLevelChange += OnLevelChange;
-    }
-
-    private void OnDestroy()
-    {
-        LevelManager.onLevelChange -= OnLevelChange;
-    }
-
-    public void OnLevelChange(LevelStage levelStage)
-    {
-        foreach (var s in sections)
+        foreach (var o in objects)
         {
-            if (s.corruptionLevels.Contains(levelStage))
+            if (o.state == CorruptionState.Corrupted)
             {
-                foreach (var o in s.objects)
-                {
-                    o.gameObject.GetComponent<MeshRenderer>().material = s.corruptedMaterial;
-                }
-            }
-            else
+                o.gameObject.GetComponent<MeshRenderer>().material = o.corruptedMaterial;
+            }else if (o.state == CorruptionState.NotCorrupted)
             {
-                foreach (var o in s.objects)
-                {
-                    o.gameObject.GetComponent<MeshRenderer>().material = s.normalMaterial;
-                }
+                o.gameObject.GetComponent<MeshRenderer>().material = o.normalMaterial;
             }
         }
     }
