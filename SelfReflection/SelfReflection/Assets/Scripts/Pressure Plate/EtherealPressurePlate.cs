@@ -9,7 +9,7 @@ public class EtherealPressurePlate : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Ethereal")
+        if (other.gameObject.tag == "Player")
         {
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - sinkAmount, gameObject.transform.position.z);
             wall.isKinematic = false;
@@ -18,7 +18,7 @@ public class EtherealPressurePlate : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Ethereal")
+        if (other.gameObject.tag == "Player")
         {
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + sinkAmount, gameObject.transform.position.z);
         }
