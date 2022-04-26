@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, Ground);
+        grounded = Physics.Raycast(transform.position, Vector3.down, 0.2f, Ground);
 
         // check for ledge
         ledgeCheck1 = Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerHeight - 0.1f, transform.position.z), transform.forward, out ledge, 1.2f, Ground);
@@ -74,7 +74,9 @@ public class PlayerMovement : MonoBehaviour
 
         // drag
         if (grounded)
+        {
             rb.drag = groundDrag;
+        }  
         else
             rb.drag = 0;
     }
@@ -185,5 +187,21 @@ public class PlayerMovement : MonoBehaviour
                 climbingUp = false;
             }
         }
+    }
+
+    public void ChangeJumpForce(float value)
+    {
+        jumpForce = value;
+    }
+
+    
+    public void ChangeMovementSpeed(float value)
+    {
+        moveSpeed = value;
+    }
+
+    public void ChangeClimbUpSpeed(float value)
+    {
+        climbUpSpeed = value;
     }
 }
