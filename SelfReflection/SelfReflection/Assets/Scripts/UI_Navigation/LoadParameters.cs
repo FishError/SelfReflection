@@ -14,7 +14,6 @@ public class LoadParameters : MonoBehaviour
         {
             playerMass.value = PlayerPrefs.GetFloat("PlayerMass");
             player.GetComponent<Rigidbody>().mass = PlayerPrefs.GetFloat("PlayerMass", 1.25f);
-
         }
 
         if (PlayerPrefs.HasKey("PlayerJumpforce"))

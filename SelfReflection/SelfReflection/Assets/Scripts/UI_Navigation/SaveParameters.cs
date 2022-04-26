@@ -6,7 +6,47 @@ using UnityEngine.UI;
 public class SaveParameters : MonoBehaviour
 {
     List<string> keys = new List<string>();
+    public GameObject pauseMenu, debugMenu;
     public Slider playerMass, playerJumpForce, playerSpeed, playerClimbSpeed;
+    public Text massText, jumpforceText, speedText, climbSpeedText;
+
+
+    private void Update()
+    {
+        if(pauseMenu.activeInHierarchy && debugMenu.activeInHierarchy)
+        {
+            massText = GameObject.Find("MassAmt").GetComponent<Text>();
+            jumpforceText = GameObject.Find("JumpAmt").GetComponent<Text>();
+            speedText = GameObject.Find("SpeedAmt").GetComponent<Text>();
+            climbSpeedText = GameObject.Find("ClimbAmt").GetComponent<Text>();
+
+            if (PlayerPrefs.HasKey("PlayerMass"))
+            {
+                massText.text = PlayerPrefs.GetFloat("PlayerMass").ToString();
+            }
+
+            if (PlayerPrefs.HasKey("PlayerJumpforce"))
+            {
+                jumpforceText.text = PlayerPrefs.GetFloat("PlayerJumpforce").ToString();
+            }
+
+            if (PlayerPrefs.HasKey("PlayerSpeed"))
+            {
+                speedText.text = PlayerPrefs.GetFloat("PlayerSpeed").ToString();
+            }
+
+            if (PlayerPrefs.HasKey("ClimbSpeed"))
+            {
+                climbSpeedText.text = PlayerPrefs.GetFloat("ClimbSpeed").ToString();
+            }
+        }
+        else
+        {
+            return;
+        }
+     
+    }
+
     public void SavePlayerMass(float mass)
     {
         playerMass.value = mass;
@@ -37,14 +77,14 @@ public class SaveParameters : MonoBehaviour
 
     public void ResetParameters()
     {
-        playerMass.value = 1.25f;
-        playerJumpForce.value = 12f;
-        playerSpeed.value = 7f;
-        playerClimbSpeed.value = 3f;
-
         for (int i = 0; i < keys.Count; i++)
         {
             PlayerPrefs.DeleteKey(keys[i]);
         }
+
+        PlayerPrefs.SetFloat("PlayerMass", 1.25f);
+        PlayerPrefs.SetFloat("PlayerJumpforce", 12f);
+        PlayerPrefs.SetFloat("PlayerSpeed", 7f);
+        PlayerPrefs.SetFloat("ClimbSpeed", 3f);
     }
 }
