@@ -8,7 +8,7 @@ public class PlayerCam : MonoBehaviour
     public float sensY;
 
     public Transform orientation;
-    public float limitYRotation;
+    [HideInInspector] public float limitYRotation = 0;
 
     public float xRotation;
     public float yRotation;

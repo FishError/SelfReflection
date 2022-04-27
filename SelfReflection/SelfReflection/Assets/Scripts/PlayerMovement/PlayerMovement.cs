@@ -19,8 +19,11 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode jumpKey = KeyCode.Space;
 
     [Header("Ground Check")]
+    // player height is height of capsule in inspector
     public float playerHeight;
-    public LayerMask Ground;
+    public LayerMask GroundLayer;
+    public LayerMask InteractableLayer;
+    private int CombinedLayers;
     bool grounded;
 
     public Transform orientation;
@@ -57,24 +60,27 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true;
         grabbingLedge = false;
         climbingUp = false;
+        CombinedLayers = GroundLayer | InteractableLayer;
     }
 
     // Update is called once per frame
     void Update()
     {
         // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, Ground);
+        grounded = Physics.Raycast(transform.position, Vector3.down, 0.2f, CombinedLayers);
 
         // check for ledge
-        ledgeCheck1 = Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerHeight - 0.1f, transform.position.z), transform.forward, out ledge, 1.2f, Ground);
-        ledgeCheck2 = !Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerHeight, transform.position.z), transform.forward, 2f, Ground);
+        ledgeCheck1 = Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerHeight * 2f - 0.2f, transform.position.z), transform.forward, out ledge, 1.2f, CombinedLayers);
+        ledgeCheck2 = !Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerHeight * 2f, transform.position.z), transform.forward, 2f, CombinedLayers);
 
         PlayerInput();
         SpeedControl();
 
         // drag
         if (grounded)
+        {
             rb.drag = groundDrag;
+        }  
         else
             rb.drag = 0;
     }
@@ -160,13 +166,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void GrabLedge()
     {
-        climbUpHeight = new Vector3(transform.position.x, transform.position.y + playerHeight + 1, transform.position.z);
-        climbUpForward = new Vector3(transform.position.x + transform.forward.x * forwardDistance, transform.position.y + playerHeight + 1, transform.position.z + transform.forward.z * forwardDistance);
+        climbUpHeight = new Vector3(transform.position.x, transform.position.y + playerHeight * 2f, transform.position.z);
+        climbUpForward = new Vector3(transform.position.x + transform.forward.x * forwardDistance, transform.position.y + playerHeight * 2f, transform.position.z + transform.forward.z * forwardDistance);
         grabbingLedge = true;
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
         playerCam.GetComponent<PlayerCam>().limitYRotation = transform.rotation.eulerAngles.y;
-        print(playerCam.GetComponent<PlayerCam>().limitYRotation);
     }
 
     private void ClimbUpFromLedge()
@@ -185,5 +190,21 @@ public class PlayerMovement : MonoBehaviour
                 climbingUp = false;
             }
         }
+    }
+
+    public void ChangeJumpForce(float value)
+    {
+        jumpForce = value;
+    }
+
+    
+    public void ChangeMovementSpeed(float value)
+    {
+        moveSpeed = value;
+    }
+
+    public void ChangeClimbUpSpeed(float value)
+    {
+        climbUpSpeed = value;
     }
 }
