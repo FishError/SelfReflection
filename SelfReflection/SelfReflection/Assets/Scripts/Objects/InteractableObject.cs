@@ -30,7 +30,10 @@ public class InteractableObject : MonoBehaviour
             Physics.IgnoreCollision(player.GetComponentInChildren<Collider>(), GetComponent<Collider>(), false);
         }
         else
+        {
             transform.GetComponent<MeshRenderer>().material = real;
+            Physics.IgnoreCollision(player.GetComponentInChildren<Collider>(), GetComponent<Collider>(), false);
+        }
     }
 
     public bool IsEthereal()
@@ -54,7 +57,7 @@ public class InteractableObject : MonoBehaviour
         transform.tag = "Real";
         transform.GetComponent<MeshRenderer>().material = real;
 
-        Physics.IgnoreCollision(player.GetComponentInChildren<Collider>(), GetComponent<Collider>(), true);
+        Physics.IgnoreCollision(player.GetComponentInChildren<Collider>(), GetComponent<Collider>(), false);
     }
 
     public void SelectObject(MoveObjectController controller)
