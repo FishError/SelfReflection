@@ -23,7 +23,10 @@ public class InteractableObject : MonoBehaviour
             Physics.IgnoreCollision(player.GetComponentInChildren<Collider>(), GetComponent<Collider>(), true);
 
         if (IsEthereal())
+        {
             transform.GetComponent<MeshRenderer>().material = ethereal;
+            Physics.IgnoreCollision(player.GetComponentInChildren<Collider>(), GetComponent<Collider>(), false);
+        }
         else
             transform.GetComponent<MeshRenderer>().material = real;
     }
