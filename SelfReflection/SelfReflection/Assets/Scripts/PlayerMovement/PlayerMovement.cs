@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode jumpKey = KeyCode.Space;
 
     [Header("Ground Check")]
+    // player height is height of capsule in inspector
     public float playerHeight;
     public LayerMask Ground;
     bool grounded;
@@ -66,8 +67,8 @@ public class PlayerMovement : MonoBehaviour
         grounded = Physics.Raycast(transform.position, Vector3.down, 0.2f, Ground);
 
         // check for ledge
-        ledgeCheck1 = Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerHeight - 0.1f, transform.position.z), transform.forward, out ledge, 1.2f, Ground);
-        ledgeCheck2 = !Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerHeight, transform.position.z), transform.forward, 2f, Ground);
+        ledgeCheck1 = Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerHeight * 2f - 0.2f, transform.position.z), transform.forward, out ledge, 1.2f, Ground);
+        ledgeCheck2 = !Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerHeight * 2f, transform.position.z), transform.forward, 2f, Ground);
 
         PlayerInput();
         SpeedControl();
@@ -162,8 +163,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void GrabLedge()
     {
-        climbUpHeight = new Vector3(transform.position.x, transform.position.y + playerHeight + 1, transform.position.z);
-        climbUpForward = new Vector3(transform.position.x + transform.forward.x * forwardDistance, transform.position.y + playerHeight + 1, transform.position.z + transform.forward.z * forwardDistance);
+        climbUpHeight = new Vector3(transform.position.x, transform.position.y + playerHeight * 2f, transform.position.z);
+        climbUpForward = new Vector3(transform.position.x + transform.forward.x * forwardDistance, transform.position.y + playerHeight * 2f, transform.position.z + transform.forward.z * forwardDistance);
         grabbingLedge = true;
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
