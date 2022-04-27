@@ -21,7 +21,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Ground Check")]
     // player height is height of capsule in inspector
     public float playerHeight;
-    public LayerMask Ground;
+    public LayerMask GroundLayer;
+    public LayerMask InteractableLayer;
+    private int CombinedLayers;
     bool grounded;
 
     public Transform orientation;
@@ -58,17 +60,18 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true;
         grabbingLedge = false;
         climbingUp = false;
+        CombinedLayers = GroundLayer | InteractableLayer;
     }
 
     // Update is called once per frame
     void Update()
     {
         // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, 0.2f, Ground);
+        grounded = Physics.Raycast(transform.position, Vector3.down, 0.2f, CombinedLayers);
 
         // check for ledge
-        ledgeCheck1 = Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerHeight * 2f - 0.2f, transform.position.z), transform.forward, out ledge, 1.2f, Ground);
-        ledgeCheck2 = !Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerHeight * 2f, transform.position.z), transform.forward, 2f, Ground);
+        ledgeCheck1 = Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerHeight * 2f - 0.2f, transform.position.z), transform.forward, out ledge, 1.2f, CombinedLayers);
+        ledgeCheck2 = !Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerHeight * 2f, transform.position.z), transform.forward, 2f, CombinedLayers);
 
         PlayerInput();
         SpeedControl();
@@ -169,7 +172,6 @@ public class PlayerMovement : MonoBehaviour
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
         playerCam.GetComponent<PlayerCam>().limitYRotation = transform.rotation.eulerAngles.y;
-        print(playerCam.GetComponent<PlayerCam>().limitYRotation);
     }
 
     private void ClimbUpFromLedge()

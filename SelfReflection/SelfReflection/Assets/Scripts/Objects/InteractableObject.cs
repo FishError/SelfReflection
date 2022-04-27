@@ -9,6 +9,8 @@ public class InteractableObject : MonoBehaviour
     [SerializeField] private Material ethereal;
     [SerializeField] private Material real;
     [HideInInspector] public Rigidbody rb;
+    public float mass;
+    public float drag;
     private bool selectedByPlayer;
     private MoveObjectController moveObjectController;
     private PickupThroughMirrorController pickUpThroughMirrorController;
@@ -58,6 +60,7 @@ public class InteractableObject : MonoBehaviour
     public void SelectObject(MoveObjectController controller)
     {
         rb.useGravity = false;
+        rb.mass = 1f;
         rb.drag = 10f;
         rb.constraints = RigidbodyConstraints.FreezeRotation;
         selectedByPlayer = true;
@@ -67,6 +70,7 @@ public class InteractableObject : MonoBehaviour
     public void SelectObject(PickupThroughMirrorController controller)
     {
         rb.mass = 0f;
+        rb.drag = 1f;
         rb.useGravity = false;
         rb.constraints = RigidbodyConstraints.FreezeRotation;
         selectedByPlayer = true;
@@ -76,8 +80,8 @@ public class InteractableObject : MonoBehaviour
     public void UnselectObject()
     {
         rb.useGravity = true;
-        rb.mass = 1f;
-        rb.drag = 1f;
+        rb.mass = mass;
+        rb.drag = drag;
         rb.constraints = RigidbodyConstraints.None;
         selectedByPlayer = false;
         moveObjectController = null;
