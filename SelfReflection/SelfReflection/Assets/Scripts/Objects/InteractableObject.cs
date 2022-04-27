@@ -9,7 +9,7 @@ public class InteractableObject : MonoBehaviour
     [SerializeField] private Material ethereal;
     [SerializeField] private Material real;
     [HideInInspector] public Rigidbody rb;
-    private bool selectedByPlayer;
+    public bool selectedByPlayer;
     private MoveObjectController moveObjectController;
     private PickupThroughMirrorController pickUpThroughMirrorController;
     private GameObject player;
