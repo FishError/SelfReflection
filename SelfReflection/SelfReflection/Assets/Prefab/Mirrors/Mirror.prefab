@@ -98,7 +98,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 503
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: baa43014d7abf384da15eb076e301ea0, type: 2}
+  m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 8469968573463980275}
   - component: {fileID: 8469968573463980272}
   - component: {fileID: 8469968573463980273}
+  - component: {fileID: 5267408014440002726}
   m_Layer: 0
   m_Name: MirrorSelf
   m_TagString: Mirror
@@ -209,7 +210,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9b5a3b39f46df0d42ad79d2797428e6c, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -244,6 +245,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5267408014440002726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8469968573463980287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b8a6dd5860709146a45f37e37b83de6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 8469968573461780284}
 --- !u!1 &8469968574141035541
 GameObject:
   m_ObjectHideFlags: 0
