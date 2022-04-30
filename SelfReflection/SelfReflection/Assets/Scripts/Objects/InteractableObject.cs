@@ -70,18 +70,19 @@ public class InteractableObject : MonoBehaviour
     public void SelectObject(MoveObjectController controller, bool mirrorSelect)
     {
         rb.useGravity = false;
-        rb.drag = 1f;
         rb.constraints = RigidbodyConstraints.FreezeRotation;
         moveObjectController = controller;
 
         if (mirrorSelect)
         {
-            rb.mass = 10f;
+            rb.mass = 1f;
+            rb.drag = 10f;
             state = ObjectState.MovingThroughMirror;
         }
         else
         {
             rb.mass = 0f;
+            rb.drag = 1f;
             state = ObjectState.Holding;
         }
     }

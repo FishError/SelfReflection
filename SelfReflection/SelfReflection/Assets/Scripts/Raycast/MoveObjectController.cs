@@ -193,15 +193,16 @@ public class MoveObjectController : MonoBehaviour
         var dir = (transform.position - relativeMirror.transform.position).normalized;
         var forwardBackwardDir = new Vector3(dir.x, 0, dir.z);
         var leftRightDir = Vector3.Cross(forwardBackwardDir, Vector3.up);
+        var playerObjectDistance = (transform.position - interactableObject.transform.position).magnitude;
 
-        Vector3 upDownForce = Vector3.up * mouseY * objectMoveSpeed * 50;
-        Vector3 leftRightForce = leftRightDir * mouseX * objectMoveSpeed * 50;
+        Vector3 upDownForce = Vector3.up * mouseY * objectMoveSpeed * playerObjectDistance * 5;
+        Vector3 leftRightForce = leftRightDir * mouseX * objectMoveSpeed * playerObjectDistance * 5;
 
         Vector3 forwardBackwardsForce = Vector3.zero;
         if (mouseScroll > 0)
-            forwardBackwardsForce = -forwardBackwardDir * mouseScrollSense * objectMoveSpeed * 50;
+            forwardBackwardsForce = -forwardBackwardDir * mouseScrollSense * objectMoveSpeed * 20;
         else if (mouseScroll < 0)
-            forwardBackwardsForce = forwardBackwardDir * mouseScrollSense * objectMoveSpeed * 50;
+            forwardBackwardsForce = forwardBackwardDir * mouseScrollSense * objectMoveSpeed * 20;
 
         interactableObject.AddForce(upDownForce + leftRightForce + forwardBackwardsForce);
     }
