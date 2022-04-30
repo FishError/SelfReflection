@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ObjectState
+{
+    NoInteraction,
+    MovingThroughMirror,
+    Holding,
+}
+
 // should be attached to all interactable objects
 public class InteractableObject : MonoBehaviour
 {
@@ -11,13 +18,13 @@ public class InteractableObject : MonoBehaviour
     [HideInInspector] public Rigidbody rb;
     public float mass;
     public float drag;
-    private bool selectedByPlayer;
+    public ObjectState state;
     private MoveObjectController moveObjectController;
-    private PickupThroughMirrorController pickUpThroughMirrorController;
     private GameObject player;
 
     private void Start()
     {
+        state = ObjectState.NoInteraction;
         rb = transform.GetComponent<Rigidbody>();
 
         player = GameObject.Find("Player");
@@ -60,24 +67,23 @@ public class InteractableObject : MonoBehaviour
         Physics.IgnoreCollision(player.GetComponentInChildren<Collider>(), GetComponent<Collider>(), false);
     }
 
-    public void SelectObject(MoveObjectController controller)
+    public void SelectObject(MoveObjectController controller, bool mirrorSelect)
     {
         rb.useGravity = false;
-        rb.mass = 1f;
-        rb.drag = 10f;
-        rb.constraints = RigidbodyConstraints.FreezeRotation;
-        selectedByPlayer = true;
-        moveObjectController = controller;
-    }
-
-    public void SelectObject(PickupThroughMirrorController controller)
-    {
-        rb.mass = 0f;
         rb.drag = 1f;
-        rb.useGravity = false;
         rb.constraints = RigidbodyConstraints.FreezeRotation;
-        selectedByPlayer = true;
-        pickUpThroughMirrorController = controller;
+        moveObjectController = controller;
+
+        if (mirrorSelect)
+        {
+            rb.mass = 10f;
+            state = ObjectState.MovingThroughMirror;
+        }
+        else
+        {
+            rb.mass = 0f;
+            state = ObjectState.Holding;
+        }
     }
 
     public void UnselectObject()
@@ -85,9 +91,10 @@ public class InteractableObject : MonoBehaviour
         rb.useGravity = true;
         rb.mass = mass;
         rb.drag = drag;
+        rb.velocity = Vector3.zero;
         rb.constraints = RigidbodyConstraints.None;
-        selectedByPlayer = false;
         moveObjectController = null;
+        state = ObjectState.NoInteraction;
     }
 
     public void AddForce(Vector3 force)
@@ -97,7 +104,7 @@ public class InteractableObject : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (selectedByPlayer && moveObjectController)
+        if (state == ObjectState.MovingThroughMirror)
             moveObjectController.DropObject();
     }
 }
