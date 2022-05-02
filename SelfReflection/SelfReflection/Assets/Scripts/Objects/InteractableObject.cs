@@ -107,5 +107,11 @@ public class InteractableObject : MonoBehaviour
     {
         if (state == ObjectState.MovingThroughMirror)
             moveObjectController.DropObject();
+
+        if (collision.gameObject.layer == player.layer && state == ObjectState.Holding)
+        {
+            var distance = (transform.position - collision.GetContact(0).point).magnitude;
+            moveObjectController.ScalePickUpParentRange(distance + 1f);
+        }
     }
 }

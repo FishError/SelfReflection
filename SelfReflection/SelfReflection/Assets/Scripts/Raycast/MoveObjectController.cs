@@ -222,4 +222,9 @@ public class MoveObjectController : MonoBehaviour
         interactableObject = null;
         relativeMirror = null;
     }
+
+    public void ScalePickUpParentRange(float distance)
+    {
+        pickupParent.localPosition = new Vector3(pickupParent.localPosition.x, pickupParent.localPosition.y, distance);
+    }
 }
