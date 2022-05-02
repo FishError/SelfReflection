@@ -52,6 +52,8 @@ public class PlayerMovement : MonoBehaviour
 
     public Transform playerCam;
 
+    private Dictionary<KeyCode, bool> keys = new Dictionary<KeyCode, bool>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -80,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
         if (grounded)
         {
             rb.drag = groundDrag;
-        }  
+        }
         else
             rb.drag = 0;
     }
@@ -103,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         // jump
-        if (Input.GetKey(jumpKey) && readyToJump && grounded)
+        if (GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
 
@@ -112,7 +114,7 @@ public class PlayerMovement : MonoBehaviour
             Invoke(nameof(ResetJump), jumpCooldown);
         }
         // get up from ledge
-        else if (Input.GetKey(jumpKey) && grabbingLedge)
+        else if (GetKeyDown(jumpKey) && grabbingLedge)
         {
             climbingUp = true;
             ClimbUpFromLedge();
@@ -127,6 +129,7 @@ public class PlayerMovement : MonoBehaviour
         if (grounded)
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+            EnableKey(jumpKey);
         }
         // in air
         else if (!grounded)
@@ -179,6 +182,7 @@ public class PlayerMovement : MonoBehaviour
         if (transform.position.y != climbUpHeight.y)
         {
             transform.position = Vector3.MoveTowards(transform.position, climbUpHeight, climbUpSpeed * Time.deltaTime);
+            DisableKey(jumpKey);
         }
         else
         {
@@ -188,6 +192,7 @@ public class PlayerMovement : MonoBehaviour
                 grabbingLedge = false;
                 rb.useGravity = true;
                 climbingUp = false;
+                DisableMovement();
             }
         }
     }
@@ -197,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
         jumpForce = value;
     }
 
-    
+
     public void ChangeMovementSpeed(float value)
     {
         moveSpeed = value;
@@ -207,4 +212,64 @@ public class PlayerMovement : MonoBehaviour
     {
         climbUpSpeed = value;
     }
+
+    private bool GetKeyDown(KeyCode key)
+    {
+        if (!keys.ContainsKey(key))
+        {
+            keys.Add(key, true);
+        }
+        return Input.GetKeyDown(key) && keys[key];
+    }
+
+    private bool GetKey(KeyCode key)
+    {
+        if (!keys.ContainsKey(key))
+        {
+            keys.Add(key, true);
+        }
+        return Input.GetKey(key) && keys[key];
+    }
+
+    private bool GetKeyUp(KeyCode key)
+    {
+        if (!keys.ContainsKey(key))
+        {
+            keys.Add(key, true);
+        }
+        return Input.GetKeyUp(key) && keys[key];
+    }
+
+    private void DisableKey(KeyCode key)
+    {
+        if (!keys.ContainsKey(key))
+        {
+            keys.Add(key, false);
+        }
+        else
+        {
+            keys[key] = false;
+        }
+    }
+
+    private void EnableKey(KeyCode key)
+    {
+        if (!keys.ContainsKey(key))
+        {
+            keys.Add(key, true);
+        }
+        else
+        {
+            keys[key] = true;
+        }
+    }
+
+    private void DisableMovement()
+    {
+        DisableKey(KeyCode.W);
+        DisableKey(KeyCode.A);
+        DisableKey(KeyCode.S);
+        DisableKey(KeyCode.D);
+    }
+
 }
