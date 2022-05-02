@@ -25,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask InteractableLayer;
     private int CombinedLayers;
     bool grounded;
+    private RaycastHit groundHit;
+    private GameObject interactableObject;
 
     public Transform orientation;
 
@@ -69,7 +71,8 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, 0.2f, CombinedLayers);
+        grounded = Physics.SphereCast(transform.position + new Vector3(0, 0.5f, 0), 0.25f, Vector3.down, out groundHit, 0.5f, CombinedLayers);
+        StandingOnInteractableCheck();
 
         // check for ledge
         ledgeCheck1 = Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerHeight * 2f - 0.2f, transform.position.z), transform.forward, out ledge, 1.2f, CombinedLayers);
@@ -165,6 +168,26 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+    }
+
+    private void StandingOnInteractableCheck()
+    {
+        if (groundHit.transform != null)
+        {
+            if (groundHit.transform.GetComponent<InteractableObject>())
+            {
+                interactableObject = groundHit.transform.gameObject;
+                interactableObject.GetComponent<InteractableObject>().DisableInteraction();
+            }
+        }
+        else
+        {
+            if (interactableObject)
+            {
+                interactableObject.GetComponent<InteractableObject>().EnableInteraction();
+                interactableObject = null;
+            }
+        }
     }
 
     private void GrabLedge()

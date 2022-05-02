@@ -52,22 +52,16 @@ public class MoveObjectController : MonoBehaviour
         mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
         mouseScroll = Input.GetAxis("Mouse ScrollWheel");
 
-        if (interactableObject != null && relativeMirror != null)
-        {
-            MoveObjectThroughMirror();
-        }
-        else if (interactableObject != null && relativeMirror == null)
-        {
-            MoveObjectNoMirror();
-        }
-
         if (interactableObject != null)
         {
             if (interactableObject.state == ObjectState.MovingThroughMirror)
             {
                 MoveObjectThroughMirror();
             }
-            else if (interactableObject.state == ObjectState.Holding) ;
+            else if (interactableObject.state == ObjectState.Holding)
+            {
+                MoveObjectNoMirror();
+            }
         }
     }
 
@@ -90,8 +84,15 @@ public class MoveObjectController : MonoBehaviour
                         }
                         else if (interactableObject.IsEthereal() && hit.distance < maxGrabDistance && reflections == 0)
                         {
-                            SelectInterableObject(false);
-                            interactableObject.transform.parent = pickupParent;
+                            if (interactableObject.state == ObjectState.Interactable)
+                            {
+                                SelectInterableObject(false);
+                                interactableObject.transform.parent = pickupParent;
+                            }
+                            else
+                            {
+                                interactableObject = null;
+                            }
                         }
                         else
                         {

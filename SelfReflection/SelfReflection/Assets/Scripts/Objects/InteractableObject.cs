@@ -4,15 +4,15 @@ using UnityEngine;
 
 public enum ObjectState
 {
-    NoInteraction,
+    Interactable,
     MovingThroughMirror,
     Holding,
+    InteractionDisabled
 }
 
 // should be attached to all interactable objects
 public class InteractableObject : MonoBehaviour
 {
-
     [SerializeField] private Material ethereal;
     [SerializeField] private Material real;
     [HideInInspector] public Rigidbody rb;
@@ -24,7 +24,7 @@ public class InteractableObject : MonoBehaviour
 
     private void Start()
     {
-        state = ObjectState.NoInteraction;
+        state = ObjectState.Interactable;
         rb = transform.GetComponent<Rigidbody>();
 
         player = GameObject.Find("Player");
@@ -95,12 +95,22 @@ public class InteractableObject : MonoBehaviour
         rb.velocity = Vector3.zero;
         rb.constraints = RigidbodyConstraints.None;
         moveObjectController = null;
-        state = ObjectState.NoInteraction;
+        state = ObjectState.Interactable;
     }
 
     public void AddForce(Vector3 force)
     {
         rb.AddForce(force);
+    }
+
+    public void EnableInteraction()
+    {
+        state = ObjectState.Interactable;
+    }
+
+    public void DisableInteraction()
+    {
+        state = ObjectState.InteractionDisabled;
     }
 
     private void OnCollisionEnter(Collision collision)
