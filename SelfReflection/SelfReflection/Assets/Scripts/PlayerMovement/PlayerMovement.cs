@@ -2,12 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerState
+{
+    Grounded,
+    AirBorn,
+    GrabbingLedge,
+    ClimbingLedge
+}
+
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed;
-
     public float groundDrag;
+    public PlayerState state;
 
     [Header("Jump")]
     public float jumpForce;
@@ -24,7 +32,6 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask GroundLayer;
     public LayerMask InteractableLayer;
     private int CombinedLayers;
-    bool grounded;
     private RaycastHit groundHit;
     private GameObject interactableObject;
 
@@ -43,12 +50,11 @@ public class PlayerMovement : MonoBehaviour
     public float forwardDistance;
 
     [HideInInspector]
-    public bool grabbingLedge;
     private bool ledgeCheck1;
     private bool ledgeCheck2;
     private RaycastHit ledge;
 
-    private bool climbingUp;
+    //private bool climbingUp;
     private Vector3 climbUpHeight;
     private Vector3 climbUpForward;
 
@@ -62,8 +68,6 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         readyToJump = true;
-        grabbingLedge = false;
-        climbingUp = false;
         CombinedLayers = GroundLayer | InteractableLayer;
     }
 
@@ -71,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // ground check
-        grounded = Physics.SphereCast(transform.position + new Vector3(0, 0.5f, 0), 0.25f, Vector3.down, out groundHit, 0.5f, CombinedLayers);
+        CheckState();
         StandingOnInteractableCheck();
 
         // check for ledge
@@ -82,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
         SpeedControl();
 
         // drag
-        if (grounded)
+        if (state == PlayerState.Grounded)
         {
             rb.drag = groundDrag;
         }
@@ -92,11 +96,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!grabbingLedge)
+        if (state != PlayerState.GrabbingLedge && state != PlayerState.ClimbingLedge)
         {
             MovePlayer();
         }
-        else if (climbingUp)
+        else if (state == PlayerState.ClimbingLedge)
         {
             ClimbUpFromLedge();
         }
@@ -108,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         // jump
-        if (GetKey(jumpKey) && readyToJump && grounded)
+        if (GetKey(jumpKey) && readyToJump && state == PlayerState.Grounded)
         {
             readyToJump = false;
 
@@ -117,10 +121,26 @@ public class PlayerMovement : MonoBehaviour
             Invoke(nameof(ResetJump), jumpCooldown);
         }
         // get up from ledge
-        else if (GetKeyDown(jumpKey) && grabbingLedge)
+        else if (GetKeyDown(jumpKey) && state == PlayerState.GrabbingLedge)
         {
-            climbingUp = true;
+            state = PlayerState.ClimbingLedge;
             ClimbUpFromLedge();
+        }
+    }
+
+    private void CheckState()
+    {
+        if (state != PlayerState.GrabbingLedge && state != PlayerState.ClimbingLedge)
+        {
+            bool grounded = Physics.SphereCast(transform.position + new Vector3(0, 0.5f, 0), 0.25f, Vector3.down, out groundHit, 0.5f, CombinedLayers);
+            if (grounded)
+            {
+                state = PlayerState.Grounded;
+            }
+            else
+            {
+                state = PlayerState.AirBorn;
+            }
         }
     }
 
@@ -129,13 +149,13 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         // on ground
-        if (grounded)
+        if (state == PlayerState.Grounded)
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
             EnableKey(jumpKey);
         }
         // in air
-        else if (!grounded)
+        else if (state == PlayerState.AirBorn)
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
             if (ledgeCheck1 && ledgeCheck2)
@@ -182,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if (interactableObject)
+            if (interactableObject && state != PlayerState.GrabbingLedge)
             {
                 interactableObject.GetComponent<InteractableObject>().EnableInteraction();
                 interactableObject = null;
@@ -194,10 +214,16 @@ public class PlayerMovement : MonoBehaviour
     {
         climbUpHeight = new Vector3(transform.position.x, transform.position.y + playerHeight * 2f, transform.position.z);
         climbUpForward = new Vector3(transform.position.x + transform.forward.x * forwardDistance, transform.position.y + playerHeight * 2f, transform.position.z + transform.forward.z * forwardDistance);
-        grabbingLedge = true;
+        state = PlayerState.GrabbingLedge;
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
         playerCam.GetComponent<PlayerCam>().limitYRotation = transform.rotation.eulerAngles.y;
+        
+        if (ledge.transform.GetComponent<InteractableObject>())
+        {
+            interactableObject = ledge.transform.gameObject;
+            interactableObject.GetComponent<InteractableObject>().DisableInteraction();
+        }
     }
 
     private void ClimbUpFromLedge()
@@ -212,10 +238,15 @@ public class PlayerMovement : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, climbUpForward, climbUpSpeed * Time.deltaTime);
             if (transform.position == climbUpForward)
             {
-                grabbingLedge = false;
+                state = PlayerState.Grounded;
                 rb.useGravity = true;
-                climbingUp = false;
                 DisableMovement();
+                
+                if (interactableObject)
+                {
+                    interactableObject.GetComponent<InteractableObject>().EnableInteraction();
+                    interactableObject = null;
+                }
             }
         }
     }
