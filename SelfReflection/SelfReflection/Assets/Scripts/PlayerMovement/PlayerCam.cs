@@ -32,7 +32,7 @@ public class PlayerCam : MonoBehaviour
         yRotation += mouseX;
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-        if (playerMovement.grabbingLedge)
+        if (playerMovement.state == PlayerState.GrabbingLedge)
         {
             yRotation = Mathf.Clamp(yRotation, limitYRotation - 90f, limitYRotation + 90f);
         }
