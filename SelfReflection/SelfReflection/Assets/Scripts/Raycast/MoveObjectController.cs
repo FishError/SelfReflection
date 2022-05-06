@@ -26,7 +26,7 @@ public class MoveObjectController : MonoBehaviour
     [Header("Right Click Parameters")]
     private Vector3 spawnLocation;
 
-    private Transform relativeMirror;
+    public Transform relativeMirror;
 
     private void Start()
     {
@@ -78,7 +78,7 @@ public class MoveObjectController : MonoBehaviour
                     {
                         interactableObject = hit.collider.transform.GetComponent<InteractableObject>();
 
-                        if (!interactableObject.IsEthereal() && reflections > 0)
+                        if (reflections > 0)
                         {
                             SelectInterableObject(true);
                         }
@@ -185,7 +185,14 @@ public class MoveObjectController : MonoBehaviour
     {
         if (interactableObject.transform.GetComponent<Rigidbody>())
         {
-            interactableObject.SelectObject(this, mirrorSelect);
+            if (interactableObject.transform.GetComponent<InteractablePlatform>())
+            {
+
+            }
+            else
+            {
+                interactableObject.SelectObject(this);
+            }
         }
     }
 
@@ -205,7 +212,7 @@ public class MoveObjectController : MonoBehaviour
         else if (mouseScroll < 0)
             forwardBackwardsForce = forwardBackwardDir * mouseScrollSense * objectMoveSpeed * 20;
 
-        interactableObject.AddForce(upDownForce + leftRightForce + forwardBackwardsForce);
+        interactableObject.AddForce(upDownForce, leftRightForce, forwardBackwardsForce);
     }
 
     void MoveObjectNoMirror()
@@ -219,7 +226,7 @@ public class MoveObjectController : MonoBehaviour
     public void DropObject()
     {
         interactableObject.transform.parent = null;
-        interactableObject.UnselectObject();
+        interactableObject.UnSelectObject();
         interactableObject = null;
         relativeMirror = null;
     }

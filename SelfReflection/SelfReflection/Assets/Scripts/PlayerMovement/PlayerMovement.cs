@@ -202,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if (interactableObject && state != PlayerState.GrabbingLedge)
+            if (interactableObject && state != PlayerState.GrabbingLedge && state != PlayerState.ClimbingLedge)
             {
                 interactableObject.GetComponent<InteractableObject>().EnableInteraction();
                 interactableObject = null;
