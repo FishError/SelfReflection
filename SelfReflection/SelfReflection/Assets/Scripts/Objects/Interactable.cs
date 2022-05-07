@@ -17,12 +17,13 @@ public abstract class Interactable : MonoBehaviour
     [HideInInspector] public Rigidbody rb;
     public float mass;
     public float drag;
+    public float maxVelocity;
     public ObjectState state;
     protected MoveObjectController moveObjectController;
     protected GameObject player;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         state = ObjectState.Interactable;
         rb = transform.GetComponent<Rigidbody>();

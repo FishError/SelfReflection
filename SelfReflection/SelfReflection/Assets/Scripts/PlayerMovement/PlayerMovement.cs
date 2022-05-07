@@ -318,12 +318,21 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void DisableMovement()
+    public void DisableMovement()
     {
         DisableKey(KeyCode.W);
         DisableKey(KeyCode.A);
         DisableKey(KeyCode.S);
         DisableKey(KeyCode.D);
+        DisableKey(jumpKey);
     }
 
+    public void EnableMovement()
+    {
+        EnableKey(KeyCode.W);
+        EnableKey(KeyCode.A);
+        EnableKey(KeyCode.S);
+        EnableKey(KeyCode.D);
+        EnableKey(jumpKey);
+    }
 }
