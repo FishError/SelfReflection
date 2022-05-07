@@ -28,7 +28,8 @@ public class InteractablePlatform : Interactable
         else
         {
             currentPlatformPosition = transform.position;
-            player.transform.localPosition = playerLocalPosition;
+            if (player.transform.parent == transform)
+                player.transform.localPosition = playerLocalPosition;
         }
     }
 
