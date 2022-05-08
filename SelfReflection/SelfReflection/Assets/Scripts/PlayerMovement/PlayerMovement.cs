@@ -48,20 +48,13 @@ public class PlayerMovement : MonoBehaviour
     [Header("Ledge Grabbing")]
     public Transform downCast;
     public Transform forwardCast;
-    public Transform overHeadCast;
+    public Transform lowLedgeCast;
 
     private RaycastHit downCastHit;
     private RaycastHit forwardCastHit;
     private RaycastHit overHeadCastHit;
 
     public float climbUpSpeed;
-    public float forwardDistance;
-
-    [HideInInspector]
-    private bool ledgeCheck1;
-    private bool ledgeCheck2;
-    private RaycastHit ledge;
-
     private Vector3 finalClimbUpPosition;
 
     public Transform playerCam;
@@ -83,12 +76,6 @@ public class PlayerMovement : MonoBehaviour
         // ground check
         CheckState();
         StandingOnInteractableCheck();
-
-        // check for ledge
-        ledgeCheck1 = Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerHeight * 2f - 0.2f, transform.position.z), transform.forward, out ledge, 1.2f, CombinedLayers);
-        ledgeCheck2 = !Physics.Raycast(new Vector3(transform.position.x, transform.position.y + playerHeight * 2f, transform.position.z), transform.forward, 2f, CombinedLayers);
-
-        
 
         PlayerInput();
         SpeedControl();
@@ -122,17 +109,22 @@ public class PlayerMovement : MonoBehaviour
         // jump
         if (GetKey(jumpKey) && readyToJump && state == PlayerState.Grounded)
         {
-            readyToJump = false;
-
-            Jump();
-
-            Invoke(nameof(ResetJump), jumpCooldown);
+            if (CheckLedge())
+            {
+                GrabLedge();
+                state = PlayerState.ClimbingLedge;
+            }
+            else
+            {
+                readyToJump = false;
+                Jump();
+                Invoke(nameof(ResetJump), jumpCooldown);
+            }
         }
         // get up from ledge
         else if (GetKeyDown(jumpKey) && state == PlayerState.GrabbingLedge)
         {
             state = PlayerState.ClimbingLedge;
-            ClimbUpFromLedge();
         }
     }
 
@@ -152,11 +144,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private bool CheckLedge(PlayerState state)
+    private bool CheckLedge()
     {
         var down = Physics.Raycast(downCast.position, Vector3.down, out downCastHit, 2f, CombinedLayers);
         var forward = Physics.Raycast(forwardCast.position, forwardCast.forward, out forwardCastHit, 2f, CombinedLayers);
-        var overHead = Physics.Raycast(overHeadCast.position, overHeadCast.forward, out overHeadCastHit, 2f, CombinedLayers);
+        var overHead = Physics.Raycast(lowLedgeCast.position, lowLedgeCast.forward, out overHeadCastHit, 2f, CombinedLayers);
 
         if (state == PlayerState.AirBorn)
         {
@@ -167,7 +159,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (state == PlayerState.Grounded)
         {
-            if (down && overHead)
+            if (down && overHead && !forward)
             {
                 return true;
             }
@@ -190,7 +182,7 @@ public class PlayerMovement : MonoBehaviour
         else if (state == PlayerState.AirBorn)
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
-            if (CheckLedge(state))
+            if (CheckLedge())
             {
                 GrabLedge();
             }
@@ -250,26 +242,26 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = Vector3.zero;
         playerCam.GetComponent<PlayerCam>().limitYRotation = transform.rotation.eulerAngles.y;
         
-        if (ledge.transform.GetComponent<InteractableObject>())
+        if (downCastHit.transform.GetComponent<InteractableObject>())
         {
-            interactableObject = ledge.transform.gameObject;
+            interactableObject = downCastHit.transform.gameObject;
             interactableObject.GetComponent<InteractableObject>().DisableInteraction();
         }
     }
 
     private void ClimbUpFromLedge()
     {
-        if (transform.position.y != finalClimbUpPosition.y)
+        if (transform.position.y < finalClimbUpPosition.y)
         {
-            Vector3 pos = new Vector3(transform.position.x, finalClimbUpPosition.y, transform.position.z);
-            transform.position = Vector3.MoveTowards(transform.position, pos, climbUpSpeed * Time.deltaTime);
+            rb.velocity = Vector3.up * climbUpSpeed;
             DisableKey(jumpKey);
         }
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, finalClimbUpPosition, climbUpSpeed * Time.deltaTime);
-            if (transform.position == finalClimbUpPosition)
+            rb.velocity = (finalClimbUpPosition - transform.position).normalized * climbUpSpeed;
+            if (Vector3.Distance(transform.position, finalClimbUpPosition) < 0.01f)
             {
+                rb.velocity = Vector3.zero;
                 state = PlayerState.Grounded;
                 rb.useGravity = true;
                 DisableMovement();
