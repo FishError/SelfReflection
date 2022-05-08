@@ -9,55 +9,32 @@ public class InteractablePlatform : Interactable
     public bool yAxis;
     public bool zAxis;
 
-    private Vector3 currentPlatformPosition;
-    private Vector3 playerLocalPosition;
+    public float speed;
 
-    protected override void Start()
-    {
-        base.Start();
-        currentPlatformPosition = transform.position;
-    }
-
-    private void FixedUpdate()
-    {
-        if (state != ObjectState.MovingThroughMirror)
-        {
-            transform.position = currentPlatformPosition;
-            rb.velocity = Vector3.zero;
-        }
-        else
-        {
-            currentPlatformPosition = transform.position;
-            if (player.transform.parent == transform)
-                player.transform.localPosition = playerLocalPosition;
-        }
-    }
+    private bool colliding;
 
     public override void SelectObject(MoveObjectController controller)
     {
         moveObjectController = controller;
         state = ObjectState.MovingThroughMirror;
-        playerLocalPosition = player.transform.localPosition;
-        player.GetComponent<PlayerMovement>().DisableMovement();
     }
 
     public override void UnSelectObject()
     {
         moveObjectController = null;
         state = ObjectState.Interactable;
-        player.GetComponent<PlayerMovement>().DisableMovement();
     }
 
     public override void AddForce(Vector3 x, Vector3 y, Vector3 z)
     {
-        if (rb.velocity.magnitude < maxVelocity)
+        if (!colliding)
         {
             if (xAxis)
-                rb.AddForce(x * mass);
+                transform.position += x.normalized * speed * Time.deltaTime;
             if (yAxis)
-                rb.AddForce(y * mass);
+                transform.position += y.normalized * speed * Time.deltaTime;
             if (zAxis)
-                rb.AddForce(z * mass);
+                transform.position += z.normalized * speed * 20 * Time.deltaTime;
         }
     }
 
@@ -65,7 +42,7 @@ public class InteractablePlatform : Interactable
     {
         if (collision.gameObject.layer == player.layer)
         {
-            player.transform.parent = transform;
+            collision.transform.SetParent(transform);
         }
     }
 
@@ -73,7 +50,9 @@ public class InteractablePlatform : Interactable
     {
         if (collision.gameObject.layer == player.layer)
         {
-            player.transform.parent = null;
+            collision.transform.SetParent(null);
         }
     }
+
+    
 }
