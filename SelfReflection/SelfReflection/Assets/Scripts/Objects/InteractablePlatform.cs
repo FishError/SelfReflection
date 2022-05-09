@@ -11,31 +11,48 @@ public class InteractablePlatform : Interactable
 
     public float speed;
 
-    private bool colliding;
+    private Vector3 xDir = Vector3.zero;
+    private Vector3 yDir = Vector3.zero;
+    private Vector3 zDir = Vector3.zero;
+
+    private void Update()
+    {
+        if (state == ObjectState.MovingThroughMirror)
+        {
+            transform.position += (xDir + yDir + zDir) * speed * Time.deltaTime;
+        }
+    }
 
     public override void SelectObject(MoveObjectController controller)
     {
         moveObjectController = controller;
         state = ObjectState.MovingThroughMirror;
+
+        if (!yAxis)
+        {
+            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+        }
+        else
+        {
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+        }
     }
 
     public override void UnSelectObject()
     {
         moveObjectController = null;
         state = ObjectState.Interactable;
+        rb.constraints = RigidbodyConstraints.FreezeAll;
     }
 
     public override void AddForce(Vector3 x, Vector3 y, Vector3 z)
     {
-        if (!colliding)
-        {
-            if (xAxis)
-                transform.position += x.normalized * speed * Time.deltaTime;
-            if (yAxis)
-                transform.position += y.normalized * speed * Time.deltaTime;
-            if (zAxis)
-                transform.position += z.normalized * speed * 20 * Time.deltaTime;
-        }
+        if (xAxis)
+            xDir = x.normalized;
+        if (yAxis)
+            yDir = y.normalized;
+        if (zAxis)
+            zDir = z.normalized * 5f;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -53,6 +70,4 @@ public class InteractablePlatform : Interactable
             collision.transform.SetParent(null);
         }
     }
-
-    
 }

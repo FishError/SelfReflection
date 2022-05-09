@@ -31,10 +31,7 @@ public class MovingPlatform : MonoBehaviour
                 targetPoint = pointA;
             }
         }
-    }
 
-    private void FixedUpdate()
-    {
         if (moving)
         {
             var dir = (targetPoint.position - platform.transform.position).normalized;
