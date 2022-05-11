@@ -17,8 +17,8 @@ public class LoadAudio : MonoBehaviour
         
         if (PlayerPrefs.HasKey("MusicVol"))
         {
-            Music.setVolume(PlayerPrefs.GetFloat("MusicVol", 0.5f));
-            musicSlider.value = PlayerPrefs.GetFloat("MusicVol", 0.5f);
+            Music.setVolume(PlayerPrefs.GetFloat("MusicVol", 0.3f));
+            musicSlider.value = PlayerPrefs.GetFloat("MusicVol", 0.3f);
         }
     }
 
