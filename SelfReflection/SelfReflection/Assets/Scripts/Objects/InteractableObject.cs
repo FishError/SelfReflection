@@ -2,78 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ObjectState
-{
-    Interactable,
-    MovingThroughMirror,
-    Holding,
-    InteractionDisabled
-}
-
 // should be attached to all interactable objects
-public class InteractableObject : MonoBehaviour
+public class InteractableObject : Interactable
 {
-    [SerializeField] private Material ethereal;
-    [SerializeField] private Material real;
-    [HideInInspector] public Rigidbody rb;
-    public float mass;
-    public float drag;
-    public ObjectState state;
-    private MoveObjectController moveObjectController;
-    private GameObject player;
-
-    private void Start()
-    {
-        state = ObjectState.Interactable;
-        rb = transform.GetComponent<Rigidbody>();
-
-        player = GameObject.Find("Player");
-        if (player)
-            Physics.IgnoreCollision(player.GetComponentInChildren<Collider>(), GetComponent<Collider>(), true);
-
-        if (IsEthereal())
-        {
-            transform.GetComponent<MeshRenderer>().material = ethereal;
-            Physics.IgnoreCollision(player.GetComponentInChildren<Collider>(), GetComponent<Collider>(), false);
-        }
-        else
-        {
-            transform.GetComponent<MeshRenderer>().material = real;
-            Physics.IgnoreCollision(player.GetComponentInChildren<Collider>(), GetComponent<Collider>(), false);
-        }
-    }
-
-    public bool IsEthereal()
-    {
-        if (transform.tag == "Ethereal")
-            return true;
-
-        return false;
-    }
-
-    public void SetToEthereal()
-    {
-        transform.tag = "Ethereal";
-        transform.GetComponent<MeshRenderer>().material = ethereal;
-
-        Physics.IgnoreCollision(player.GetComponentInChildren<Collider>(), GetComponent<Collider>(), false);
-    }
-
-    public void SetToReal()
-    {
-        transform.tag = "Real";
-        transform.GetComponent<MeshRenderer>().material = real;
-
-        Physics.IgnoreCollision(player.GetComponentInChildren<Collider>(), GetComponent<Collider>(), false);
-    }
-
-    public void SelectObject(MoveObjectController controller, bool mirrorSelect)
+    public override void SelectObject(MoveObjectController controller)
     {
         rb.useGravity = false;
         rb.constraints = RigidbodyConstraints.FreezeRotation;
         moveObjectController = controller;
 
-        if (mirrorSelect)
+        if (moveObjectController.relativeMirror)
         {
             rb.mass = 1f;
             rb.drag = 10f;
@@ -87,7 +25,7 @@ public class InteractableObject : MonoBehaviour
         }
     }
 
-    public void UnselectObject()
+    public override void UnSelectObject()
     {
         rb.useGravity = true;
         rb.mass = mass;
@@ -98,19 +36,9 @@ public class InteractableObject : MonoBehaviour
         state = ObjectState.Interactable;
     }
 
-    public void AddForce(Vector3 force)
+    public override void AddForce(Vector3 x, Vector3 y, Vector3 z)
     {
-        rb.AddForce(force);
-    }
-
-    public void EnableInteraction()
-    {
-        state = ObjectState.Interactable;
-    }
-
-    public void DisableInteraction()
-    {
-        state = ObjectState.InteractionDisabled;
+        rb.AddForce(x + y + z);
     }
 
     private void OnCollisionEnter(Collision collision)
