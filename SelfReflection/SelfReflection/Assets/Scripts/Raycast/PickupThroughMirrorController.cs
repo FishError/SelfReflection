@@ -137,6 +137,6 @@ public class PickupThroughMirrorController : MonoBehaviour
         currentlyPickedUpObject = null;
         physicsObject.pickedUp = false;
         currentDist = 0;
-        interactableObject.UnselectObject();
+        interactableObject.UnSelectObject();
     }
 }
