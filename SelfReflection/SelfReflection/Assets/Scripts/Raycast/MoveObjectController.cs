@@ -5,7 +5,7 @@ using UnityEngine;
 public class MoveObjectController : MonoBehaviour
 {
     [Header("Pickup Settings")]
-    private InteractableObject interactableObject;
+    private Interactable interactable;
     public int interactableLayerIndex;
     [SerializeField] private Transform pickupParent;
 
@@ -26,7 +26,8 @@ public class MoveObjectController : MonoBehaviour
     [Header("Right Click Parameters")]
     private Vector3 spawnLocation;
 
-    private Transform relativeMirror;
+    public Transform relativeMirror;
+    public Vector3 lastPlayerPosition;
 
     private void Start()
     {
@@ -52,13 +53,13 @@ public class MoveObjectController : MonoBehaviour
         mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
         mouseScroll = Input.GetAxis("Mouse ScrollWheel");
 
-        if (interactableObject != null)
+        if (interactable != null)
         {
-            if (interactableObject.state == ObjectState.MovingThroughMirror)
+            if (interactable.state == ObjectState.MovingThroughMirror)
             {
                 MoveObjectThroughMirror();
             }
-            else if (interactableObject.state == ObjectState.Holding)
+            else if (interactable.state == ObjectState.Holding)
             {
                 MoveObjectNoMirror();
             }
@@ -67,7 +68,7 @@ public class MoveObjectController : MonoBehaviour
 
     void LeftClick()
     {
-        if (interactableObject == null)
+        if (interactable == null)
         {
             ray = new Ray(transform.position, transform.TransformDirection(Vector3.forward));
             for (int reflections = 0; reflections < maxReflections; reflections++)
@@ -76,27 +77,27 @@ public class MoveObjectController : MonoBehaviour
                 {
                     if (hit.collider.transform.gameObject.layer == interactableLayerIndex)
                     {
-                        interactableObject = hit.collider.transform.GetComponent<InteractableObject>();
+                        interactable = hit.collider.transform.GetComponent<Interactable>();
 
-                        if (!interactableObject.IsEthereal() && reflections > 0)
+                        if (reflections > 0)
                         {
                             SelectInterableObject(true);
                         }
-                        else if (interactableObject.IsEthereal() && hit.distance < maxGrabDistance && reflections == 0)
+                        else if (interactable.IsEthereal() && hit.distance < maxGrabDistance && reflections == 0)
                         {
-                            if (interactableObject.state == ObjectState.Interactable)
+                            if (interactable.state == ObjectState.Interactable)
                             {
                                 SelectInterableObject(false);
-                                interactableObject.transform.parent = pickupParent;
+                                interactable.transform.parent = pickupParent;
                             }
                             else
                             {
-                                interactableObject = null;
+                                interactable = null;
                             }
                         }
                         else
                         {
-                            interactableObject = null;
+                            interactable = null;
                         }
                     }
 
@@ -106,7 +107,7 @@ public class MoveObjectController : MonoBehaviour
                     }
                     else
                     {
-                        if (interactableObject == null)
+                        if (interactable == null)
                             relativeMirror = null;
 
                         break;
@@ -124,7 +125,7 @@ public class MoveObjectController : MonoBehaviour
 
     void RightClick()
     {
-        if (interactableObject == null)
+        if (interactable == null)
         {
             ray = new Ray(transform.position, transform.TransformDirection(Vector3.forward));
             for (int reflections = 0; reflections < maxReflections; reflections++)
@@ -138,27 +139,27 @@ public class MoveObjectController : MonoBehaviour
 
                     if (hit.collider.transform.gameObject.layer == interactableLayerIndex)
                     {
-                        interactableObject = hit.collider.transform.gameObject.GetComponent<InteractableObject>();
+                        interactable = hit.collider.transform.gameObject.GetComponent<InteractableObject>();
 
-                        if (reflections > 0 && interactableObject.IsEthereal())
+                        if (reflections > 0 && interactable.IsEthereal())
                         {
                             // set object back to real
-                            interactableObject.SetToReal();
-                            interactableObject.transform.position = spawnLocation;
-                            interactableObject.transform.parent = null;
-                            interactableObject = null;
+                            interactable.SetToReal();
+                            interactable.transform.position = spawnLocation;
+                            interactable.transform.parent = null;
+                            interactable = null;
                         }
-                        else if (reflections > 0 && !interactableObject.IsEthereal())
+                        else if (reflections > 0 && !interactable.IsEthereal())
                         {
                             // pick up object through mirror
-                            interactableObject.SetToEthereal();
-                            interactableObject.transform.position = spawnLocation;
-                            interactableObject.transform.parent = pickupParent;
+                            interactable.SetToEthereal();
+                            interactable.transform.position = spawnLocation;
+                            interactable.transform.parent = pickupParent;
                             SelectInterableObject(false);
                         }
                         else
                         {
-                            interactableObject = null;
+                            interactable = null;
                         }
                     }
 
@@ -171,7 +172,7 @@ public class MoveObjectController : MonoBehaviour
                 }
                 else
                 {
-                    interactableObject = null;
+                    interactable = null;
                 }
             }
         }
@@ -183,18 +184,19 @@ public class MoveObjectController : MonoBehaviour
 
     void SelectInterableObject(bool mirrorSelect)
     {
-        if (interactableObject.transform.GetComponent<Rigidbody>())
+        if (interactable.transform.GetComponent<Rigidbody>())
         {
-            interactableObject.SelectObject(this, mirrorSelect);
+            interactable.SelectObject(this);
+            lastPlayerPosition = transform.position;
         }
     }
 
     void MoveObjectThroughMirror()
     {
-        var dir = (transform.position - relativeMirror.transform.position).normalized;
+        var dir = (lastPlayerPosition - relativeMirror.transform.position).normalized;
         var forwardBackwardDir = new Vector3(dir.x, 0, dir.z);
         var leftRightDir = Vector3.Cross(forwardBackwardDir, Vector3.up);
-        var playerObjectDistance = (transform.position - interactableObject.transform.position).magnitude;
+        var playerObjectDistance = (transform.position - interactable.transform.position).magnitude;
 
         Vector3 upDownForce = Vector3.up * mouseY * objectMoveSpeed * playerObjectDistance * 5;
         Vector3 leftRightForce = leftRightDir * mouseX * objectMoveSpeed * playerObjectDistance * 5;
@@ -205,22 +207,22 @@ public class MoveObjectController : MonoBehaviour
         else if (mouseScroll < 0)
             forwardBackwardsForce = forwardBackwardDir * mouseScrollSense * objectMoveSpeed * 20;
 
-        interactableObject.AddForce(upDownForce + leftRightForce + forwardBackwardsForce);
+        interactable.AddForce(leftRightForce, upDownForce, forwardBackwardsForce);
     }
 
     void MoveObjectNoMirror()
     {
-        if (interactableObject.transform.position != pickupParent.position)
+        if (interactable.transform.position != pickupParent.position)
         {
-            interactableObject.transform.position = Vector3.MoveTowards(interactableObject.transform.position, pickupParent.position, 15 * Time.deltaTime);
+            interactable.transform.position = Vector3.MoveTowards(interactable.transform.position, pickupParent.position, 15 * Time.deltaTime);
         }
     }
 
     public void DropObject()
     {
-        interactableObject.transform.parent = null;
-        interactableObject.UnselectObject();
-        interactableObject = null;
+        interactable.transform.parent = null;
+        interactable.UnSelectObject();
+        interactable = null;
         relativeMirror = null;
     }
 

@@ -1,0 +1,82 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public enum ObjectState
+{
+    Interactable,
+    MovingThroughMirror,
+    Holding,
+    InteractionDisabled
+}
+
+public abstract class Interactable : MonoBehaviour
+{
+    [SerializeField] protected Material ethereal;
+    [SerializeField] protected Material real;
+    [HideInInspector] public Rigidbody rb;
+    public float mass;
+    public float drag;
+    public float maxVelocity;
+    public ObjectState state;
+    protected MoveObjectController moveObjectController;
+    protected GameObject player;
+
+    // Start is called before the first frame update
+    protected virtual void Start()
+    {
+        state = ObjectState.Interactable;
+        rb = transform.GetComponent<Rigidbody>();
+
+        player = GameObject.Find("Player");
+        if (player)
+            Physics.IgnoreCollision(player.GetComponentInChildren<Collider>(), GetComponent<Collider>(), true);
+
+        if (IsEthereal())
+        {
+            transform.GetComponent<MeshRenderer>().material = ethereal;
+            Physics.IgnoreCollision(player.GetComponentInChildren<Collider>(), GetComponent<Collider>(), false);
+        }
+        else
+        {
+            transform.GetComponent<MeshRenderer>().material = real;
+            Physics.IgnoreCollision(player.GetComponentInChildren<Collider>(), GetComponent<Collider>(), false);
+        }
+    }
+
+    public bool IsEthereal()
+    {
+        if (transform.tag == "Ethereal")
+            return true;
+
+        return false;
+    }
+
+    public void SetToEthereal()
+    {
+        transform.tag = "Ethereal";
+        transform.GetComponent<MeshRenderer>().material = ethereal;
+    }
+
+    public void SetToReal()
+    {
+        transform.tag = "Real";
+        transform.GetComponent<MeshRenderer>().material = real;
+    }
+
+    public void EnableInteraction()
+    {
+        state = ObjectState.Interactable;
+    }
+
+    public void DisableInteraction()
+    {
+        state = ObjectState.InteractionDisabled;
+    }
+
+    public abstract void SelectObject(MoveObjectController controller);
+
+    public abstract void UnSelectObject();
+
+    public abstract void AddForce(Vector3 x, Vector3 y, Vector3 z);
+}
