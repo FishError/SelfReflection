@@ -162,6 +162,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   mass: 100
   drag: 0
+  maxVelocity: 0
   state: 0
 --- !u!114 &53937931
 MonoBehaviour:
@@ -953,6 +954,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   mass: 100
   drag: 0
+  maxVelocity: 0
   state: 0
 --- !u!114 &4006128641549800563
 MonoBehaviour:
@@ -1096,6 +1098,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Trash Can
       objectReference: {fileID: 0}
+    - target: {fileID: 6439089940423413320, guid: 5fe595f4450929a45a7c8b87c292dca7, type: 3}
+      propertyPath: NumOfObjectToThrow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6439089940423413320, guid: 5fe595f4450929a45a7c8b87c292dca7, type: 3}
+      propertyPath: objectToDisable.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6439089940423413320, guid: 5fe595f4450929a45a7c8b87c292dca7, type: 3}
+      propertyPath: objectToDisable.Array.data[0]
+      value: 
+      objectReference: {fileID: 4006128641549800568}
     - target: {fileID: 6439089940423413327, guid: 5fe595f4450929a45a7c8b87c292dca7, type: 3}
       propertyPath: m_RootOrder
       value: 9
