@@ -5,7 +5,7 @@ using UnityEngine;
 public class MoveObjectController : MonoBehaviour
 {
     [Header("Pickup Settings")]
-    private Interactable interactable;
+    public Interactable interactable;
     public int interactableLayerIndex;
     [SerializeField] private Transform pickupParent;
 

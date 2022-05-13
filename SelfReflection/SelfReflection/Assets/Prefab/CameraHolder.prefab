@@ -156,6 +156,7 @@ GameObject:
   - component: {fileID: 7140929500085889733}
   - component: {fileID: 7140929500085889731}
   - component: {fileID: 1414669376302483394}
+  - component: {fileID: 4911416384389893901}
   - component: {fileID: 8186897378204578059}
   m_Layer: 0
   m_Name: PlayerCam
@@ -252,6 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15af00a344a523444ab146b3a6ad1244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactable: {fileID: 0}
   interactableLayerIndex: 7
   pickupParent: {fileID: 0}
   maxReflectionDistance: 150
@@ -261,6 +263,31 @@ MonoBehaviour:
   sensY: 200
   mouseScrollSense: 10
   objectMoveSpeed: 3
+  relativeMirror: {fileID: 0}
+  lastPlayerPosition: {x: 0, y: 0, z: 0}
+--- !u!114 &4911416384389893901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7140929500085889735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61dad56cf0d60ec489e8b10a29df0c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedObject: {fileID: 0}
+  red: 240
+  green: 255
+  blue: 240
+  emissionRed: 0
+  emissionGreen: 40
+  emissionBlue: 0
+  maxReflections: 5
+  maxReflectionDistance: 150
+  maxGrabDistance: 3.8
+  interactableLayer: 7
 --- !u!114 &8186897378204578059
 MonoBehaviour:
   m_ObjectHideFlags: 0
