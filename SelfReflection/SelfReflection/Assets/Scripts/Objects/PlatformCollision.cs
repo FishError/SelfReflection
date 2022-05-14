@@ -8,7 +8,7 @@ public class PlatformCollision : MonoBehaviour
     {
         if (collision.transform.tag == "Player")
         {
-            collision.transform.SetParent(transform);
+            collision.transform.SetParent(transform, true);
         }
     }
 
