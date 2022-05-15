@@ -19,6 +19,7 @@ public abstract class Interactable : MonoBehaviour
     public float drag;
     public float maxVelocity;
     public ObjectState state;
+    public bool canBecomeEthereal;
     protected MoveObjectController moveObjectController;
     protected GameObject player;
 
