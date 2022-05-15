@@ -29,18 +29,17 @@ public abstract class Interactable : MonoBehaviour
         rb = transform.GetComponent<Rigidbody>();
 
         player = GameObject.Find("Player");
-        if (player)
-            Physics.IgnoreCollision(player.GetComponentInChildren<Collider>(), GetComponent<Collider>(), true);
 
-        if (IsEthereal())
+        if (transform.GetComponent<MeshRenderer>())
         {
-            transform.GetComponent<MeshRenderer>().material = ethereal;
-            Physics.IgnoreCollision(player.GetComponentInChildren<Collider>(), GetComponent<Collider>(), false);
-        }
-        else
-        {
-            transform.GetComponent<MeshRenderer>().material = real;
-            Physics.IgnoreCollision(player.GetComponentInChildren<Collider>(), GetComponent<Collider>(), false);
+            if (IsEthereal())
+            {
+                transform.GetComponent<MeshRenderer>().material = ethereal;
+            }
+            else
+            {
+                transform.GetComponent<MeshRenderer>().material = real;
+            }
         }
     }
 

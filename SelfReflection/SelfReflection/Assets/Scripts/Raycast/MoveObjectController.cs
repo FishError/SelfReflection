@@ -77,7 +77,7 @@ public class MoveObjectController : MonoBehaviour
                 {
                     if (hit.collider.transform.gameObject.layer == interactableLayerIndex)
                     {
-                        interactable = hit.collider.transform.GetComponent<Interactable>();
+                        interactable = hit.rigidbody.transform.GetComponent<Interactable>();
 
                         if (reflections > 0)
                         {
@@ -139,7 +139,7 @@ public class MoveObjectController : MonoBehaviour
 
                     if (hit.collider.transform.gameObject.layer == interactableLayerIndex)
                     {
-                        interactable = hit.collider.transform.gameObject.GetComponent<InteractableObject>();
+                        interactable = hit.rigidbody.transform.GetComponent<InteractableObject>();
 
                         if (reflections > 0 && interactable.IsEthereal())
                         {
