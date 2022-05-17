@@ -5,7 +5,7 @@ using UnityEngine;
 public class MoveObjectController : MonoBehaviour
 {
     [Header("Pickup Settings")]
-    private Interactable interactable;
+    public Interactable interactable;
     public int interactableLayerIndex;
     [SerializeField] private Transform pickupParent;
 
@@ -77,7 +77,7 @@ public class MoveObjectController : MonoBehaviour
                 {
                     if (hit.collider.transform.gameObject.layer == interactableLayerIndex)
                     {
-                        interactable = hit.collider.transform.GetComponent<Interactable>();
+                        interactable = hit.rigidbody.transform.GetComponent<Interactable>();
 
                         if (reflections > 0)
                         {
@@ -139,9 +139,9 @@ public class MoveObjectController : MonoBehaviour
 
                     if (hit.collider.transform.gameObject.layer == interactableLayerIndex)
                     {
-                        interactable = hit.collider.transform.gameObject.GetComponent<InteractableObject>();
+                        interactable = hit.rigidbody.transform.GetComponent<Interactable>();
 
-                        if (reflections > 0 && interactable.IsEthereal())
+                        if (reflections > 0 && interactable.IsEthereal() && interactable.canBecomeEthereal)
                         {
                             // set object back to real
                             interactable.SetToReal();
@@ -149,7 +149,7 @@ public class MoveObjectController : MonoBehaviour
                             interactable.transform.parent = null;
                             interactable = null;
                         }
-                        else if (reflections > 0 && !interactable.IsEthereal())
+                        else if (reflections > 0 && !interactable.IsEthereal() && interactable.canBecomeEthereal)
                         {
                             // pick up object through mirror
                             interactable.SetToEthereal();

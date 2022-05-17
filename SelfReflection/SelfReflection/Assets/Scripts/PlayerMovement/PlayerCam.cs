@@ -9,6 +9,8 @@ public class PlayerCam : MonoBehaviour
 
     public Transform orientation;
     [HideInInspector] public float limitYRotation = 0;
+    private float minY;
+    private float maxY;
 
     public float xRotation;
     public float yRotation;
@@ -34,7 +36,12 @@ public class PlayerCam : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
         if (playerMovement.state == PlayerState.GrabbingLedge)
         {
-            yRotation = Mathf.Clamp(yRotation, limitYRotation - 90f, limitYRotation + 90f);
+            minY = limitYRotation - 90f;
+            maxY = limitYRotation + 90f;
+            if (yRotation < minY)
+                yRotation = minY;
+            else if (yRotation > maxY)
+                yRotation = maxY;
         }
 
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
