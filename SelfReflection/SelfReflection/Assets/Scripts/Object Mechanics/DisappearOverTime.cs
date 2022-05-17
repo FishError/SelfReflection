@@ -5,12 +5,11 @@ using UnityEngine;
 public class DisappearOverTime : MonoBehaviour
 {
     public float time;
-    public bool isStandingOnPlatform;
 
-
-    private void Update()
+   
+    private void OnTriggerEnter(Collider other)
     {
-        if (isStandingOnPlatform)
+        if(other.tag == "Player")
         {
             StartCoroutine(Disappear());
         }
@@ -19,7 +18,7 @@ public class DisappearOverTime : MonoBehaviour
     IEnumerator Disappear()
     {
         yield return new WaitForSeconds(time);
-        this.gameObject.SetActive(false);
-        isStandingOnPlatform = false;
+        this.gameObject.transform.parent.gameObject.SetActive(false);
+
     }
 }
