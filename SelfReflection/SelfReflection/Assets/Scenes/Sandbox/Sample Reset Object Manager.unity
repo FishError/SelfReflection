@@ -220,22 +220,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1de1cda16f47fe345ab501101898c8bb, type: 3}
---- !u!114 &340391149 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1414669376302483394, guid: 94d8956704e67a84aa728a0c8ed8e4bd, type: 3}
-  m_PrefabInstance: {fileID: 1736132473}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15af00a344a523444ab146b3a6ad1244, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &345882552 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 442705869615946753, guid: 7e297214005c07849a5296fcad6be033, type: 3}
-  m_PrefabInstance: {fileID: 2030963263}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &710679509
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,7 +229,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 710679511}
-  - component: {fileID: 710679510}
   m_Layer: 0
   m_Name: Room
   m_TagString: Untagged
@@ -253,25 +236,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &710679510
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 710679509}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 588b1e15a9c80094a84e538c546c04cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  northWall: {fileID: 1967876744}
-  southWall: {fileID: 2124957570}
-  leftWall: {fileID: 1628704064}
-  rightWall: {fileID: 2081003935}
-  interactableObj:
-  - {fileID: 345882552}
-  objectController: {fileID: 340391149}
 --- !u!4 &710679511
 Transform:
   m_ObjectHideFlags: 0
