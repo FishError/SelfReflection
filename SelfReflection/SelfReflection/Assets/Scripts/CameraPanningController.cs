@@ -2,22 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class CameraAction
-{
-    public Vector3 MoveTo;
-    public float MoveSpeed;
-    public Vector3 LookTowards;
-    public float RotationSpeed;
-}
-
 public class CameraPanningController : MonoBehaviour
 {
     public Camera panningCamera;
     public Camera playerCamera;
+    public PlayerMovement playerMovement;
 
-    public List<CameraAction> cameraActions;
-    public List<GameObject> cameraActions2;
+    public List<GameObject> cameraActions;
     public float cameraSpeed;
     public float rotationSpeed;
 
@@ -27,6 +18,7 @@ public class CameraPanningController : MonoBehaviour
 
     private void Start()
     {
+        playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
         StartPanning();
     }
 
@@ -35,7 +27,7 @@ public class CameraPanningController : MonoBehaviour
     {
         if (currentAction)
         {
-            direction = (currentAction.transform.GetChild(0).transform.position - currentAction.transform.position);
+            direction = currentAction.transform.forward;
             lookRotation = Quaternion.LookRotation(direction);
             panningCamera.transform.rotation = Quaternion.Slerp(panningCamera.transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
 
@@ -45,16 +37,17 @@ public class CameraPanningController : MonoBehaviour
             }
             else
             {
-                int nextIndex = cameraActions2.IndexOf(currentAction) + 1;
-                if (nextIndex < cameraActions2.Count)
+                int nextIndex = cameraActions.IndexOf(currentAction) + 1;
+                if (nextIndex < cameraActions.Count)
                 {
-                    currentAction = cameraActions2[cameraActions2.IndexOf(currentAction) + 1];
+                    currentAction = cameraActions[cameraActions.IndexOf(currentAction) + 1];
                 }
                 else
                 {
                     currentAction = null;
                     panningCamera.enabled = false;
                     playerCamera.enabled = true;
+                    playerMovement.movementDisabled = false;
                 }
             }
         }
@@ -64,6 +57,7 @@ public class CameraPanningController : MonoBehaviour
     {
         playerCamera.enabled = false;
         panningCamera.enabled = true;
-        currentAction = cameraActions2[0];
+        playerMovement.movementDisabled = true;
+        currentAction = cameraActions[0];
     }
 }
