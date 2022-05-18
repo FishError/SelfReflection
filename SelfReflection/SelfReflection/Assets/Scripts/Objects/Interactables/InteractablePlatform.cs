@@ -57,7 +57,7 @@ public class InteractablePlatform : Interactable
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == player.layer)
+        if (collision.gameObject.tag == "Player")
         {
             collision.transform.SetParent(transform);
         }
@@ -65,7 +65,7 @@ public class InteractablePlatform : Interactable
 
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.layer == player.layer)
+        if (collision.gameObject.tag == "Player")
         {
             collision.transform.SetParent(null);
         }
