@@ -15,11 +15,31 @@ public class InteractablePlatform : Interactable
     private Vector3 yDir = Vector3.zero;
     private Vector3 zDir = Vector3.zero;
 
+    [Header("Reset Settings")]
+    public float resetTimer;
+    private float timeLeft;
+    private Vector3 originalPosition;
+
+    protected override void Start()
+    {
+        base.Start();
+        originalPosition = transform.position;
+    }
+
     private void Update()
     {
         if (state == ObjectState.MovingThroughMirror)
         {
             transform.position += (xDir + yDir + zDir) * speed * Time.deltaTime;
+        }
+
+        if (transform.position != originalPosition && state != ObjectState.MovingThroughMirror)
+        {
+            timeLeft -= Time.deltaTime;
+            if (timeLeft < 0f)
+            {
+                transform.position = originalPosition;
+            }
         }
     }
 
@@ -43,9 +63,10 @@ public class InteractablePlatform : Interactable
         moveObjectController = null;
         state = ObjectState.Interactable;
         rb.constraints = RigidbodyConstraints.FreezeAll;
+        timeLeft = resetTimer;
     }
 
-    public override void AddForce(Vector3 x, Vector3 y, Vector3 z)
+    public override void MoveRelativeToPlayer(Vector3 x, Vector3 y, Vector3 z)
     {
         if (xAxis)
             xDir = x.normalized;
@@ -53,6 +74,16 @@ public class InteractablePlatform : Interactable
             yDir = y.normalized;
         if (zAxis)
             zDir = z.normalized * 5f;
+    }
+
+    public override void MoveRelativeToObject(float x, float y, float z)
+    {
+        if (xAxis)
+            xDir = transform.right * x;
+        if (yAxis)
+            yDir = transform.up * y;
+        if (zAxis)
+            zDir = transform.forward * z * 5f;
     }
 
     private void OnCollisionEnter(Collision collision)

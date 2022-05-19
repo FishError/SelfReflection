@@ -36,7 +36,7 @@ public class InteractableObject : Interactable
         state = ObjectState.Interactable;
     }
 
-    public override void AddForce(Vector3 x, Vector3 y, Vector3 z)
+    public override void MoveRelativeToPlayer(Vector3 x, Vector3 y, Vector3 z)
     {
         rb.AddForce(x + y + z);
     }
