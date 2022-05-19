@@ -11,14 +11,14 @@ public class InteractablePlatform : Interactable
 
     public float speed;
 
-    private Vector3 xDir = Vector3.zero;
-    private Vector3 yDir = Vector3.zero;
-    private Vector3 zDir = Vector3.zero;
+    protected Vector3 xDir = Vector3.zero;
+    protected Vector3 yDir = Vector3.zero;
+    protected Vector3 zDir = Vector3.zero;
 
     [Header("Reset Settings")]
     public float resetTimer;
-    private float timeLeft;
-    private Vector3 originalPosition;
+    protected float timeLeft;
+    protected Vector3 originalPosition;
 
     protected override void Start()
     {
@@ -26,7 +26,7 @@ public class InteractablePlatform : Interactable
         originalPosition = transform.position;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (state == ObjectState.MovingThroughMirror)
         {
@@ -90,7 +90,7 @@ public class InteractablePlatform : Interactable
     {
         if (collision.gameObject.tag == "Player")
         {
-            collision.transform.SetParent(transform);
+            //collision.transform.SetParent(transform);
         }
     }
 
@@ -98,7 +98,7 @@ public class InteractablePlatform : Interactable
     {
         if (collision.gameObject.tag == "Player")
         {
-            collision.transform.SetParent(null);
+            //collision.transform.SetParent(null);
         }
     }
 }
