@@ -29,10 +29,13 @@ public class MoveObjectController : MonoBehaviour
     public Transform relativeMirror;
     public Vector3 lastPlayerPosition;
 
+    private PlayerMovement playerMovement;
+
     private void Start()
     {
         sensX = transform.GetComponent<PlayerCam>().sensX;
         sensY = transform.GetComponent<PlayerCam>().sensY;
+        playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
     }
 
     private void Update()
@@ -188,6 +191,7 @@ public class MoveObjectController : MonoBehaviour
         {
             interactable.SelectObject(this);
             lastPlayerPosition = transform.position;
+            playerMovement.ledgeGrabbingDisabled = true;
         }
     }
 
@@ -231,6 +235,7 @@ public class MoveObjectController : MonoBehaviour
         interactable.UnSelectObject();
         interactable = null;
         relativeMirror = null;
+        playerMovement.ledgeGrabbingDisabled = false;
     }
 
     public void ScalePickUpParentRange(float distance)
