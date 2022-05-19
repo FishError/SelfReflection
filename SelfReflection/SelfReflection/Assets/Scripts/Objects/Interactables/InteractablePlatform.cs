@@ -86,19 +86,19 @@ public class InteractablePlatform : Interactable
             zDir = transform.forward * z * 5f;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            //collision.transform.SetParent(transform);
+            collision.transform.SetParent(transform);
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    protected virtual void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            //collision.transform.SetParent(null);
+            collision.transform.SetParent(null);
         }
     }
 }

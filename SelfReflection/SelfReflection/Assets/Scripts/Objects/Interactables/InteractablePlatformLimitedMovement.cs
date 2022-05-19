@@ -83,4 +83,20 @@ public class InteractablePlatformLimitedMovement : InteractablePlatform
 
         return false;
     }
+
+    protected override void OnCollisionEnter(Collision collision)
+    {
+        /*if (collision.gameObject.tag == "Player")
+        {
+            collision.transform.SetParent(transform);
+        }*/
+    }
+
+    protected override void OnCollisionExit(Collision collision)
+    {
+        /*if (collision.gameObject.tag == "Player")
+        {
+            collision.transform.SetParent(null);
+        }*/
+    }
 }
