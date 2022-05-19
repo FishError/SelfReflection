@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask InteractableLayer;
     private int CombinedLayers;
     private RaycastHit groundHit;
-    private GameObject interactableObject;
+    private GameObject interactableGroundObject;
 
     public Transform orientation;
 
@@ -48,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
 
     // ledge variables
     [Header("Ledge Grabbing")]
+    public bool ledgeGrabbingDisabled;
     public Transform downCast;
     public Transform forwardCast;
     public Transform lowLedgeCast;
@@ -173,17 +174,20 @@ public class PlayerMovement : MonoBehaviour
 
     private bool CheckLedge()
     {
-        var down = Physics.Raycast(downCast.position, Vector3.down, out downCastHit, 3f, CombinedLayers);
-        var forward = Physics.Raycast(forwardCast.position, forwardCast.forward, out forwardCastHit, 2f, CombinedLayers);
-        var overHead = Physics.Raycast(lowLedgeCast.position, Vector3.down, out overHeadCastHit, 3f, CombinedLayers);
+        if (!ledgeGrabbingDisabled)
+        {
+            var down = Physics.Raycast(downCast.position, Vector3.down, out downCastHit, 3f, CombinedLayers);
+            var forward = Physics.Raycast(forwardCast.position, forwardCast.forward, out forwardCastHit, 2f, CombinedLayers);
+            var overHead = Physics.Raycast(lowLedgeCast.position, Vector3.down, out overHeadCastHit, 3f, CombinedLayers);
 
-        if (down && forward)
-        {
-            return true;
-        }
-        else if (down && overHead)
-        {
-            return true;
+            if (down && forward)
+            {
+                return true;
+            }
+            else if (down && overHead)
+            {
+                return true;
+            }
         }
 
         return false;
@@ -235,18 +239,18 @@ public class PlayerMovement : MonoBehaviour
     {
         if (groundHit.transform != null)
         {
-            if (groundHit.transform.GetComponent<InteractableObject>())
+            if (groundHit.transform.GetComponent<Interactable>())
             {
-                interactableObject = groundHit.transform.gameObject;
-                interactableObject.GetComponent<InteractableObject>().DisableInteraction();
+                interactableGroundObject = groundHit.transform.gameObject;
+                interactableGroundObject.GetComponent<Interactable>().DisableInteraction();
             }
         }
         else
         {
-            if (interactableObject && state != PlayerState.GrabbingLedge && state != PlayerState.ClimbingLedge)
+            if (interactableGroundObject && state != PlayerState.GrabbingLedge && state != PlayerState.ClimbingLedge)
             {
-                interactableObject.GetComponent<InteractableObject>().EnableInteraction();
-                interactableObject = null;
+                interactableGroundObject.GetComponent<Interactable>().EnableInteraction();
+                interactableGroundObject = null;
             }
         }
     }
@@ -259,10 +263,10 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = Vector3.zero;
         playerCam.GetComponent<PlayerCam>().limitYRotation = transform.rotation.eulerAngles.y;
         
-        if (downCastHit.transform.GetComponent<InteractableObject>())
+        if (downCastHit.transform.GetComponent<Interactable>())
         {
-            interactableObject = downCastHit.transform.gameObject;
-            interactableObject.GetComponent<InteractableObject>().DisableInteraction();
+            interactableGroundObject = downCastHit.transform.gameObject;
+            interactableGroundObject.GetComponent<Interactable>().DisableInteraction();
         }
     }
 
@@ -283,10 +287,10 @@ public class PlayerMovement : MonoBehaviour
                 rb.useGravity = true;
                 state = PlayerState.Grounded;
                 
-                if (interactableObject)
+                if (interactableGroundObject)
                 {
-                    interactableObject.GetComponent<InteractableObject>().EnableInteraction();
-                    interactableObject = null;
+                    interactableGroundObject.GetComponent<Interactable>().EnableInteraction();
+                    interactableGroundObject = null;
                 }
             }
         }

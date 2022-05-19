@@ -11,15 +11,35 @@ public class InteractablePlatform : Interactable
 
     public float speed;
 
-    private Vector3 xDir = Vector3.zero;
-    private Vector3 yDir = Vector3.zero;
-    private Vector3 zDir = Vector3.zero;
+    protected Vector3 xDir = Vector3.zero;
+    protected Vector3 yDir = Vector3.zero;
+    protected Vector3 zDir = Vector3.zero;
 
-    private void Update()
+    [Header("Reset Settings")]
+    public float resetTimer;
+    protected float timeLeft;
+    protected Vector3 originalPosition;
+
+    protected override void Start()
+    {
+        base.Start();
+        originalPosition = transform.position;
+    }
+
+    protected virtual void Update()
     {
         if (state == ObjectState.MovingThroughMirror)
         {
             transform.position += (xDir + yDir + zDir) * speed * Time.deltaTime;
+        }
+
+        if (transform.position != originalPosition && state != ObjectState.MovingThroughMirror)
+        {
+            timeLeft -= Time.deltaTime;
+            if (timeLeft < 0f)
+            {
+                transform.position = originalPosition;
+            }
         }
     }
 
@@ -43,9 +63,10 @@ public class InteractablePlatform : Interactable
         moveObjectController = null;
         state = ObjectState.Interactable;
         rb.constraints = RigidbodyConstraints.FreezeAll;
+        timeLeft = resetTimer;
     }
 
-    public override void AddForce(Vector3 x, Vector3 y, Vector3 z)
+    public override void MoveRelativeToPlayer(Vector3 x, Vector3 y, Vector3 z)
     {
         if (xAxis)
             xDir = x.normalized;
@@ -55,7 +76,17 @@ public class InteractablePlatform : Interactable
             zDir = z.normalized * 5f;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public override void MoveRelativeToObject(float x, float y, float z)
+    {
+        if (xAxis)
+            xDir = transform.right * x;
+        if (yAxis)
+            yDir = transform.up * y;
+        if (zAxis)
+            zDir = transform.forward * z * 5f;
+    }
+
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Player")
         {
@@ -63,7 +94,7 @@ public class InteractablePlatform : Interactable
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    protected virtual void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.tag == "Player")
         {
