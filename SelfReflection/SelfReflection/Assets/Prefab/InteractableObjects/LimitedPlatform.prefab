@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 2261210269949281403}
   - component: {fileID: 2261210269949281400}
   - component: {fileID: 2261210269949281401}
-  - component: {fileID: 2261210269949281398}
+  - component: {fileID: 5739509011707336576}
   m_Layer: 7
-  m_Name: InteractablePlatform
+  m_Name: LimitedPlatform
   m_TagString: Real
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,7 +113,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &2261210269949281398
+--- !u!114 &5739509011707336576
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,19 +122,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 2261210269949281399}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22b6976efc3ebe54ca7b8ec94503aedd, type: 3}
+  m_Script: {fileID: 11500000, guid: 1adc571746fee1a4296aceb7c5f0d9f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ethereal: {fileID: 2100000, guid: 31d96ae74f9754947a735ec067282f39, type: 2}
-  real: {fileID: 2100000, guid: 1f6fc95abbc97c349aeac9d7391b5f95, type: 2}
+  ethereal: {fileID: 0}
+  real: {fileID: 0}
   rb: {fileID: 0}
-  mass: 1
-  drag: 1
-  maxVelocity: 10
+  mass: 0
+  drag: 0
+  maxVelocity: 0
   state: 0
   canBecomeEthereal: 0
-  xAxis: 1
-  yAxis: 0
-  zAxis: 1
-  speed: 7
-  resetTimer: 2000
+  relativeMinX: 0
+  relativeMaxX: 0
+  relativeMinY: 0
+  relativeMaxY: 0
+  relativeMinZ: 0
+  relativeMaxZ: 0
+  resetTimer: 0
