@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum PlayerState
 {
+    MovementDisabled,
     Grounded,
     AirBorn,
     GrabbingLedge,
@@ -13,6 +14,7 @@ public enum PlayerState
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
+    public bool movementDisabled;
     public float moveSpeed;
     public float groundDrag;
     public PlayerState state;
@@ -49,13 +51,12 @@ public class PlayerMovement : MonoBehaviour
     public Transform downCast;
     public Transform forwardCast;
     public Transform lowLedgeCast;
+    public float climbUpSpeed;
+    private Vector3 finalClimbUpPosition;
 
     private RaycastHit downCastHit;
     private RaycastHit forwardCastHit;
     private RaycastHit overHeadCastHit;
-
-    public float climbUpSpeed;
-    private Vector3 finalClimbUpPosition;
 
     public Transform playerCam;
 
@@ -73,31 +74,37 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // ground check
-        CheckState();
-        StandingOnInteractableCheck();
-
-        PlayerInput();
-        SpeedControl();
-
-        // drag
-        if (state == PlayerState.Grounded)
+        if (!movementDisabled)
         {
-            rb.drag = groundDrag;
+            // ground check
+            CheckState();
+            StandingOnInteractableCheck();
+
+            PlayerInput();
+            SpeedControl();
+
+            // drag
+            if (state == PlayerState.Grounded)
+            {
+                rb.drag = groundDrag;
+            }
+            else
+                rb.drag = 0;
         }
-        else
-            rb.drag = 0;
     }
 
     private void FixedUpdate()
     {
-        if (state != PlayerState.GrabbingLedge && state != PlayerState.ClimbingLedge)
+        if (!movementDisabled)
         {
-            MovePlayer();
-        }
-        else if (state == PlayerState.ClimbingLedge)
-        {
-            ClimbUpFromLedge();
+            if (state == PlayerState.Grounded || state == PlayerState.AirBorn)
+            {
+                MovePlayer();
+            }
+            else if (state == PlayerState.ClimbingLedge)
+            {
+                ClimbUpFromLedge();
+            }
         }
     }
 
@@ -106,26 +113,46 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        // jump
-        if (GetKey(jumpKey) && readyToJump && state == PlayerState.Grounded)
+        switch(state)
         {
-            if (CheckLedge())
-            {
-                GrabLedge();
-                state = PlayerState.ClimbingLedge;
-            }
-            else
-            {
-                readyToJump = false;
-                Jump();
-                Invoke(nameof(ResetJump), jumpCooldown);
-            }
+            case PlayerState.Grounded:
+                if (GetKey(jumpKey) && readyToJump)
+                {
+                    readyToJump = false;
+                    Jump();
+                    Invoke(nameof(ResetJump), jumpCooldown);
+                }
+                else if (CheckLedge() && verticalInput > 0)
+                {
+                    GrabLedge();
+                    state = PlayerState.ClimbingLedge;
+                }
+                break;
+
+            case PlayerState.AirBorn:
+                if (CheckLedge() && verticalInput > 0)
+                {
+                    GrabLedge();
+                    state = PlayerState.ClimbingLedge;
+                    print("idk");
+                }
+                else if (CheckLedge() && forwardCastHit.collider != null)
+                {
+                    GrabLedge();
+                }
+                break;
+
+            case PlayerState.GrabbingLedge:
+                if (GetKeyDown(jumpKey))
+                {
+                    state = PlayerState.ClimbingLedge;
+                }
+                break;
+
+            case PlayerState.ClimbingLedge:
+                break;
         }
-        // get up from ledge
-        else if (GetKeyDown(jumpKey) && state == PlayerState.GrabbingLedge)
-        {
-            state = PlayerState.ClimbingLedge;
-        }
+
     }
 
     private void CheckState()
@@ -146,23 +173,17 @@ public class PlayerMovement : MonoBehaviour
 
     private bool CheckLedge()
     {
-        var down = Physics.Raycast(downCast.position, Vector3.down, out downCastHit, 2f, CombinedLayers);
+        var down = Physics.Raycast(downCast.position, Vector3.down, out downCastHit, 3f, CombinedLayers);
         var forward = Physics.Raycast(forwardCast.position, forwardCast.forward, out forwardCastHit, 2f, CombinedLayers);
-        var overHead = Physics.Raycast(lowLedgeCast.position, lowLedgeCast.forward, out overHeadCastHit, 2f, CombinedLayers);
+        var overHead = Physics.Raycast(lowLedgeCast.position, Vector3.down, out overHeadCastHit, 3f, CombinedLayers);
 
-        if (state == PlayerState.AirBorn)
+        if (down && forward)
         {
-            if (down && forward)
-            {
-                return true;
-            }
+            return true;
         }
-        else if (state == PlayerState.Grounded)
+        else if (down && overHead)
         {
-            if (down && overHead && !forward)
-            {
-                return true;
-            }
+            return true;
         }
 
         return false;
@@ -182,10 +203,6 @@ public class PlayerMovement : MonoBehaviour
         else if (state == PlayerState.AirBorn)
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
-            if (CheckLedge())
-            {
-                GrabLedge();
-            }
         }
     }
 
@@ -236,7 +253,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void GrabLedge()
     {
-        finalClimbUpPosition = new Vector3(downCastHit.point.x, downCastHit.point.y + 0.05f, downCastHit.point.z);
+        finalClimbUpPosition = new Vector3(downCastHit.point.x, downCastHit.point.y + 0.1f, downCastHit.point.z);
         state = PlayerState.GrabbingLedge;
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
@@ -258,13 +275,13 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            rb.velocity = (finalClimbUpPosition - transform.position).normalized * climbUpSpeed;
-            if (Vector3.Distance(transform.position, finalClimbUpPosition) < 0.01f)
+            float distance = Vector3.Distance(transform.position, finalClimbUpPosition);
+            rb.velocity = (finalClimbUpPosition - transform.position).normalized * climbUpSpeed * distance;
+            if (distance < 0.1f)
             {
                 rb.velocity = Vector3.zero;
-                state = PlayerState.Grounded;
                 rb.useGravity = true;
-                DisableMovement();
+                state = PlayerState.Grounded;
                 
                 if (interactableObject)
                 {
