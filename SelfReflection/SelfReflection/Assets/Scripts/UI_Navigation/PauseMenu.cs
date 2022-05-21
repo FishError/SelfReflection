@@ -6,6 +6,7 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenu;
     public bool isPaused;
+    private int isOpen = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,14 +16,20 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            toggleMenu();
+            isOpen++;
+            OpenPauseMenu();
+        }
+        
+        if(isOpen == 2)
+        {
+            ClosePauseMenu();
         }
         
     }
 
-    void toggleMenu()
+    void OpenPauseMenu()
     {
         if (pauseMenu.activeInHierarchy == false)
         {
@@ -30,14 +37,18 @@ public class PauseMenu : MonoBehaviour
             isPaused = true;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0;
         }
-        else
-        {
-            pauseMenu.SetActive(false);
-            isPaused = false;
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-        }
+    }
+
+    public void ClosePauseMenu()
+    {
+        pauseMenu.SetActive(false);
+        isPaused = false;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Time.timeScale = 1;
+        isOpen = 0;
     }
 
 }

@@ -21,9 +21,9 @@ public class PickupThroughMirrorController : MonoBehaviour
     public float sphereCastRadius = 0.5f;
 
     [Header("ObjectFollow")]
-    [SerializeField] private float minSpeed = 0;
-    [SerializeField] private float maxSpeed = 300f;
-    [SerializeField] private float maxDistance = 100f;
+    [SerializeField] private float minSpeed = 900f;
+    [SerializeField] private float maxSpeed = 1000f;
+    [SerializeField] private float maxDistance = 50f;
     private float currentSpeed = 0f;
     private float currentDist = 0f;
     private Vector3 spawnLocation;
@@ -41,15 +41,14 @@ public class PickupThroughMirrorController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            //print("Right Clicked");
             if (currentlyPickedUpObject == null)
             {
                 ray = new Ray(transform.position, transform.TransformDirection(Vector3.forward));
-                for (int i = 0; i < maxReflections; i++)
+                for (int reflections = 0; reflections < maxReflections; reflections++)
                 {
                     if (Physics.Raycast(ray.origin, ray.direction, out hit, maxDistance))
                     {
-                        if(i == 0)
+                        if(reflections == 0)
                         {
                             spawnLocation = hit.point;
                         }
@@ -58,13 +57,13 @@ public class PickupThroughMirrorController : MonoBehaviour
                         {
                             interactableObject = hit.collider.transform.gameObject.GetComponent<InteractableObject>();
 
-                            if (i > 0 && interactableObject.IsEthereal())
+                            if (reflections > 0 && interactableObject.IsEthereal())
                             {
                                 // set object back to real
                                 interactableObject.SetToReal();
                                 interactableObject.transform.position = spawnLocation;
                             }
-                            else if (i > 0 && !interactableObject.IsEthereal())
+                            else if (reflections > 0 && !interactableObject.IsEthereal())
                             {
                                 // pick up object through mirror
                                 interactableObject.SetToEthereal();
@@ -113,6 +112,8 @@ public class PickupThroughMirrorController : MonoBehaviour
             lookRot = Quaternion.LookRotation(pickupParent.transform.position - interactableObject.rb.position);
             lookRot = Quaternion.Slerp(pickupParent.transform.rotation, lookRot, rotationSpeed * Time.fixedDeltaTime);
             interactableObject.rb.MoveRotation(lookRot);
+
+
         }
     }
 
@@ -127,8 +128,6 @@ public class PickupThroughMirrorController : MonoBehaviour
     {
         physicsObject = interactableObject.GetComponent<PhysicsObject>();
         currentlyPickedUpObject = interactableObject.gameObject;
-        //print(currentlyPickedUpObject.name);
-        interactableObject.SelectObject(this);
         physicsObject.pickupThroughMirror = this;
         StartCoroutine(physicsObject.PickUp());
     }
@@ -138,6 +137,6 @@ public class PickupThroughMirrorController : MonoBehaviour
         currentlyPickedUpObject = null;
         physicsObject.pickedUp = false;
         currentDist = 0;
-        interactableObject.UnselectObject();
+        interactableObject.UnSelectObject();
     }
 }
