@@ -65,7 +65,6 @@ public class HighlightObject : MonoBehaviour
         
         if (moveObjectController.interactable != null || selectedObject != null)
         {
-            print("highlight " + selectedObject.name);
             Highlight(selectedObject, red, green, blue, true);
         }
     }
