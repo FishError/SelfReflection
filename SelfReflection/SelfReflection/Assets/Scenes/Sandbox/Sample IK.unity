@@ -500,13 +500,7 @@ PrefabInstance:
       objectReference: {fileID: 9000000, guid: bf04edd47f858584b8327958ae6071ed, type: 3}
     - target: {fileID: 1246383078986331524, guid: 0988cffd299e6094a83c02b90cf45721, type: 3}
       propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tTransform 'Hips'\n\tTransform 'L_Ankle'\n\tTransform
-        'R_Leg'\n\tTransform 'Pelvis'\n\tTransform 'L_Shoulder'\n\tTransform 'R_Ankle'\n\tTransform
-        'R_Knee'\n\tTransform 'R_Ball'\n\tTransform 'Mid_Spine'\n\tTransform 'Hips'\n\tand
-        more ...\n\tFrom animation clip 'Idle'\n\tFrom animation clip 'Walk'\n\tFrom
-        animation clip 'Jump'"
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2987468310820401226, guid: 0988cffd299e6094a83c02b90cf45721, type: 3}
       propertyPath: m_RootOrder
@@ -564,6 +558,18 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1641784571}
+    - target: {fileID: 7134531999395710151, guid: 0988cffd299e6094a83c02b90cf45721, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7134531999395710151, guid: 0988cffd299e6094a83c02b90cf45721, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7134531999395710151, guid: 0988cffd299e6094a83c02b90cf45721, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0988cffd299e6094a83c02b90cf45721, type: 3}
 --- !u!4 &1641784569 stripped
