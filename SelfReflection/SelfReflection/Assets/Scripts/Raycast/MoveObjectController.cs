@@ -30,12 +30,14 @@ public class MoveObjectController : MonoBehaviour
     public Vector3 lastPlayerPosition;
 
     private PlayerMovement playerMovement;
+    private IKController ik;
 
     private void Start()
     {
         sensX = transform.GetComponent<PlayerCam>().sensX;
         sensY = transform.GetComponent<PlayerCam>().sensY;
         playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
+        ik = GameObject.Find("Player").transform.GetChild(2).GetComponent<IKController>();
     }
 
     private void Update()
@@ -92,6 +94,7 @@ public class MoveObjectController : MonoBehaviour
                             {
                                 SelectInterableObject(false);
                                 interactable.transform.parent = pickupParent;
+                                ik.ikActive = true;
                             }
                             else
                             {
@@ -123,6 +126,7 @@ public class MoveObjectController : MonoBehaviour
         else
         {
             DropObject();
+            ik.ikActive = false;
         }
     }
 
