@@ -12,9 +12,6 @@ public class LevelHubObjects
     public GameObject portalMirror;
     public GameObject parentOfObjects;
 
-    public static GameObject portalMirrorReference { get; set; }
-    public static GameObject parentOfObjectsReference { get; set; }
-
     [HideInInspector]
     public string portalMirrorName;
     [HideInInspector]
