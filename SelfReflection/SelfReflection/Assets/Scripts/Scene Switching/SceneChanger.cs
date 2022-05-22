@@ -9,13 +9,16 @@ public class SceneChanger : MonoBehaviour
     public string nextScene;
     private void OnCollisionEnter(Collision collision)
     {
-        GameObject hubManager = GameObject.Find("HubManager");
-        if (hubManager != null)
+        if (nextScene.Contains("Hub"))
         {
-            HubManager hm = hubManager.GetComponent<HubManager>();
-            hm.SetLevelToCompleted(gameObject.scene.name);
-            SceneManager.LoadScene(hm.GetHubSceneToLoad());
-            return;
+            GameObject hubManager = GameObject.Find("HubManager");
+            if (hubManager != null)
+            {
+                HubManager hm = hubManager.GetComponent<HubManager>();
+                hm.SetLevelToCompleted(gameObject.scene.name);
+                SceneManager.LoadScene(hm.GetHubSceneToLoad());
+                return;
+            }
         }
 
         SceneManager.LoadScene(nextScene);
