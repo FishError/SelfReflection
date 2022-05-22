@@ -1,54 +1,72 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [System.Serializable]
-public class sceneHubObjects
+public class LevelHubObjects
 {
     public string sceneName;
     public bool completed;
-    public GameObject ParentOfObjects;
+    public GameObject portalMirror;
+    public GameObject parentOfObjects;
+
+    public static GameObject portalMirrorReference { get; set; }
+    public static GameObject parentOfObjectsReference { get; set; }
+
+    [HideInInspector]
+    public string portalMirrorName;
+    [HideInInspector]
     public string parentOfObjectsName;
 }
 
 public class HubManager : MonoBehaviour
 {
-    public List<sceneHubObjects> scenes;
-
     public string hubName;
+    public List<LevelHubObjects> scenes;
+    public List<string> hubCompletionOrder;
 
     // Start is called before the first frame update
     void Start()
     {
-        hubName = gameObject.scene.name;
         SceneManager.activeSceneChanged += ActiveSceneChanged;
 
-        foreach (sceneHubObjects scene in scenes)
+        foreach (LevelHubObjects scene in scenes)
         {
-            scene.parentOfObjectsName = scene.ParentOfObjects.name;
+            scene.parentOfObjectsName = scene.parentOfObjects.name;
+            scene.portalMirrorName = scene.portalMirror.name;
         }
     }
 
-    public void SetSceneToCompleted(string sceneName)
+    public void SetLevelToCompleted(string sceneName)
     {
         var scene = scenes.Find(s => s.sceneName == sceneName);
-        scene.completed = true;
+        if (scene != null)
+            scene.completed = true;
+    }
+
+    public string GetHubSceneToLoad()
+    {
+        var numCompleted = scenes.Count(s => s.completed);
+        return hubCompletionOrder[numCompleted];
     }
 
     private void ActiveSceneChanged(Scene current, Scene next)
     {
-        if (next.name == hubName)
+        if (next.name.Contains(hubName))
         {
-            foreach (sceneHubObjects scene in scenes)
+            foreach (LevelHubObjects scene in scenes)
             {
                 if (scene.completed)
                 {
                     var obj = GameObject.Find(scene.parentOfObjectsName);
+                    print(obj);
                     foreach (Transform t in obj.transform)
                     {
                         t.gameObject.SetActive(true);
                     }
+                    GameObject.Find(scene.portalMirrorName).SetActive(false);
                 }
             }
         }
