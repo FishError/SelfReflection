@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 
 public class AlarmClock : MonoBehaviour
 {
-    public Text text;
+    public TextMeshProUGUI text;
 
     [Header("Edit Time (in Seconds)")]
     public float timer = 0.0f;
@@ -14,7 +14,7 @@ public class AlarmClock : MonoBehaviour
 
     private void Start()
     {
-        text.text = "Pause";
+        text.text = "";
         StartCoroutine(wait());
     }
 
