@@ -36,27 +36,26 @@ public class HighlightObject : MonoBehaviour
         {
             if (Physics.Raycast(ray.origin, ray.direction, out hit, maxReflectionDistance))
             {
-                if (hit.collider.transform.gameObject.layer == interactableLayer)
-                {
-                    if (reflections > 0 || hit.distance < maxGrabDistance)
-                    {
-                        selectedObject = hit.collider.gameObject;
-                    }
-                }
-                else
-                {
-                    if (moveObjectController.interactable == null)
-                    {
-                        if (selectedObject)
-                        {
-                            Highlight(selectedObject, 255, 255, 255, false);
-                        }
-                        selectedObject = null;
-                    }
-                }
-
                 if (hit.collider.tag != "Mirror")
                 {
+                    if (hit.collider.transform.gameObject.layer == interactableLayer)
+                    {
+                        if (reflections > 0 || hit.distance < maxGrabDistance)
+                        {
+                            selectedObject = hit.collider.gameObject;
+                        }
+                    }
+                    else
+                    {
+                        if (moveObjectController.interactable == null)
+                        {
+                            if (selectedObject)
+                            {
+                                Highlight(selectedObject, 255, 255, 255, false);
+                            }
+                            selectedObject = null;
+                        }
+                    }
                     break;
                 }
             }
@@ -76,12 +75,11 @@ public class HighlightObject : MonoBehaviour
         mat.color = new Color32((byte)r, (byte)g, (byte)b, 255);
         if (emission)
         {
-            mat.EnableKeyword("_EMISSION");
             mat.SetColor("_EmissionColor", new Color32((byte)emissionRed, (byte)emissionGreen, (byte)emissionBlue, 255));
         }
         else
         {
-            mat.DisableKeyword("_EMISSION");
+            mat.SetColor("_EmissionColor", new Color32((byte)0, (byte)0, (byte)0, 255));
         }
     }
 }

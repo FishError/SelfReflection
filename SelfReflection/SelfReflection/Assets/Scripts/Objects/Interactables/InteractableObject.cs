@@ -36,9 +36,18 @@ public class InteractableObject : Interactable
         state = ObjectState.Interactable;
     }
 
-    public override void MoveRelativeToPlayer(Vector3 x, Vector3 y, Vector3 z)
+    public override void MoveRelativeToPlayer(float mouseX, float mouseY, float mouseScroll, Vector3 playerPosition, Vector3 mirrorPosition)
     {
-        rb.AddForce(x + y + z);
+        var dir = (playerPosition - mirrorPosition).normalized;
+        var forwardBackwardDir = new Vector3(dir.x, 0, dir.z);
+        var leftRightDir = Vector3.Cross(forwardBackwardDir, Vector3.up);
+        var playerObjectDistance = (playerPosition - transform.position).magnitude;
+
+        Vector3 upDownForce = Vector3.up * mouseY * playerObjectDistance * 5;
+        Vector3 leftRightForce = leftRightDir * mouseX * playerObjectDistance * 5;
+        Vector3 forwardBackwardsForce = -forwardBackwardDir * mouseScroll * 20;
+
+        rb.AddForce(leftRightForce + upDownForce + forwardBackwardsForce);
     }
 
     private void OnCollisionEnter(Collision collision)
