@@ -1090,6 +1090,7 @@ GameObject:
   - component: {fileID: 2987468310820401226}
   - component: {fileID: 2987468310820401228}
   - component: {fileID: 2987468310820401229}
+  - component: {fileID: 3373272036296443651}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -1160,10 +1161,24 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   orientation: {fileID: 4964178607100883675}
+  ledgeGrabbingDisabled: 0
   downCast: {fileID: 941327920313445391}
   forwardCast: {fileID: 7061681343226581548}
   lowLedgeCast: {fileID: 9023400864198518789}
   climbUpSpeed: 3
+  playerCam: {fileID: 0}
+--- !u!114 &3373272036296443651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2987468310820401227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3ca9c52f8c41214ab8209ee64adbbb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   playerCam: {fileID: 0}
 --- !u!1 &3076744730065284823
 GameObject:
