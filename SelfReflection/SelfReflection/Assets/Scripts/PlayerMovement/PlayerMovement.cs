@@ -135,7 +135,6 @@ public class PlayerMovement : MonoBehaviour
                 {
                     GrabLedge();
                     state = PlayerState.ClimbingLedge;
-                    print("idk");
                 }
                 else if (CheckLedge() && forwardCastHit.collider != null)
                 {
@@ -239,17 +238,17 @@ public class PlayerMovement : MonoBehaviour
     {
         if (groundHit.transform != null)
         {
-            if (groundHit.transform.GetComponent<Interactable>())
+            if (groundHit.transform.GetComponent<InteractableObject>())
             {
                 interactableGroundObject = groundHit.transform.gameObject;
-                interactableGroundObject.GetComponent<Interactable>().DisableInteraction();
+                interactableGroundObject.GetComponent<InteractableObject>().DisableInteraction();
             }
         }
         else
         {
             if (interactableGroundObject && state != PlayerState.GrabbingLedge && state != PlayerState.ClimbingLedge)
             {
-                interactableGroundObject.GetComponent<Interactable>().EnableInteraction();
+                interactableGroundObject.GetComponent<InteractableObject>().EnableInteraction();
                 interactableGroundObject = null;
             }
         }
