@@ -30,12 +30,14 @@ public class MoveObjectController : MonoBehaviour
     public Vector3 lastPlayerPosition;
 
     private PlayerMovement playerMovement;
+    private IKController ik;
 
     private void Start()
     {
         sensX = transform.GetComponent<PlayerCam>().sensX;
         sensY = transform.GetComponent<PlayerCam>().sensY;
         playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
+        ik = GameObject.Find("Player").transform.GetChild(2).GetComponent<IKController>();
     }
 
     private void Update()
@@ -92,6 +94,7 @@ public class MoveObjectController : MonoBehaviour
                             {
                                 SelectInterableObject(false);
                                 interactable.transform.parent = pickupParent;
+                                ik.ikActive = true;
                             }
                             else
                             {
@@ -123,6 +126,7 @@ public class MoveObjectController : MonoBehaviour
         else
         {
             DropObject();
+            ik.ikActive = false;
         }
     }
 
@@ -199,21 +203,10 @@ public class MoveObjectController : MonoBehaviour
     {
         if (interactable is InteractableObject)
         {
-            var dir = (lastPlayerPosition - relativeMirror.transform.position).normalized;
-            var forwardBackwardDir = new Vector3(dir.x, 0, dir.z);
-            var leftRightDir = Vector3.Cross(forwardBackwardDir, Vector3.up);
-            var playerObjectDistance = (transform.position - interactable.transform.position).magnitude;
-
-            Vector3 upDownForce = Vector3.up * mouseY * objectMoveSpeed * playerObjectDistance * 5;
-            Vector3 leftRightForce = leftRightDir * mouseX * objectMoveSpeed * playerObjectDistance * 5;
-
-            Vector3 forwardBackwardsForce = Vector3.zero;
-            if (mouseScroll > 0)
-                forwardBackwardsForce = -forwardBackwardDir * mouseScrollSense * objectMoveSpeed * 20;
-            else if (mouseScroll < 0)
-                forwardBackwardsForce = forwardBackwardDir * mouseScrollSense * objectMoveSpeed * 20;
-
-            interactable.MoveRelativeToPlayer(leftRightForce, upDownForce, forwardBackwardsForce);
+            var x = mouseX * objectMoveSpeed;
+            var y = mouseY * objectMoveSpeed;
+            var z = mouseScroll * mouseScrollSense * objectMoveSpeed * 15;
+            interactable.MoveRelativeToPlayer(x, y, z, lastPlayerPosition, relativeMirror.transform.position);
         }
         else if (interactable is InteractablePlatform)
         {

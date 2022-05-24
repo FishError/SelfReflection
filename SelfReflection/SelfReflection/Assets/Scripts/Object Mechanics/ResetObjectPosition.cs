@@ -9,12 +9,14 @@ public class ResetObjectPosition : MonoBehaviour
     public MoveObjectController playerCam = null;
     private GameObject player = null;
     private GameObject pickUpParent;
+    private float time;
 
     private void Update()
     {
         playerCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MoveObjectController>();
         manager = GameObject.FindGameObjectWithTag("ObjectManager").GetComponent<ResetObjectManager>();
         player = GameObject.FindGameObjectWithTag("Player");
+        pickUpParent = GameObject.Find("PickupParent");
     }
 
 
@@ -24,33 +26,41 @@ public class ResetObjectPosition : MonoBehaviour
         {
             return;
         }
-        else if(other.gameObject.layer == 7)
+        else if(this.gameObject.layer == 7 && other.tag == "Void") //Respawn Objects (excluding Player) when dropped into the Void
         {
-            ResetObject();
+            StartCoroutine(itemSpawn(this.gameObject));
         }
-        else
+
+        else if(pickUpParent.transform.childCount != 0 && other.tag == "Void" && this.tag == "Player") //Respawn Objects and Player if Player is holding the object and dropping into the Void
         {
-            ResetPlayer();
+            StartCoroutine(playerSpawn());
+        }
+        else if (pickUpParent.transform.childCount == 0 && other.tag == "Void" && this.tag == "Player") //Respawn Player
+        {
+            StartCoroutine(playerSpawn());
         }
     }
 
-    public void ResetObject()
+    public void ResetObject(GameObject item)
     {
         for (int i = 0; i < manager.interactableObj.Count; i++)
         {
             if (manager.objPosition.ContainsKey(manager.interactableObj[i]))
             {
                 int playerIndex = manager.interactableObj.FindIndex(p => p.Equals(player));
-                if (i != playerIndex)
+                int itemIndex = manager.interactableObj.FindIndex(p => p.Equals(item));
+                if (i != playerIndex && i == itemIndex)
                 {
                     manager.interactableObj[i].transform.position = manager.objPosition[manager.interactableObj[i]];
-                }
-                if(playerIndex == -1)
-                {
-                    manager.interactableObj[i].transform.position = manager.objPosition[manager.interactableObj[i]];
-                    playerCam.DropObject();
+                    manager.interactableObj[i].transform.localEulerAngles = manager.objRotation[manager.interactableObj[i]];
+                    manager.interactableObj[i].GetComponent<Rigidbody>().freezeRotation = true;
+                    if (pickUpParent.transform.childCount != 0)
+                    {
+                        playerCam.DropObject();
+                    }
                 }
             }
+            
         }
     }
 
@@ -58,7 +68,6 @@ public class ResetObjectPosition : MonoBehaviour
     {
         for (int i = 0; i < manager.interactableObj.Count; i++)
         {
-            pickUpParent = GameObject.Find("PickupParent");
             if (pickUpParent.transform.childCount == 0)
             {
                 manager.interactableObj[i].transform.position = manager.objPosition[manager.interactableObj[i]];
@@ -66,9 +75,26 @@ public class ResetObjectPosition : MonoBehaviour
             else
             {
                 manager.interactableObj[i].transform.position = manager.objPosition[manager.interactableObj[i]];
+                manager.interactableObj[i].transform.localEulerAngles = manager.objRotation[manager.interactableObj[i]];
+                manager.interactableObj[i].GetComponent<Rigidbody>().freezeRotation = true;
                 playerCam.DropObject();
             }
         }
+    }
+
+    IEnumerator playerSpawn()
+    {
+        time = 1.5f;
+        yield return new WaitForSeconds(time);
+        ResetPlayer();
+        
+    }
+
+    IEnumerator itemSpawn(GameObject item)
+    {
+        time = 0f;
+        yield return new WaitForSeconds(time);
+        ResetObject(item);
     }
 
 }
