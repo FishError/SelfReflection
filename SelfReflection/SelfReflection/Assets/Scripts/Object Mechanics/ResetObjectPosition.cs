@@ -52,7 +52,9 @@ public class ResetObjectPosition : MonoBehaviour
                 if (i != playerIndex && i == itemIndex)
                 {
                     manager.interactableObj[i].transform.position = manager.objPosition[manager.interactableObj[i]];
-                    if(pickUpParent.transform.childCount != 0)
+                    manager.interactableObj[i].transform.localEulerAngles = manager.objRotation[manager.interactableObj[i]];
+                    manager.interactableObj[i].GetComponent<Rigidbody>().freezeRotation = true;
+                    if (pickUpParent.transform.childCount != 0)
                     {
                         playerCam.DropObject();
                     }
@@ -73,6 +75,8 @@ public class ResetObjectPosition : MonoBehaviour
             else
             {
                 manager.interactableObj[i].transform.position = manager.objPosition[manager.interactableObj[i]];
+                manager.interactableObj[i].transform.localEulerAngles = manager.objRotation[manager.interactableObj[i]];
+                manager.interactableObj[i].GetComponent<Rigidbody>().freezeRotation = true;
                 playerCam.DropObject();
             }
         }
@@ -82,7 +86,6 @@ public class ResetObjectPosition : MonoBehaviour
     {
         time = 1.5f;
         yield return new WaitForSeconds(time);
-        print("Player is Dead");
         ResetPlayer();
         
     }
@@ -91,7 +94,6 @@ public class ResetObjectPosition : MonoBehaviour
     {
         time = 0f;
         yield return new WaitForSeconds(time);
-        print("Item Spawning");
         ResetObject(item);
     }
 
