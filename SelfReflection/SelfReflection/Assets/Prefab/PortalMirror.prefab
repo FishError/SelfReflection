@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7972830372586072711}
   - component: {fileID: 2187603260673035938}
   - component: {fileID: 8859192977142252760}
-  - component: {fileID: 6828941207672115900}
   m_Layer: 0
   m_Name: Border
   m_TagString: Untagged
@@ -96,19 +95,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6828941207672115900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 246158069647029998}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6741defd54d178b45a6aee357c49c08c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destination: {fileID: 0}
 --- !u!1 &7527593168852219591
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,7 +107,7 @@ GameObject:
   - component: {fileID: 7527593168852219596}
   - component: {fileID: 7527593168852219587}
   - component: {fileID: 7527593168852219586}
-  - component: {fileID: 7527593168852219585}
+  - component: {fileID: 2904667105576974177}
   m_Layer: 0
   m_Name: Screen
   m_TagString: Untagged
@@ -205,7 +191,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7527593168852219585
+--- !u!114 &2904667105576974177
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -214,10 +200,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7527593168852219591}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6741defd54d178b45a6aee357c49c08c, type: 3}
+  m_Script: {fileID: 11500000, guid: 598e7482d1e59f644a5daab561e4dd5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 0}
 --- !u!1 &7527593170011550779
 GameObject:
   m_ObjectHideFlags: 0

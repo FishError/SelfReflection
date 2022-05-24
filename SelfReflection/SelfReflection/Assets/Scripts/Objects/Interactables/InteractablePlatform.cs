@@ -66,24 +66,28 @@ public class InteractablePlatform : Interactable
         timeLeft = resetTimer;
     }
 
-    public override void MoveRelativeToPlayer(Vector3 x, Vector3 y, Vector3 z)
+    public override void MoveRelativeToPlayer(float mouseX, float mouseY, float mouseScroll, Vector3 playerPosition, Vector3 mirrorPosition)
     {
+        var dir = (playerPosition - mirrorPosition).normalized;
+        var forwardBackwardDir = new Vector3(dir.x, 0, dir.z);
+        var leftRightDir = Vector3.Cross(forwardBackwardDir, Vector3.up);
+
         if (xAxis)
-            xDir = x.normalized;
+            xDir = leftRightDir;
         if (yAxis)
-            yDir = y.normalized;
+            yDir = Vector3.up;
         if (zAxis)
-            zDir = z.normalized * 5f;
+            zDir = forwardBackwardDir;
     }
 
-    public override void MoveRelativeToObject(float x, float y, float z)
+    public override void MoveRelativeToObject(float mouseX, float mouseY, float mouseScroll)
     {
         if (xAxis)
-            xDir = transform.right * x;
+            xDir = transform.right * mouseX;
         if (yAxis)
-            yDir = transform.up * y;
+            yDir = transform.up * mouseY;
         if (zAxis)
-            zDir = transform.forward * z * 5f;
+            zDir = transform.forward * mouseScroll * 5f;
     }
 
     protected virtual void OnCollisionEnter(Collision collision)
@@ -91,6 +95,7 @@ public class InteractablePlatform : Interactable
         if (collision.gameObject.tag == "Player")
         {
             collision.transform.SetParent(transform);
+            collision.transform.GetComponent<Rigidbody>().useGravity = false;
         }
     }
 
@@ -99,6 +104,7 @@ public class InteractablePlatform : Interactable
         if (collision.gameObject.tag == "Player")
         {
             collision.transform.SetParent(null);
+            collision.transform.GetComponent<Rigidbody>().useGravity = true;
         }
     }
 }
