@@ -125,6 +125,9 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else if (CheckLedge() && verticalInput > 0)
                 {
+                    // state is set to grab ledge then immediately set to climbing
+                    // dk if it should play the grab animation then immediately transition it to climbing animation
+                    // or just play the climb animation
                     GrabLedge();
                     state = PlayerState.ClimbingLedge;
                 }
@@ -133,11 +136,16 @@ public class PlayerMovement : MonoBehaviour
             case PlayerState.AirBorn:
                 if (CheckLedge() && verticalInput > 0)
                 {
+                    // state is set to grab ledge then immediately set to climbing
+                    // dk if it should play the grab animation then immediately transition it to climbing animation
+                    // or just play the climb animation
                     GrabLedge();
                     state = PlayerState.ClimbingLedge;
                 }
                 else if (CheckLedge() && forwardCastHit.collider != null)
                 {
+                    // this is where just the grabbing animation is played
+                    // and grabbing animation should keep playing until player starts climbing
                     GrabLedge();
                 }
                 break;
@@ -285,6 +293,7 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = Vector3.zero;
                 rb.useGravity = true;
                 state = PlayerState.Grounded;
+                // player animation should be set to idle here
                 
                 if (interactableGroundObject)
                 {
