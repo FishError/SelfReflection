@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!65 &4988128830892537158
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4837730916319284223}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.157664, y: 0.2243785, z: 0.041596867}
+  m_Center: {x: -0.0008152276, y: 0.000017547609, z: -0.00069818145}
 --- !u!1 &5756299006339888866
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,7 +23,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5756299006339888865}
   - component: {fileID: 5756299006339888879}
-  - component: {fileID: 5756299006339888864}
   - component: {fileID: 5756299006339888878}
   m_Layer: 7
   m_Name: InteractableBook
@@ -59,19 +71,6 @@ MonoBehaviour:
   zAxis: 1
   speed: 10
   resetTimer: 10
---- !u!65 &5756299006339888864
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5756299006339888866}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.8684591, y: 0.2157669, z: 2.2569847}
-  m_Center: {x: 0.004422506, y: -0.0011119843, z: 0.0025501251}
 --- !u!54 &5756299006339888878
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -177,6 +176,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 5babdc201b1757a49990694911c58672, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 734ccf15ba113d243a810144eb5ce7cb, type: 3}
+--- !u!1 &4837730916319284223 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 734ccf15ba113d243a810144eb5ce7cb, type: 3}
+  m_PrefabInstance: {fileID: 5756299007419741870}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5217633540280324421 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 734ccf15ba113d243a810144eb5ce7cb, type: 3}
