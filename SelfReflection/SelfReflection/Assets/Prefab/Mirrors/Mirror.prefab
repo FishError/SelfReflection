@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 8469968573461780285}
   - component: {fileID: 7447278340084680006}
   - component: {fileID: 6869095915292211024}
+  - component: {fileID: 8754201930607888752}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -149,6 +150,15 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   isMainCameraStereo: 0
   useRightEye: 0
+--- !u!45 &8754201930607888752
+Skybox:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8469968573461780283}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: 81f714daf7144784b8a2f42f1cd30927, type: 2}
 --- !u!1 &8469968573463980287
 GameObject:
   m_ObjectHideFlags: 0
