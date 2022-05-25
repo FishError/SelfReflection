@@ -94,7 +94,6 @@ public class MoveObjectController : MonoBehaviour
                             {
                                 SelectInterableObject(false);
                                 interactable.transform.parent = pickupParent;
-                                ik.ikActive = true;
                             }
                             else
                             {
@@ -126,7 +125,6 @@ public class MoveObjectController : MonoBehaviour
         else
         {
             DropObject();
-            ik.ikActive = false;
         }
     }
 
@@ -196,6 +194,7 @@ public class MoveObjectController : MonoBehaviour
             interactable.SelectObject(this);
             lastPlayerPosition = transform.position;
             playerMovement.ledgeGrabbingDisabled = true;
+            ik.ikActive = true;
         }
     }
 
@@ -229,6 +228,7 @@ public class MoveObjectController : MonoBehaviour
         interactable = null;
         relativeMirror = null;
         playerMovement.ledgeGrabbingDisabled = false;
+        ik.ikActive = false;
     }
 
     public void ScalePickUpParentRange(float distance)
