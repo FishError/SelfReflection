@@ -42,7 +42,7 @@ public class HighlightObject : MonoBehaviour
                     {
                         if (reflections > 0 || hit.distance < maxGrabDistance)
                         {
-                            selectedObject = hit.collider.gameObject;
+                            selectedObject = hit.transform.GetComponent<Interactable>().gameObject;
                         }
                     }
                     else
@@ -71,7 +71,21 @@ public class HighlightObject : MonoBehaviour
 
     private void Highlight(GameObject obj, int r, int g, int b, bool emission)
     {
-        Material mat = obj.GetComponent<Renderer>().material;
+        Renderer parentRenderer = obj.GetComponent<Renderer>();
+        if (parentRenderer != null)
+        {
+            HighlightMaterial(parentRenderer.material, r, g, b, emission);
+        }
+
+        Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
+        foreach (Renderer renderer in renderers)
+        {
+            HighlightMaterial(renderer.material, r, g, b, emission);
+        }
+    }
+
+    private void HighlightMaterial(Material mat, int r, int g, int b, bool emission)
+    {
         mat.color = new Color32((byte)r, (byte)g, (byte)b, 255);
         if (emission)
         {
@@ -80,6 +94,18 @@ public class HighlightObject : MonoBehaviour
         else
         {
             mat.SetColor("_EmissionColor", new Color32((byte)0, (byte)0, (byte)0, 255));
+        }
+    }
+
+    private Transform GetParentTransform(Transform transform)
+    {
+        if (transform.GetComponent<Interactable>() != null)
+        {
+            return transform;
+        }
+        else
+        {
+            return GetParentTransform(transform.parent);
         }
     }
 }
