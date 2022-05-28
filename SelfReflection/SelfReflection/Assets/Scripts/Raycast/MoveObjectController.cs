@@ -203,7 +203,7 @@ public class MoveObjectController : MonoBehaviour
 
     void MoveObjectThroughMirror()
     {
-        if (interactable is InteractableObject)
+        if (interactable is InteractableObject || interactable is InteractableMirror)
         {
             var x = mouseX * objectMoveSpeed;
             var y = mouseY * objectMoveSpeed;

@@ -102,9 +102,16 @@ public class InteractableMirror : Interactable
     public override void SelectObject(MoveObjectController controller)
     {
         moveObjectController = controller;
-        rb.mass = 0;
         rb.constraints = RigidbodyConstraints.FreezeRotation;
-        state = ObjectState.Holding;
+        if (controller.relativeMirror == null)
+        {
+            state = ObjectState.Holding;
+        }
+        else
+        {
+            rb.drag = 10;
+            state = ObjectState.MovingThroughMirror;
+        }
 
         distance = transform.position - controller.transform.position;
     }
@@ -113,6 +120,7 @@ public class InteractableMirror : Interactable
     {
         moveObjectController = null;
         rb.mass = mass;
+        rb.drag = drag;
         rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
         state = ObjectState.Interactable;
     }
@@ -127,5 +135,19 @@ public class InteractableMirror : Interactable
         }
 
         return false;
+    }
+
+    public override void MoveRelativeToPlayer(float mouseX, float mouseY, float mouseScroll, Vector3 playerPosition, Vector3 mirrorPosition)
+    {
+        var dir = (playerPosition - mirrorPosition).normalized;
+        var forwardBackwardDir = new Vector3(dir.x, 0, dir.z);
+        var leftRightDir = Vector3.Cross(forwardBackwardDir, Vector3.up);
+        var playerObjectDistance = (playerPosition - transform.position).magnitude;
+
+        Vector3 upDownForce = Vector3.up * mouseY * playerObjectDistance * 5;
+        Vector3 leftRightForce = leftRightDir * mouseX * playerObjectDistance * 5;
+        Vector3 forwardBackwardsForce = -forwardBackwardDir * mouseScroll * 20;
+
+        rb.AddForce(leftRightForce + upDownForce + forwardBackwardsForce);
     }
 }
