@@ -5,8 +5,17 @@ using UnityEngine;
 public class DisappearOverTime : MonoBehaviour
 {
     public float time;
+    public GameObject bookModel;
+    public float spawnTime = 5f;
 
-   
+    private void Update()
+    {
+        if (!bookModel.activeInHierarchy)
+        {
+            StartCoroutine(Appear());
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
@@ -18,7 +27,13 @@ public class DisappearOverTime : MonoBehaviour
     IEnumerator Disappear()
     {
         yield return new WaitForSeconds(time);
-        this.gameObject.transform.parent.gameObject.SetActive(false);
-
+        bookModel.SetActive(false);
     }
+
+    IEnumerator Appear()
+    {
+        yield return new WaitForSeconds(spawnTime);
+        bookModel.SetActive(true);
+    }
+
 }
