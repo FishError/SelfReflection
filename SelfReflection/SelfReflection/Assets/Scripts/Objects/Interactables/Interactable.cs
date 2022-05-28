@@ -78,7 +78,10 @@ public abstract class Interactable : MonoBehaviour
 
     public abstract void UnSelectObject();
 
-    public abstract void MoveRelativeToPlayer(float mouseX, float mouseY, float mouseScroll, Vector3 playerPosition, Vector3 mirrorPosition);
+    public virtual void MoveRelativeToPlayer(float mouseX, float mouseY, float mouseScroll, Vector3 playerPosition, Vector3 mirrorPosition)
+    {
+
+    }
 
     public virtual void MoveRelativeToObject(float mouseX, float mouseY, float mouseScroll)
     {

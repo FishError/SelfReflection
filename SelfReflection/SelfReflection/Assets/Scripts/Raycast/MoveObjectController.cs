@@ -93,7 +93,10 @@ public class MoveObjectController : MonoBehaviour
                             if (interactable.state == ObjectState.Interactable)
                             {
                                 SelectInterableObject(false);
-                                interactable.transform.parent = pickupParent;
+                                if (interactable is InteractableObject)
+                                {
+                                    interactable.transform.parent = pickupParent;
+                                }
                             }
                             else
                             {
@@ -215,9 +218,12 @@ public class MoveObjectController : MonoBehaviour
 
     void MoveObjectNoMirror()
     {
-        if (interactable.transform.position != pickupParent.position)
+        if (interactable is InteractableObject)
         {
-            interactable.transform.position = Vector3.MoveTowards(interactable.transform.position, pickupParent.position, 15 * Time.deltaTime);
+            if (interactable.transform.position != pickupParent.position)
+            {
+                interactable.transform.position = Vector3.MoveTowards(interactable.transform.position, pickupParent.position, 15 * Time.deltaTime);
+            }
         }
     }
 
