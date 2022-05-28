@@ -14,7 +14,7 @@ public class GenerateTextureRender : MonoBehaviour
     {
         material = new Material(Shader.Find("Standard"));
 
-        rt = new RenderTexture(new RenderTextureDescriptor(1024, 1024, RenderTextureFormat.ARGB32));
+        rt = new RenderTexture(new RenderTextureDescriptor(1024, 1024, RenderTextureFormat.ARGB2101010));
         cam.targetTexture = rt;
         material.SetTexture("_MainTex", rt);
         GetComponent<Renderer>().material = material;
