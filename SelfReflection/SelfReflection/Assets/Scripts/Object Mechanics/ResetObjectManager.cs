@@ -9,6 +9,11 @@ public class ResetObjectManager : MonoBehaviour
     public Dictionary<GameObject, Vector3> objPosition = new Dictionary<GameObject, Vector3>();
     public Dictionary<GameObject, Vector3> objRotation = new Dictionary<GameObject, Vector3>();
 
+    [Header("List of Interactable Ethereal Objects")]
+    public List<GameObject> etherealObj = new List<GameObject>();
+    public Dictionary<GameObject, Vector3> etherealPos = new Dictionary<GameObject, Vector3>();
+    public Dictionary<GameObject, Vector3> etherealRot = new Dictionary<GameObject, Vector3>();
+
     private void Start()
     {
         if (interactableObj.Count == 0)

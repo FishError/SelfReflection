@@ -214,6 +214,7 @@ GameObject:
   - component: {fileID: 270539286}
   - component: {fileID: 270539285}
   - component: {fileID: 270539284}
+  - component: {fileID: 270539288}
   m_Layer: 0
   m_Name: Death Object
   m_TagString: Void
@@ -291,12 +292,24 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 270539283}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.3503137, y: -0.0097, z: 12.46}
-  m_LocalScale: {x: 2, y: 0.0794, z: 2}
+  m_LocalPosition: {x: -0.46, y: 3.74, z: 12.46}
+  m_LocalScale: {x: 10, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &270539288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270539283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8caec0056212cca408d90c5d85de8a45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &614550919
 PrefabInstance:
   m_ObjectHideFlags: 0
