@@ -29,4 +29,9 @@ public class ResetObjectManager : MonoBehaviour
             }
         }
     }
+
+    private void Update()
+    {
+        
+    }
 }
