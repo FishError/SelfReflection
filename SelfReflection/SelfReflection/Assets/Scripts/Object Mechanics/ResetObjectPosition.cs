@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class ResetObjectPosition : MonoBehaviour
 {
-    [Header("References")]
     private ResetObjectManager manager = null;
-    public MoveObjectController playerCam = null;
+    private MoveObjectController playerCam = null;
     private GameObject player = null;
     private GameObject pickUpParent;
     private float time;
