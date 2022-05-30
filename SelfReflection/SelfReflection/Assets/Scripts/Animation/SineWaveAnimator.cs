@@ -25,4 +25,5 @@ public class SineWaveAnimator : MonoBehaviour
         sinWave = sinWave * intensity;
         transform.position = startPos + sinWave;
     }
+
 }
