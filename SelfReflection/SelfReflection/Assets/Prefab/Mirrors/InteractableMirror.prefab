@@ -31,14 +31,18 @@ MonoBehaviour:
   ethereal: {fileID: 0}
   real: {fileID: 0}
   rb: {fileID: 0}
-  mass: 1
-  drag: 0
   maxVelocity: 10
   state: 0
   canBecomeEthereal: 0
   xAxis: 1
+  relativeMinX: 0
+  relativeMaxX: 0
   yAxis: 0
+  relativeMinY: 0
+  relativeMaxY: 0
   zAxis: 1
+  relativeMinZ: 0
+  relativeMaxZ: 0
 --- !u!1001 &2039992613240179750
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61,6 +65,10 @@ PrefabInstance:
     - target: {fileID: 8469968573461780282, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: m_LocalPosition.z
       value: -74.27999
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469968573461780283, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
+      propertyPath: m_Name
+      value: MirrorCam
       objectReference: {fileID: 0}
     - target: {fileID: 8469968574141035541, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: m_Name
