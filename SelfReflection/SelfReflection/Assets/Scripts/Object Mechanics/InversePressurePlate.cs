@@ -9,7 +9,7 @@ public class InversePressurePlate : MonoBehaviour
     public float speed = 1.0f;
     public float doorWidthX = 10.0f;
 
-    private float sinkAmount = 0.1f;
+    //private float sinkAmount = 0.1f;
     private Vector3 startPos;
     private Vector3 endPos;
     private bool moveDoor = false;
@@ -39,7 +39,7 @@ public class InversePressurePlate : MonoBehaviour
     {
         if (other.gameObject.tag == "Real")
         {
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x - sinkAmount, gameObject.transform.position.y, gameObject.transform.position.z);
+            //gameObject.transform.position = new Vector3(gameObject.transform.position.x - sinkAmount, gameObject.transform.position.y, gameObject.transform.position.z);
         }
     }
 
