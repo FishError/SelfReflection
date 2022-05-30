@@ -9,6 +9,7 @@ public class ResetObjectPosition : MonoBehaviour
     private GameObject player = null;
     private GameObject pickUpParent;
     private float time;
+    public SkinnedMeshRenderer meshRenderer;
 
     private void Update()
     {
@@ -16,6 +17,7 @@ public class ResetObjectPosition : MonoBehaviour
         manager = GameObject.FindGameObjectWithTag("ObjectManager").GetComponent<ResetObjectManager>();
         player = GameObject.FindGameObjectWithTag("Player");
         pickUpParent = GameObject.Find("PickupParent");
+        print(meshRenderer.material.shader);
     }
 
 
