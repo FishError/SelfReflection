@@ -10,6 +10,7 @@ public class ResetObjectPosition : MonoBehaviour
     private GameObject pickUpParent;
     private float time;
     public SkinnedMeshRenderer meshRenderer;
+    public Camera deathCam;
     private bool isDead = false;
     private bool isAlive = false;
     private float amt = 0.7f;
