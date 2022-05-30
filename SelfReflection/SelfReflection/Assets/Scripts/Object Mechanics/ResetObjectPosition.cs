@@ -10,6 +10,16 @@ public class ResetObjectPosition : MonoBehaviour
     private GameObject pickUpParent;
     private float time;
     public SkinnedMeshRenderer meshRenderer;
+    private bool isDead = false;
+    private bool isAlive = false;
+    private float amt = 0.7f;
+    private float curWeight;
+
+    private void Start()
+    {
+        meshRenderer.material.shader = Shader.Find("TNTC/Disintegration");
+        curWeight = meshRenderer.material.GetFloat("_Weight");
+    }
 
     private void Update()
     {
@@ -17,7 +27,29 @@ public class ResetObjectPosition : MonoBehaviour
         manager = GameObject.FindGameObjectWithTag("ObjectManager").GetComponent<ResetObjectManager>();
         player = GameObject.FindGameObjectWithTag("Player");
         pickUpParent = GameObject.Find("PickupParent");
-        print(meshRenderer.material.shader);
+
+        if (isDead)
+        {
+            curWeight += amt * Time.deltaTime;
+            meshRenderer.material.SetFloat("_Weight", curWeight);
+            if(meshRenderer.material.GetFloat("_Weight") > 1)
+            {
+                meshRenderer.material.SetFloat("_Weight", 1);
+                isDead = false;
+                ResetPlayer();
+            }
+        }
+
+        if (isAlive)
+        {
+            curWeight -= amt * Time.deltaTime;
+            meshRenderer.material.SetFloat("_Weight", curWeight);
+            if (meshRenderer.material.GetFloat("_Weight") < 0)
+            {
+                meshRenderer.material.SetFloat("_Weight", 0);
+                isAlive = false;
+            }
+        }
     }
 
 
@@ -81,14 +113,14 @@ public class ResetObjectPosition : MonoBehaviour
                 playerCam.DropObject();
             }
         }
+        isAlive = true;
     }
 
     IEnumerator playerSpawn()
     {
-        time = 1.5f;
+        time = 0.1f;
         yield return new WaitForSeconds(time);
-        ResetPlayer();
-        
+        isDead = true;
     }
 
     IEnumerator itemSpawn(GameObject item)

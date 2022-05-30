@@ -27,12 +27,14 @@ public class DisappearOverTime : MonoBehaviour
     IEnumerator Disappear()
     {
         yield return new WaitForSeconds(time);
+        this.transform.parent.GetComponent<BoxCollider>().isTrigger = true;
         bookModel.SetActive(false);
     }
 
     IEnumerator Appear()
     {
         yield return new WaitForSeconds(spawnTime);
+        this.transform.parent.GetComponent<BoxCollider>().isTrigger = false;
         bookModel.SetActive(true);
     }
 
