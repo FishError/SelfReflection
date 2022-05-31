@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 491657145596632918}
   - component: {fileID: 491657145596632912}
   - component: {fileID: 491657145596632919}
+  - component: {fileID: 1934156386341110084}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -83,6 +84,15 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 491657145596632913}
   m_Enabled: 1
+--- !u!45 &1934156386341110084
+Skybox:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491657145596632913}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: 81f714daf7144784b8a2f42f1cd30927, type: 2}
 --- !u!1 &491657146062517000
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,6 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panningCamera: {fileID: 491657145596632912}
   playerCamera: {fileID: 0}
+  playerMovement: {fileID: 0}
   cameraActions: []
   cameraSpeed: 0
   rotationSpeed: 0
