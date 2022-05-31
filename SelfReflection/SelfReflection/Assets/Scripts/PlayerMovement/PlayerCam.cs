@@ -28,24 +28,28 @@ public class PlayerCam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
-
-        yRotation += mouseX;
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-        if (playerMovement.state == PlayerState.GrabbingLedge)
+        if (!playerMovement.movementDisabled)
         {
-            minY = limitYRotation - 90f;
-            maxY = limitYRotation + 90f;
-            if (yRotation < minY)
-                yRotation = minY;
-            else if (yRotation > maxY)
-                yRotation = maxY;
-        }
+            float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
+            float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
 
-        transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
-        orientation.rotation = Quaternion.Euler(0, yRotation, 0);
-        orientation.parent.rotation = Quaternion.Euler(0, yRotation, 0);
+            yRotation += mouseX;
+            xRotation -= mouseY;
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
+            if (playerMovement.state == PlayerState.GrabbingLedge)
+            {
+                minY = limitYRotation - 90f;
+                maxY = limitYRotation + 90f;
+                if (yRotation < minY)
+                    yRotation = minY;
+                else if (yRotation > maxY)
+                    yRotation = maxY;
+            }
+
+            transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+            orientation.rotation = Quaternion.Euler(0, yRotation, 0);
+            orientation.parent.rotation = Quaternion.Euler(0, yRotation, 0);
+        }
     }
 }
