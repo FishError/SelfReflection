@@ -9,7 +9,7 @@ public class ResetObjectPosition : MonoBehaviour
     private GameObject player = null;
     private GameObject pickUpParent;
     private float time;
-    public SkinnedMeshRenderer meshRenderer;
+    public SkinnedMeshRenderer meshRenderer = null;
     private bool isDead = false;
     private bool isAlive = false;
     private float amt = 0.7f;
@@ -17,8 +17,11 @@ public class ResetObjectPosition : MonoBehaviour
 
     private void Start()
     {
-        meshRenderer.material.shader = Shader.Find("TNTC/Disintegration");
-        curWeight = meshRenderer.material.GetFloat("_Weight");
+        if(meshRenderer != null)
+        {
+            meshRenderer.material.shader = Shader.Find("TNTC/Disintegration");
+            curWeight = meshRenderer.material.GetFloat("_Weight");
+        }
     }
 
     private void Update()
