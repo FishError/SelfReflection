@@ -1,13 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using UnityEngine.SceneManagement;
 
 public class CaseFileSystem : MonoBehaviour
 {
     public GameObject fileCam;
-    public TextMeshProUGUI text;
     public GameObject alarmClockCanvas;
     public string nextScene;
     private Animator anim;
@@ -49,5 +47,4 @@ public class CaseFileSystem : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName: nextScene);
     }
-    //Vector3(-99.6100006,67.3000031,-39.1300011)
 }
