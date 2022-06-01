@@ -48,7 +48,7 @@ public class CameraPanningController : MonoBehaviour
                     currentAction = null;
                     panningCamera.enabled = false;
                     playerCamera.enabled = true;
-                    playerMovement.movementDisabled = false;
+                    playerMovement.EnableMovement();
                     isPanning = false;
                 }
             }
@@ -59,7 +59,7 @@ public class CameraPanningController : MonoBehaviour
     {
         playerCamera.enabled = false;
         panningCamera.enabled = true;
-        playerMovement.movementDisabled = true;
+        playerMovement.DisableMovement();
         currentAction = cameraActions[0];
         isPanning = true;
     }
