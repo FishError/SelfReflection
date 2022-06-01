@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class CaseFileSystem : MonoBehaviour
 {
     public GameObject fileCam;
     public TextMeshProUGUI text;
     public GameObject alarmClockCanvas;
+    public string nextScene;
     private Animator anim;
     private PlayerMovement playerMovement;
     private GameObject player;
@@ -17,6 +19,14 @@ public class CaseFileSystem : MonoBehaviour
         anim = this.transform.parent.GetComponent<Animator>();
         playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
         player = GameObject.Find("Player");
+    }
+
+    private void Update()
+    {
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("CaseFile_Open") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
+        {
+            fileCam.transform.GetChild(0).gameObject.SetActive(true);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -34,4 +44,10 @@ public class CaseFileSystem : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
         }
     }
+
+    public void CloseFile()
+    {
+        SceneManager.LoadScene(sceneName: nextScene);
+    }
+    //Vector3(-99.6100006,67.3000031,-39.1300011)
 }
