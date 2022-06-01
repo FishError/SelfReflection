@@ -45,6 +45,18 @@ public class CaseFileSystem : MonoBehaviour
 
     public void CloseFile()
     {
+        if (nextScene.Contains("Hub"))
+        {
+            GameObject hubManager = GameObject.Find("HubManager");
+            if (hubManager != null)
+            {
+                HubManager hm = hubManager.GetComponent<HubManager>();
+                hm.SetLevelToCompleted(gameObject.scene.name);
+                SceneManager.LoadScene(hm.GetHubSceneToLoad());
+                return;
+            }
+        }
+            
         SceneManager.LoadScene(sceneName: nextScene);
     }
 }
