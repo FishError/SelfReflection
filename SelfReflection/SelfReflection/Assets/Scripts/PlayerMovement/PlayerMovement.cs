@@ -33,7 +33,9 @@ public class PlayerMovement : MonoBehaviour
     public float playerHeight;
     public LayerMask GroundLayer;
     public LayerMask InteractableLayer;
+    public LayerMask MoveNotGrabLayer;
     private int CombinedLayers;
+    private int LedgeGrabLayers;
     private RaycastHit groundHit;
     private GameObject interactableGroundObject;
 
@@ -69,7 +71,8 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         readyToJump = true;
-        CombinedLayers = GroundLayer | InteractableLayer;
+        CombinedLayers = GroundLayer | InteractableLayer | MoveNotGrabLayer;
+        LedgeGrabLayers = GroundLayer | InteractableLayer;
     }
 
     // Update is called once per frame
@@ -183,9 +186,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!ledgeGrabbingDisabled)
         {
-            var down = Physics.Raycast(downCast.position, Vector3.down, out downCastHit, 3f, CombinedLayers);
-            var forward = Physics.Raycast(forwardCast.position, forwardCast.forward, out forwardCastHit, 2f, CombinedLayers);
-            var overHead = Physics.Raycast(lowLedgeCast.position, Vector3.down, out overHeadCastHit, 3f, CombinedLayers);
+            var down = Physics.Raycast(downCast.position, Vector3.down, out downCastHit, 3f, LedgeGrabLayers);
+            var forward = Physics.Raycast(forwardCast.position, forwardCast.forward, out forwardCastHit, 2f, LedgeGrabLayers);
+            var overHead = Physics.Raycast(lowLedgeCast.position, Vector3.down, out overHeadCastHit, 3f, LedgeGrabLayers);
 
             if (down && forward)
             {
