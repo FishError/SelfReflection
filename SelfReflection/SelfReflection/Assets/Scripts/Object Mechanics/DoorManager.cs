@@ -6,6 +6,12 @@ public class DoorManager : MonoBehaviour
 {
     public GameObject door;
     private bool used = false;
+    private bool originalState;
+
+    private void Start()
+    {
+        originalState = door.activeInHierarchy;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -22,5 +28,18 @@ public class DoorManager : MonoBehaviour
             }
             used = true;
         }
+    }
+
+    public void OnRespawn()
+    {
+        if (door.activeSelf)
+        {
+            door.SetActive(originalState);
+        }
+        else
+        {
+            door.SetActive(originalState);
+        }
+        used = false;
     }
 }
