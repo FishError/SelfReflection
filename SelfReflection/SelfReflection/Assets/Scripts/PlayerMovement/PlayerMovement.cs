@@ -45,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
+    private Animator anim;
 
     // ledge variables
     [Header("Ledge Grabbing")]
@@ -70,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
         readyToJump = true;
         CombinedLayers = GroundLayer | InteractableLayer;
+        anim = this.transform.GetChild(2).GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -125,27 +127,25 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else if (CheckLedge() && verticalInput > 0)
                 {
-                    // state is set to grab ledge then immediately set to climbing
-                    // dk if it should play the grab animation then immediately transition it to climbing animation
-                    // or just play the climb animation
+                    anim.SetBool("isLifting", true);
                     GrabLedge();
                     state = PlayerState.ClimbingLedge;
+                    
                 }
                 break;
 
             case PlayerState.AirBorn:
                 if (CheckLedge() && verticalInput > 0)
                 {
-                    // state is set to grab ledge then immediately set to climbing
-                    // dk if it should play the grab animation then immediately transition it to climbing animation
-                    // or just play the climb animation
+                    anim.SetBool("isLifting", true);
                     GrabLedge();
                     state = PlayerState.ClimbingLedge;
+                    
                 }
                 else if (CheckLedge() && forwardCastHit.collider != null)
                 {
-                    // this is where just the grabbing animation is played
-                    // and grabbing animation should keep playing until player starts climbing
+                    anim.SetBool("isGrabbing", true);
+                    anim.SetBool("isJumping", false);
                     GrabLedge();
                 }
                 break;
@@ -153,6 +153,8 @@ public class PlayerMovement : MonoBehaviour
             case PlayerState.GrabbingLedge:
                 if (GetKeyDown(jumpKey))
                 {
+                    anim.SetBool("isGrabbing", false);
+                    anim.SetBool("isLifting", true);
                     state = PlayerState.ClimbingLedge;
                 }
                 break;
@@ -293,8 +295,7 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = Vector3.zero;
                 rb.useGravity = true;
                 state = PlayerState.Grounded;
-                // player animation should be set to idle here
-                
+                anim.SetBool("isLifting", false);
                 if (interactableGroundObject)
                 {
                     interactableGroundObject.GetComponent<Interactable>().EnableInteraction();
