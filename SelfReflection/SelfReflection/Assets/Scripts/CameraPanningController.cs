@@ -15,6 +15,7 @@ public class CameraPanningController : MonoBehaviour
     private GameObject currentAction;
     private Vector3 direction;
     private Quaternion lookRotation;
+    public bool isPanning = false;
 
     private void Start()
     {
@@ -47,7 +48,8 @@ public class CameraPanningController : MonoBehaviour
                     currentAction = null;
                     panningCamera.enabled = false;
                     playerCamera.enabled = true;
-                    playerMovement.movementDisabled = false;
+                    playerMovement.EnableMovement();
+                    isPanning = false;
                 }
             }
         }
@@ -57,7 +59,8 @@ public class CameraPanningController : MonoBehaviour
     {
         playerCamera.enabled = false;
         panningCamera.enabled = true;
-        playerMovement.movementDisabled = true;
+        playerMovement.DisableMovement();
         currentAction = cameraActions[0];
+        isPanning = true;
     }
 }

@@ -9,19 +9,19 @@ public class ResetObjectPosition : MonoBehaviour
     private GameObject player = null;
     private GameObject pickUpParent;
     private float time;
-    public SkinnedMeshRenderer meshRenderer;
+    public SkinnedMeshRenderer meshRenderer = null;
     private bool isDead = false;
     private bool isAlive = false;
     private float amt = 0.7f;
     private float curWeight;
 
-    private GameObject[] doorManagers;
-
     private void Start()
     {
-        meshRenderer.material.shader = Shader.Find("TNTC/Disintegration");
-        curWeight = meshRenderer.material.GetFloat("_Weight");
-        doorManagers = GameObject.FindGameObjectsWithTag("DoorManager");
+        if(meshRenderer != null)
+        {
+            meshRenderer.material.shader = Shader.Find("TNTC/Disintegration");
+            curWeight = meshRenderer.material.GetFloat("_Weight");
+        }
     }
 
     private void Update()
@@ -115,11 +115,6 @@ public class ResetObjectPosition : MonoBehaviour
                 manager.interactableObj[i].GetComponent<Rigidbody>().freezeRotation = true;
                 playerCam.DropObject();
             }
-        }
-        print(doorManagers.Length);
-        foreach (GameObject doorManager in doorManagers)
-        {
-            doorManager.GetComponent<DoorManager>().OnRespawn();
         }
         isAlive = true;
     }

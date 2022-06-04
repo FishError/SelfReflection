@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class AlarmClock : MonoBehaviour
 {
     public TextMeshProUGUI text;
+    private CameraPanningController panning;
 
     [Header("Edit Time (in Seconds)")]
     public float timer = 0.0f;
@@ -15,12 +16,18 @@ public class AlarmClock : MonoBehaviour
     private void Start()
     {
         text.text = "";
-        StartCoroutine(wait());
+        panning = GameObject.Find("CameraPanningController").GetComponent<CameraPanningController>();
     }
 
 
     private void Update()
     {
+        if (!panning.isPanning)
+        {
+            StartCoroutine(wait());
+            
+        }
+
         if (timerIsRunning)
         {
             if (timer > 0)
@@ -30,7 +37,6 @@ public class AlarmClock : MonoBehaviour
             }
             else
             {
-                print("Ring Ring Ring");
                 timer = 0f;
                 timerIsRunning = false;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -52,5 +58,6 @@ public class AlarmClock : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         timerIsRunning = true;
+        panning.isPanning = true;
     }
 }
