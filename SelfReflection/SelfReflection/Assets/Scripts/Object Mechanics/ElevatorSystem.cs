@@ -116,7 +116,7 @@ public class ElevatorSystem : MonoBehaviour
 		else if(Floor == MinFloor)
         {
 			theTime+=Time.deltaTime;
-			if(theTime>=3f){
+			if(theTime>=Random.Range(1f,3f)){
 				CanGoUp = true;
 				MoveUp();
 			}
