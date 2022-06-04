@@ -213,7 +213,7 @@ public class PlayerMovement : MonoBehaviour
         if (state == PlayerState.Grounded)
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-            EnableKey(jumpKey);
+            //EnableKey(jumpKey);
         }
         // in air
         else if (state == PlayerState.AirBorn)
@@ -287,7 +287,7 @@ public class PlayerMovement : MonoBehaviour
         if (transform.position.y < finalClimbUpPosition.y)
         {
             rb.velocity = Vector3.up * climbUpSpeed;
-            DisableKey(jumpKey);
+            //DisableKey(jumpKey);
         }
         else
         {
@@ -351,45 +351,13 @@ public class PlayerMovement : MonoBehaviour
         return Input.GetKeyUp(key) && keys[key];
     }
 
-    private void DisableKey(KeyCode key)
-    {
-        if (!keys.ContainsKey(key))
-        {
-            keys.Add(key, false);
-        }
-        else
-        {
-            keys[key] = false;
-        }
-    }
-
-    private void EnableKey(KeyCode key)
-    {
-        if (!keys.ContainsKey(key))
-        {
-            keys.Add(key, true);
-        }
-        else
-        {
-            keys[key] = true;
-        }
-    }
-
     public void DisableMovement()
     {
-        DisableKey(KeyCode.W);
-        DisableKey(KeyCode.A);
-        DisableKey(KeyCode.S);
-        DisableKey(KeyCode.D);
-        DisableKey(jumpKey);
+        movementDisabled = true;
     }
 
     public void EnableMovement()
     {
-        EnableKey(KeyCode.W);
-        EnableKey(KeyCode.A);
-        EnableKey(KeyCode.S);
-        EnableKey(KeyCode.D);
-        EnableKey(jumpKey);
+        movementDisabled = false;
     }
 }
