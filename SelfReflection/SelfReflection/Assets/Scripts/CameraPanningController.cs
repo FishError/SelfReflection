@@ -48,6 +48,13 @@ public class CameraPanningController : MonoBehaviour
                     currentAction = null;
                     panningCamera.enabled = false;
                     playerCamera.enabled = true;
+
+                    GameObject mirrorManager = GameObject.Find("MirrorManager");
+                    if (mirrorManager != null)
+                    {
+                        mirrorManager.GetComponent<MirrorManager>().mainCamera = playerCamera;
+                    }
+
                     playerMovement.EnableMovement();
                     isPanning = false;
                 }
