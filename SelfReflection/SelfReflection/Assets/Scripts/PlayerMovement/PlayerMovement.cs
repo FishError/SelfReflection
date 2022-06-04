@@ -72,13 +72,9 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         readyToJump = true;
-<<<<<<< HEAD
         CombinedLayers = GroundLayer | InteractableLayer | MoveNotGrabLayer;
         LedgeGrabLayers = GroundLayer | InteractableLayer;
-=======
-        CombinedLayers = GroundLayer | InteractableLayer;
         anim = this.transform.GetChild(2).GetComponent<Animator>();
->>>>>>> d2b62c674b226b8fb624aae9c89acfbe1d6cfafb
     }
 
     // Update is called once per frame
