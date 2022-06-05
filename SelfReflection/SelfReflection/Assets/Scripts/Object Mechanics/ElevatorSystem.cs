@@ -16,6 +16,7 @@ public class ElevatorSystem : MonoBehaviour
 	private float tTotal;
 	private bool isMoving;
 	private float moveDirection;
+	private float theTime=0;
 
 
 	// Use this for initialization
@@ -34,6 +35,7 @@ public class ElevatorSystem : MonoBehaviour
         
 		if (isOff)
         {
+			theTime=0;
 			MoveDown();
 			if(Floor == MinFloor)
             {
@@ -42,6 +44,11 @@ public class ElevatorSystem : MonoBehaviour
 				CanGoUp = true;
             }
         }
+		/*
+		if(moveWait){
+			MoveUpWait();
+		}
+		*/
 		
 	}
 
@@ -70,6 +77,16 @@ public class ElevatorSystem : MonoBehaviour
 		isMoving = true;
 		moveDirection = 1;
 	}
+	/*
+	public IEnumerator MoveUpWait(){
+		 yield return new WaitForSeconds(3f);
+		if (isMoving)
+			yield break;
+
+		isMoving = true;
+		moveDirection = 1;
+	}
+	*/
 
 	
 	public void MoveDown()
@@ -88,6 +105,7 @@ public class ElevatorSystem : MonoBehaviour
 
 		if (Floor < MaxFloor && CanGoUp)
 		{
+			theTime=0;
 			MoveUp();
 		}
 		else if(Floor > MinFloor)
@@ -97,8 +115,11 @@ public class ElevatorSystem : MonoBehaviour
 		}
 		else if(Floor == MinFloor)
         {
-			CanGoUp = true;
-			MoveUp();
+			theTime+=Time.deltaTime;
+			if(theTime>=3f){
+				CanGoUp = true;
+				MoveUp();
+			}
         }
 	}
 }
