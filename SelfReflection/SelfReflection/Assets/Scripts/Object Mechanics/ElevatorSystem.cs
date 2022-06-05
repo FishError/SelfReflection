@@ -17,6 +17,7 @@ public class ElevatorSystem : MonoBehaviour
 	private bool isMoving;
 	private float moveDirection;
 	private float theTime=0;
+	private float randNum=0;
 
 
 	// Use this for initialization
@@ -54,6 +55,8 @@ public class ElevatorSystem : MonoBehaviour
 
 	void MoveElevator()
 	{
+		if(randNum==0)
+			randNum=Random.Range(3f,5f);
 		var v = moveDirection * FloorDistance.normalized * Speed;
 		var t = Time.deltaTime;
 		var tMax = FloorDistance.magnitude / Speed;
@@ -108,6 +111,15 @@ public class ElevatorSystem : MonoBehaviour
 			theTime=0;
 			MoveUp();
 		}
+		else if(Floor == MaxFloor){
+			theTime+=Time.deltaTime;
+			if(theTime>=randNum){
+				randNum=Random.Range(3f,5f);
+				theTime=0;
+				CanGoUp = false;
+				MoveDown();
+			}
+		}
 		else if(Floor > MinFloor)
 		{
 			CanGoUp = false;
@@ -116,7 +128,9 @@ public class ElevatorSystem : MonoBehaviour
 		else if(Floor == MinFloor)
         {
 			theTime+=Time.deltaTime;
-			if(theTime>=Random.Range(1f,3f)){
+			if(theTime>=randNum){
+				randNum=Random.Range(3f,5f);
+				theTime=0;
 				CanGoUp = true;
 				MoveUp();
 			}
