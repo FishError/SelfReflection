@@ -31,7 +31,7 @@ public class GenerateTextureRender : MonoBehaviour
         {
             if (Camera.current.name != "SceneCamera" && Camera.current.name != "Preview Camera" && Camera.current != selfCamera)
             {
-                setMirroredPosition.mainCamera = Camera.current;
+                //setMirroredPosition.mainCamera = Camera.current;
             }
         }
     }
