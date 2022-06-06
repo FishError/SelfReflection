@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 6671604140988988156}
   - component: {fileID: 5756299006339888878}
   m_Layer: 7
-  m_Name: InteractableBookLimited
+  m_Name: InteractableBookLimitedBlood
   m_TagString: Real
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,8 +61,6 @@ MonoBehaviour:
   ethereal: {fileID: 0}
   real: {fileID: 0}
   rb: {fileID: 0}
-  mass: 1
-  drag: 1
   maxVelocity: 10
   state: 0
   canBecomeEthereal: 0
@@ -77,6 +75,7 @@ MonoBehaviour:
   relativeMaxY: 0
   relativeMinZ: 0
   relativeMaxZ: 0
+  mirrorToShow: {fileID: 0}
 --- !u!54 &5756299006339888878
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -179,7 +178,7 @@ PrefabInstance:
     - target: {fileID: 7054144470096349240, guid: 734ccf15ba113d243a810144eb5ce7cb, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 5babdc201b1757a49990694911c58672, type: 2}
+      objectReference: {fileID: 2100000, guid: 384b493b9734a274cb99bfa800ad3b8e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 734ccf15ba113d243a810144eb5ce7cb, type: 3}
 --- !u!1 &4837730916319284223 stripped
