@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: aiStandardSurface1
-  m_Shader: {fileID: 47, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _METALLICGLOSSMAP _SPECGLOSSMAP
+  m_Name: Fog
+  m_Shader: {fileID: 10721, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -40,19 +40,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-<<<<<<< HEAD
-        m_Texture: {fileID: 2800000, guid: ae199fe7ec090a64a97f4b9dca5b7ed8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 024d1a069d77eb747ab412250fcc63a9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: fc5a7a67e30e4db4eb45da5d3848504a, type: 3}
-=======
-        m_Texture: {fileID: 2800000, guid: fbc3490055248c941966058b9af649a0, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: b62d256f990cf7648bdb7bb67fcec362, type: 3}
->>>>>>> 32ae2b5a912fa54cea4350b32740dc02ea545813
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -61,14 +53,6 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SpecGlossMap:
-<<<<<<< HEAD
-        m_Texture: {fileID: 2800000, guid: f7207425e2fca7640b8b552b94d1ab1b, type: 3}
-=======
-        m_Texture: {fileID: 2800000, guid: f364e5c345f6e074dab6f1d71b1d4d3e, type: 3}
->>>>>>> 32ae2b5a912fa54cea4350b32740dc02ea545813
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
