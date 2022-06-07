@@ -1950,7 +1950,7 @@ Transform:
   - {fileID: 405372440}
   - {fileID: 907970573}
   m_Father: {fileID: 1142435523}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &405372439
 GameObject:
@@ -4137,6 +4137,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7877485219089295017, guid: c10be5893257d3a44a63d4280deeb09d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5babdc201b1757a49990694911c58672, type: 2}
     - target: {fileID: -5776785304427258972, guid: c10be5893257d3a44a63d4280deeb09d, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -4165,6 +4169,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Model_Dresser_Short_No_Texture_Final (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1723172162940244347, guid: c10be5893257d3a44a63d4280deeb09d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5babdc201b1757a49990694911c58672, type: 2}
     - target: {fileID: 2956272711218402069, guid: c10be5893257d3a44a63d4280deeb09d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.6767
@@ -4244,7 +4252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ethereal: {fileID: 0}
-  real: {fileID: 5561349426305759274, guid: 1669c48ebd4920049b5e497cc8e02bdb, type: 3}
+  real: {fileID: 0}
   rb: {fileID: 0}
   maxVelocity: 2
   state: 0
@@ -4283,7 +4291,7 @@ MeshCollider:
   m_GameObject: {fileID: 772114005}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -4359,7 +4367,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ethereal: {fileID: 0}
-  real: {fileID: 5561349426305759274, guid: 1669c48ebd4920049b5e497cc8e02bdb, type: 3}
+  real: {fileID: 0}
   rb: {fileID: 0}
   maxVelocity: 2
   state: 0
@@ -5946,18 +5954,18 @@ Transform:
   - {fileID: 1478401170}
   - {fileID: 841396130}
   - {fileID: 1163453097}
+  - {fileID: 402639167}
   - {fileID: 447306944}
   - {fileID: 1621458810}
-  - {fileID: 402639167}
+  - {fileID: 1639452857}
   - {fileID: 940404591}
   - {fileID: 1487736258}
   - {fileID: 1609408869}
-  - {fileID: 1639452857}
+  - {fileID: 1604449679}
   - {fileID: 416559402}
   - {fileID: 1044895251}
   - {fileID: 1989165056}
   - {fileID: 772114004}
-  - {fileID: 1604449679}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9487,7 +9495,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1142435523}
-  m_RootOrder: 14
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1609408868
 PrefabInstance:
@@ -10032,7 +10040,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1142435523}
-  m_RootOrder: 9
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1640075137
 GameObject:
