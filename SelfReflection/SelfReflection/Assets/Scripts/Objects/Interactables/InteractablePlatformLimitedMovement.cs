@@ -19,8 +19,6 @@ public class InteractablePlatformLimitedMovement : InteractablePlatform
     private float minZ;
     private float maxZ;
 
-    [Header("Optional Mirror to Show + Deal with Elevator Problems")]
-    public GameObject mirrorToShow;
     protected override void Start()
     {
         base.Start();
@@ -71,12 +69,6 @@ public class InteractablePlatformLimitedMovement : InteractablePlatform
         if (OutOfBounds())
         {
             transform.position = new Vector3(x, y, z);
-        }
-        //Highly Personalized to specificly -z direction. Can be expanded for others if need be. -Nick
-         if(zAxis==true && (minZ >= transform.position.z-.1f)){
-            if(mirrorToShow.activeSelf==false){
-                mirrorToShow.SetActive(true);
-            }
         }
     }
 
