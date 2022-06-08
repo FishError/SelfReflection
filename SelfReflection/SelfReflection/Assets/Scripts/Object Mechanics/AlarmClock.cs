@@ -8,6 +8,8 @@ public class AlarmClock : MonoBehaviour
 {
     public TextMeshProUGUI text;
     private CameraPanningController panning;
+    public AudioManager audioManager;
+    public GameObject audioSource;
 
     [Header("Edit Time (in Seconds)")]
     public float timer = 0.0f;
@@ -40,6 +42,8 @@ public class AlarmClock : MonoBehaviour
                 timer = 0f;
                 timerIsRunning = false;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                audioManager.setCurAudioObject(audioSource);
+                audioManager.setPlayback(true);
             }
         }
 

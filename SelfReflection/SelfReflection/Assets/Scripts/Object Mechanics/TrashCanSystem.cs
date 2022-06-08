@@ -14,6 +14,8 @@ public class TrashCanSystem : MonoBehaviour
     public int NumOfObjectToThrow = 0;
     private int countObjectThrown;
     public float theTime=0;
+    public AudioManager audioManager;
+    public GameObject audioSource;
 
     private void Start()
     {
@@ -28,6 +30,8 @@ public class TrashCanSystem : MonoBehaviour
                 Book.GetComponent<Rigidbody>().useGravity = false;
                 Book.GetComponent<Rigidbody>().isKinematic = true;
             }
+            audioManager.setCurAudioObject(audioSource);
+            audioManager.setPlayback(true);
         }
     }
 
