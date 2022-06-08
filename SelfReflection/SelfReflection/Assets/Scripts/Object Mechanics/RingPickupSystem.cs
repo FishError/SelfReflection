@@ -15,6 +15,8 @@ public class RingPickupSystem : MonoBehaviour
     private GameObject player;
     private AutoExposure exposureSetting;
     private bool startFlicker=false;
+    public GameObject audioObject;
+    public GameObject backgroundAudioObject;
 
     private float timeSinceLastFlicker;
     private float timeSinceSequenceStart;
@@ -34,12 +36,14 @@ public class RingPickupSystem : MonoBehaviour
     {
         if (isSequenceStarted)
         {
+            Destroy(backgroundAudioObject);
             
             //Approx 28 seconds for ring dialogue to finish
             if (timeSinceSequenceStart > 26f)
             {
                 ringCam.SetActive(false);
                 flickrLight();
+                audioObject.SetActive(true);
             }
 
             //After Damien Call End
