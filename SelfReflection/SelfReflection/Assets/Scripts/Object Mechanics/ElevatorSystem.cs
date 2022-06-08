@@ -12,11 +12,14 @@ public class ElevatorSystem : MonoBehaviour
 	public Transform moveTransform;
 	public bool isOff;
 	public bool CanGoUp = true;
+	public bool isPlayerOn;
 
 	private float tTotal;
 	private bool isMoving;
 	private float moveDirection;
 	private float theTime=0;
+	private float randNum=0;
+	private float randNum1=0;
 
 
 	// Use this for initialization
@@ -54,6 +57,9 @@ public class ElevatorSystem : MonoBehaviour
 
 	void MoveElevator()
 	{
+		if(randNum==0 && randNum1==0)
+			randNum=Random.Range(1f,3f);
+			randNum1=Random.Range(6f,12f);
 		var v = moveDirection * FloorDistance.normalized * Speed;
 		var t = Time.deltaTime;
 		var tMax = FloorDistance.magnitude / Speed;
@@ -108,6 +114,19 @@ public class ElevatorSystem : MonoBehaviour
 			theTime=0;
 			MoveUp();
 		}
+		else if(Floor == MaxFloor){
+			Debug.Log(isPlayerOn);
+			if(!isPlayerOn)
+			{
+				theTime+=Time.deltaTime;
+				if(theTime>=randNum1){
+					randNum1=Random.Range(6f,12f);
+					theTime=0;
+					CanGoUp = false;
+					MoveDown();
+				}
+			}
+		}
 		else if(Floor > MinFloor)
 		{
 			CanGoUp = false;
@@ -116,10 +135,30 @@ public class ElevatorSystem : MonoBehaviour
 		else if(Floor == MinFloor)
         {
 			theTime+=Time.deltaTime;
-			if(theTime>=3f){
+			if(theTime>=randNum){
+				randNum=Random.Range(1f,3f);
+				theTime=0;
 				CanGoUp = true;
 				MoveUp();
 			}
         }
 	}
+
+	private void OnTriggerStay(Collider other)
+    {
+		Debug.Log(other.gameObject.tag);
+        if (other.gameObject.tag == "Player")
+        {
+			isPlayerOn=true;
+		}
+	}
+	private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+			isPlayerOn=false;
+			Debug.Log("OnTriggerExit: " + isPlayerOn);
+		}
+	}
+
 }

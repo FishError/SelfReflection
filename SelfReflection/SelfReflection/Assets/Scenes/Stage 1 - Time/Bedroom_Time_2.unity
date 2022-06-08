@@ -1385,7 +1385,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8469968573461780284, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: field of view
-      value: 39.756603
+      value: 46.756756
       objectReference: {fileID: 0}
     - target: {fileID: 8469968573461780284, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: near clip plane
@@ -1945,9 +1945,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1981729601286520016, guid: 6995c94d4f06f9f419c13c33a0ec759d, type: 3}
       propertyPath: m_text
-      value: 'Sample Text:
-
-        - Stage 1-2'
+      value: "Incident Information:\nDay/Date/Time of Incident: ****************\n\n\nVictim
+        Information:\nName ****** Lee\t\tSex: Female\n\nAge: 26\t\t\t\tHeight: 5'7\"\n\nRace:
+        *************"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981729601286520016, guid: 6995c94d4f06f9f419c13c33a0ec759d, type: 3}
+      propertyPath: m_fontSize
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981729601286520016, guid: 6995c94d4f06f9f419c13c33a0ec759d, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2817067762399894385, guid: 6995c94d4f06f9f419c13c33a0ec759d, type: 3}
       propertyPath: m_RootOrder
@@ -3153,7 +3161,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8469968573461780284, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: field of view
-      value: 29.17385
+      value: 34.310642
       objectReference: {fileID: 0}
     - target: {fileID: 8469968573461780284, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: near clip plane
@@ -7410,8 +7418,8 @@ Transform:
   - {fileID: 1274265138}
   - {fileID: 386939123}
   - {fileID: 368390121}
-  - {fileID: 1196459700}
   - {fileID: 1824420347}
+  - {fileID: 1196459700}
   - {fileID: 255690629}
   m_Father: {fileID: 163938467}
   m_RootOrder: 2
@@ -7767,7 +7775,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8469968573461780284, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: field of view
-      value: 20.768417
+      value: 24.425222
       objectReference: {fileID: 0}
     - target: {fileID: 8469968573461780284, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: near clip plane
@@ -11097,7 +11105,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8469968573461780284, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: field of view
-      value: 24.499441
+      value: 28.813187
       objectReference: {fileID: 0}
     - target: {fileID: 8469968573461780284, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: near clip plane
@@ -11855,7 +11863,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8469968573461780284, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: field of view
-      value: 17.867826
+      value: 21.013908
       objectReference: {fileID: 0}
     - target: {fileID: 8469968573461780284, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: near clip plane
@@ -13116,7 +13124,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3262416694290508397, guid: 37a8ed82142111044ad2cef23a20d0d7, type: 3}
       propertyPath: field of view
-      value: 21.25133
+      value: 24.993164
       objectReference: {fileID: 0}
     - target: {fileID: 3262416694290508397, guid: 37a8ed82142111044ad2cef23a20d0d7, type: 3}
       propertyPath: near clip plane
@@ -16853,6 +16861,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8143371720302917710, guid: 1de1cda16f47fe345ab501101898c8bb, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1579522176}
+    - target: {fileID: 8143371720302917710, guid: 1de1cda16f47fe345ab501101898c8bb, type: 3}
+      propertyPath: audioManager
+      value: 
+      objectReference: {fileID: 1575629471}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1de1cda16f47fe345ab501101898c8bb, type: 3}
 --- !u!1001 &1469690338
@@ -17597,6 +17613,7 @@ Transform:
   - {fileID: 365013725}
   - {fileID: 903010710}
   - {fileID: 590390362}
+  - {fileID: 1579522177}
   m_Father: {fileID: 1575629472}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -17633,6 +17650,7 @@ MonoBehaviour:
   - {fileID: 365013724}
   - {fileID: 903010708}
   - {fileID: 590390361}
+  - {fileID: 1579522176}
   currentAudioObject: {fileID: 365013724}
   playTime: 0
   startPlayback: 1
@@ -17652,6 +17670,67 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1579522176
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1579522177}
+  - component: {fileID: 1579522178}
+  m_Layer: 0
+  m_Name: TimeFailed
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1579522177
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579522176}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1571080710}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1579522178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579522176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1355806556
+      Data2: 1074268270
+      Data3: 2096669321
+      Data4: -354820682
+    Path: event:/Dialogue/TimeChallenge/TimeFailed
+  Event: 
+  PlayEvent: 11
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 1
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &1588951718
 GameObject:
   m_ObjectHideFlags: 0
@@ -17788,7 +17867,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3262416694290508397, guid: 37a8ed82142111044ad2cef23a20d0d7, type: 3}
       propertyPath: field of view
-      value: 27.90396
+      value: 32.817158
       objectReference: {fileID: 0}
     - target: {fileID: 3262416694290508397, guid: 37a8ed82142111044ad2cef23a20d0d7, type: 3}
       propertyPath: near clip plane
@@ -21495,13 +21574,13 @@ Transform:
   - {fileID: 1116351120}
   - {fileID: 1549534797}
   - {fileID: 1140834481}
-  - {fileID: 1930156968}
   - {fileID: 1278475184}
   - {fileID: 27691599}
+  - {fileID: 1868459109}
   - {fileID: 426913904}
   - {fileID: 1401636220}
   - {fileID: 1199707501}
-  - {fileID: 1868459109}
+  - {fileID: 1930156968}
   m_Father: {fileID: 163938467}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

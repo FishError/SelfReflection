@@ -8,6 +8,8 @@ public class CallElevator : MonoBehaviour
     public GameObject elevatorObject;
     private ElevatorSystem elevator;
     private InteractablePlatformLimitedMovement platformSystem=null;
+    public AudioManager audioManager;
+    public GameObject audioSource;
 
     void Start(){
         elevator=elevatorObject.GetComponent<ElevatorSystem>();
@@ -29,6 +31,8 @@ public class CallElevator : MonoBehaviour
             if(platformSystem != null){
                 Destroy(elevatorObject.GetComponent<InteractablePlatformLimitedMovement>());
             }
+            audioManager.setCurAudioObject(audioSource);
+            audioManager.setPlayback(true);
         }
     }
 

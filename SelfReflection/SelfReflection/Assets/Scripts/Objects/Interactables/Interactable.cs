@@ -33,7 +33,7 @@ public abstract class Interactable : MonoBehaviour
 
         player = GameObject.Find("Player");
 
-        if (transform.GetComponent<MeshRenderer>())
+        if (transform.GetComponent<MeshRenderer>() && ethereal != null && real != null)
         {
             if (IsEthereal())
             {
