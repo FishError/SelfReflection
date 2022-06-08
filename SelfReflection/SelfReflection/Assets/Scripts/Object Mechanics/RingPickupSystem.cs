@@ -7,12 +7,14 @@ using UnityEngine.Rendering.PostProcessing;
 public class RingPickupSystem : MonoBehaviour
 {
     public GameObject ringCam;
+    public GameObject PlayerCam;
     public string nextScene;
     public PostProcessVolume postProcessVolume;
     private Animator anim;
     private PlayerMovement playerMovement;
     private GameObject player;
     private AutoExposure exposureSetting;
+    private bool startFlicker=false;
 
     private float timeSinceLastFlicker;
     private float timeSinceSequenceStart;
@@ -34,17 +36,18 @@ public class RingPickupSystem : MonoBehaviour
         {
             
             //Approx 28 seconds for ring dialogue to finish
-            if (timeSinceSequenceStart > 28f)
+            if (timeSinceSequenceStart > 26f)
             {
                 ringCam.SetActive(false);
-                exposureSetting.enabled.Override(true);
                 flickrLight();
             }
 
             //After Damien Call End
-            if (timeSinceSequenceStart > 48f)
+            if (timeSinceSequenceStart > 44f)
             {
-                Camera.main.GetComponent<CameraShake>().shakeDuration = 10.0f;
+                Debug.Log("Starting flicker and camera shake.");
+                startFlicker=true;
+                PlayerCam.GetComponent<CameraShake>().shakeDuration = 10.0f;
             }
 
             //Revert Things To Normal After Sequence Finish
@@ -57,7 +60,7 @@ public class RingPickupSystem : MonoBehaviour
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.None;
                 isSequenceStarted = false;
-                Camera.main.GetComponent<CameraShake>().shakeDuration = 0.0f;
+                PlayerCam.GetComponent<CameraShake>().shakeDuration = 0.0f;
                 exposureSetting.enabled.Override(false);
             }
 
@@ -84,7 +87,9 @@ public class RingPickupSystem : MonoBehaviour
 
     private void flickrLight()
     {
-        if (timeSinceLastFlicker > 0.10f)
+        exposureSetting.enabled.Override(true);
+        exposureSetting.keyValue.Override(0.5f);
+        if (timeSinceLastFlicker > 0.10f && startFlicker==true)
         {
             exposureSetting.keyValue.Override(Random.Range(0.04f, 0.24f));
             timeSinceLastFlicker = 0;
