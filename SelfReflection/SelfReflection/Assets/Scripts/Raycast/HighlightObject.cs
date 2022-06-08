@@ -54,7 +54,8 @@ public class HighlightObject : MonoBehaviour
                             if (selectedObject)
                             {
                                 var c = (Color)originalColor;
-                                Highlight(selectedObject, (int)(c.r * 255), (int)(c.g * 255), (int)(c.b * 255), false);
+                                //Highlight(selectedObject, (int)(c.r * 255), (int)(c.g * 255), (int)(c.b * 255), false);
+                                Highlight(selectedObject, 255, 255, 255, false);
                                 originalColor = null;
                             }
                             selectedObject = null;
