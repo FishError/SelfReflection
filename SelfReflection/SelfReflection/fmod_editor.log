@@ -9,7 +9,15 @@
 [LOG] DownMix::init                            : done.
 [LOG] Thread::initThread                       : Init FMOD stream thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFB, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Affinity: 0x4000000000000001, Priority: 0xFFFF7FFA, Stack Size: 81920, Semaphore: No, Sleep Time: 0, Looping: Yes.
+<<<<<<< HEAD
 [LOG] AsyncManager::init                       : manager 0000018FAC4DD3B8 isAsync 0 updatePeriod 0.02
+=======
+<<<<<<< HEAD
+[LOG] AsyncManager::init                       : manager 000001D18AD11DD8 isAsync 0 updatePeriod 0.02
+=======
+[LOG] AsyncManager::init                       : manager 0000020F4BAB6688 isAsync 0 updatePeriod 0.02
+>>>>>>> 9e6a3feaa1d1c6691a3d4d5ab5040c42878906d6
+>>>>>>> 9df3e333c1e086955d0ee39bc29a910380e4aaf9
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
 [LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
@@ -20,3 +28,44 @@
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 141)
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 141)
 [LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+[LOG] SystemI::createSound                     : filename = FMODAssets/Desktop/Master.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] Thread::initThread                       : Init FMOD nonblocking thread (0). Affinity: 0x4000000000000003, Priority: 0xFFFF7FFC, Stack Size: 114688, Semaphore: Yes, Sleep Time: 0, Looping: Yes.
+[LOG] SystemI::createSound                     : setdata soundi = 000002117CEFEC48 : node = 0000021128171460
+[LOG] SystemI::createSound                     : add node to async list : head = 000002111C529418.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002117CEFEC48
+[LOG] SystemI::createSoundInternal             :     Create name='FMODAssets/Desktop/Master.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 4114400
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 52736
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000021128171570
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Hub_Ring_View_Naomi_01', format=5, channels=2, frequency=48000, lengthbytes=112416, lengthpcm=531597, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.426758.
+[LOG] Thread::initThread                       :     Init FMOD file thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFC, Stack Size: 65536, Semaphore: No, Sleep Time: 10, Looping: Yes.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002117CEFEC48
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000021221A4F6F8
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000021221A4F6F8
+[LOG] SoundI::release                          : Hub_Ring_View_Naomi_01 (000002117CEFEC48)
+[LOG] SoundI::release                          :     Hub_Ring_View_Naomi_01 (000002117B7E2F18)
+[LOG] SoundI::release                          :     Hub_Ring_View_Naomi_01 (0000021221A4F6F8)
+>>>>>>> 9e6a3feaa1d1c6691a3d4d5ab5040c42878906d6
+[LOG] Thread::callback                         : FMOD Studio bank load thread finished.
+[LOG] Thread::callback                         : FMOD Studio sample load thread finished.
+[LOG] LiveUpdate::release                      : 
+[LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
+[LOG] Thread::callback                         : FMOD stream thread finished.
+[LOG] Thread::callback                         : FMOD mixer thread finished.
+[LOG] SystemI::close                           : Closed.
+<<<<<<< HEAD
+=======
+[LOG] Thread::callback                         : FMOD nonblocking thread (0) finished.
+[LOG] Thread::callback                         : FMOD file thread finished.
+>>>>>>> 9e6a3feaa1d1c6691a3d4d5ab5040c42878906d6
+>>>>>>> 9df3e333c1e086955d0ee39bc29a910380e4aaf9
