@@ -6,12 +6,15 @@ public class AudioManager : MonoBehaviour
 {
     public GameObject[] audioObjects;
     public GameObject currentAudioObject;
+    public GameObject backgroundMusic;
     public float playTime = 0f;
     public bool startPlayback = false;
+    
     // Start is called before the first frame update
     void Start()
     {
         currentAudioObject = audioObjects[0];
+        backgroundMusic.SetActive(true);
     }
 
     // Update is called once per frame
