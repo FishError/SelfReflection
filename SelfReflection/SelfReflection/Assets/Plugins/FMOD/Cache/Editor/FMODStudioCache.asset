@@ -478,13 +478,41 @@ MonoBehaviour:
   - {fileID: -2797202296608203424}
   - {fileID: -1256695562945190934}
   - {fileID: 3308710793922400931}
+  - {fileID: 1072913287575705466}
   EditorParameters: []
   MasterBanks:
   - {fileID: 4107519189763337353}
   StringsBanks:
   - {fileID: 7170106423640678482}
-  cacheTime: 637902043148076760
+  cacheTime: 637902712377544735
   cacheVersion: 10
+--- !u!114 &1072913287575705466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/TimeChallenge/TimeFailed
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/TimeChallenge/TimeFailed
+  Guid:
+    Data1: -1355806556
+    Data2: 1074268270
+    Data3: 2096669321
+    Data4: -354820682
+  Banks:
+  - {fileID: 4107519189763337353}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &2354122682680675375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -608,7 +636,7 @@ MonoBehaviour:
   Path: FMODAssets/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637902043148076760
+  lastModified: 637902712377524741
   FileSizes: []
   Exists: 1
 --- !u!114 &4359712556415311643
@@ -788,10 +816,10 @@ MonoBehaviour:
   Path: FMODAssets/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637902043148076760
+  lastModified: 637902712377544735
   FileSizes:
   - Name: 
-    Value: 2326
+    Value: 2366
   Exists: 1
 --- !u!114 &7217637500131041534
 MonoBehaviour:

@@ -2087,6 +2087,7 @@ Transform:
   - {fileID: 1602103232}
   - {fileID: 400952456}
   - {fileID: 2073116476}
+  - {fileID: 350970264}
   m_Father: {fileID: 692397941}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3434,6 +3435,67 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3724496694418517016, guid: 7698565778d90c44ba351f11565544cc, type: 3}
   m_PrefabInstance: {fileID: 328421470}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &350970263
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 350970264}
+  - component: {fileID: 350970265}
+  m_Layer: 0
+  m_Name: TimeFailed
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &350970264
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350970263}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 173408435}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &350970265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350970263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1355806556
+      Data2: 1074268270
+      Data3: 2096669321
+      Data4: -354820682
+    Path: event:/Dialogue/TimeChallenge/TimeFailed
+  Event: 
+  PlayEvent: 11
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 1
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &376073671
 GameObject:
   m_ObjectHideFlags: 0
@@ -6949,6 +7011,7 @@ MonoBehaviour:
   - {fileID: 1602103231}
   - {fileID: 400952455}
   - {fileID: 2073116474}
+  - {fileID: 350970263}
   currentAudioObject: {fileID: 1642755866}
   playTime: 0
   startPlayback: 1
@@ -18898,6 +18961,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8143371720302917710, guid: 1de1cda16f47fe345ab501101898c8bb, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 350970263}
+    - target: {fileID: 8143371720302917710, guid: 1de1cda16f47fe345ab501101898c8bb, type: 3}
+      propertyPath: audioManager
+      value: 
+      objectReference: {fileID: 692397940}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1de1cda16f47fe345ab501101898c8bb, type: 3}
 --- !u!1 &1702349652 stripped
