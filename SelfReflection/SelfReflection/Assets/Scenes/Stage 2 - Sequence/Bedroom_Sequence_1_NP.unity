@@ -1767,11 +1767,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2987468310820401226, guid: 0988cffd299e6094a83c02b90cf45721, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 67
+      value: 47
       objectReference: {fileID: 0}
     - target: {fileID: 2987468310820401226, guid: 0988cffd299e6094a83c02b90cf45721, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 37
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2987468310820401226, guid: 0988cffd299e6094a83c02b90cf45721, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3045,6 +3045,7 @@ MonoBehaviour:
   moveTransform: {fileID: 174029808}
   isOff: 0
   CanGoUp: 1
+  isPlayerOn: 0
 --- !u!1 &175184384 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5434068012883001673, guid: 1e34339a91d228245ae38c9523efe452, type: 3}
@@ -3089,6 +3090,7 @@ MonoBehaviour:
   moveTransform: {fileID: 175184385}
   isOff: 0
   CanGoUp: 1
+  isPlayerOn: 0
 --- !u!1 &177661677 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7662010207060384210, guid: 1e34339a91d228245ae38c9523efe452, type: 3}
@@ -3261,6 +3263,7 @@ MonoBehaviour:
   moveTransform: {fileID: 200982828}
   isOff: 0
   CanGoUp: 1
+  isPlayerOn: 0
 --- !u!1 &203454296
 GameObject:
   m_ObjectHideFlags: 0
@@ -4294,6 +4297,7 @@ MonoBehaviour:
   moveTransform: {fileID: 285062371}
   isOff: 0
   CanGoUp: 1
+  isPlayerOn: 0
 --- !u!65 &285062373
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5879,6 +5883,7 @@ MonoBehaviour:
   moveTransform: {fileID: 335460579}
   isOff: 0
   CanGoUp: 1
+  isPlayerOn: 0
 --- !u!1 &338526628
 GameObject:
   m_ObjectHideFlags: 0
@@ -18959,7 +18964,6 @@ GameObject:
   - component: {fileID: 1132858779}
   - component: {fileID: 1132858782}
   - component: {fileID: 1132858781}
-  - component: {fileID: 1132858780}
   m_Layer: 7
   m_Name: Bed_Mattress
   m_TagString: Untagged
@@ -18981,20 +18985,6 @@ Transform:
   m_Father: {fileID: 1947742382}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1132858780
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1132858778}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4908089480768583541, guid: 1669c48ebd4920049b5e497cc8e02bdb, type: 3}
 --- !u!23 &1132858781
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -25315,6 +25305,7 @@ MonoBehaviour:
   moveTransform: {fileID: 1545484491}
   isOff: 0
   CanGoUp: 1
+  isPlayerOn: 0
 --- !u!4 &1545484491 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5857571077745366757, guid: 1e34339a91d228245ae38c9523efe452, type: 3}
@@ -30971,8 +30962,9 @@ GameObject:
   - component: {fileID: 1947742382}
   - component: {fileID: 1947742386}
   - component: {fileID: 1947742385}
-  - component: {fileID: 1947742384}
   - component: {fileID: 1947742383}
+  - component: {fileID: 1947742384}
+  - component: {fileID: 1947742387}
   m_Layer: 7
   m_Name: Bed_Frame
   m_TagString: Untagged
@@ -31017,20 +31009,20 @@ MonoBehaviour:
   moveTransform: {fileID: 1947742382}
   isOff: 0
   CanGoUp: 1
---- !u!64 &1947742384
-MeshCollider:
+  isPlayerOn: 0
+--- !u!65 &1947742384
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1947742381}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 5055943877911857126, guid: 1669c48ebd4920049b5e497cc8e02bdb, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 1.7283332, y: 0.4, z: 2.429668}
+  m_Center: {x: 0, y: -0.2, z: 0.014833927}
 --- !u!23 &1947742385
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -31080,6 +31072,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1947742381}
   m_Mesh: {fileID: 5055943877911857126, guid: 1669c48ebd4920049b5e497cc8e02bdb, type: 3}
+--- !u!65 &1947742387
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947742381}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.7283332, y: 0.4, z: 2.429668}
+  m_Center: {x: 0, y: -0.23, z: 0.014833927}
 --- !u!1 &1963142569
 GameObject:
   m_ObjectHideFlags: 0
@@ -32132,8 +32137,9 @@ GameObject:
   - component: {fileID: 2045050953}
   - component: {fileID: 2045050957}
   - component: {fileID: 2045050956}
-  - component: {fileID: 2045050955}
   - component: {fileID: 2045050954}
+  - component: {fileID: 2045050955}
+  - component: {fileID: 2045050958}
   m_Layer: 7
   m_Name: Bed_Frame
   m_TagString: Untagged
@@ -32178,20 +32184,20 @@ MonoBehaviour:
   moveTransform: {fileID: 2045050953}
   isOff: 0
   CanGoUp: 1
---- !u!64 &2045050955
-MeshCollider:
+  isPlayerOn: 0
+--- !u!65 &2045050955
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2045050952}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 5055943877911857126, guid: 1669c48ebd4920049b5e497cc8e02bdb, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 1.7283332, y: 0.4, z: 2.429668}
+  m_Center: {x: 0, y: -0.2, z: 0.014833927}
 --- !u!23 &2045050956
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -32241,6 +32247,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2045050952}
   m_Mesh: {fileID: 5055943877911857126, guid: 1669c48ebd4920049b5e497cc8e02bdb, type: 3}
+--- !u!65 &2045050958
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2045050952}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.7283332, y: 0.4, z: 2.429668}
+  m_Center: {x: 0, y: -0.23, z: 0.014833927}
 --- !u!1 &2046068664 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7199207398533742413, guid: 25dd6add82dcbe54f94f58b6a42ff940, type: 3}
@@ -32440,7 +32459,6 @@ GameObject:
   - component: {fileID: 2059270144}
   - component: {fileID: 2059270147}
   - component: {fileID: 2059270146}
-  - component: {fileID: 2059270145}
   m_Layer: 7
   m_Name: Bed_Mattress
   m_TagString: Untagged
@@ -32462,20 +32480,6 @@ Transform:
   m_Father: {fileID: 2045050953}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &2059270145
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2059270143}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4908089480768583541, guid: 1669c48ebd4920049b5e497cc8e02bdb, type: 3}
 --- !u!23 &2059270146
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -34218,7 +34222,6 @@ GameObject:
   - component: {fileID: 1212540629703962029}
   - component: {fileID: 5315352533801187993}
   - component: {fileID: 6088908078945835981}
-  - component: {fileID: 3481035307642015070}
   m_Layer: 7
   m_Name: Bed_Mattress
   m_TagString: Untagged
@@ -34226,20 +34229,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &3481035307642015070
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3481035307642015069}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4908089480768583541, guid: 1669c48ebd4920049b5e497cc8e02bdb, type: 3}
 --- !u!4 &3652255655551592127
 Transform:
   m_ObjectHideFlags: 0
@@ -34279,8 +34268,9 @@ GameObject:
   - component: {fileID: 2208591416142340730}
   - component: {fileID: 7665680546260171119}
   - component: {fileID: 2994199991237245605}
-  - component: {fileID: 4815530407408957324}
   - component: {fileID: 4815530407408957323}
+  - component: {fileID: 4815530407408957324}
+  - component: {fileID: 4815530407408957325}
   m_Layer: 7
   m_Name: Bed_Frame
   m_TagString: Untagged
@@ -34308,8 +34298,22 @@ MonoBehaviour:
   moveTransform: {fileID: 2208591416142340730}
   isOff: 0
   CanGoUp: 1
---- !u!64 &4815530407408957324
-MeshCollider:
+  isPlayerOn: 0
+--- !u!65 &4815530407408957324
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4815530407408957322}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.7283332, y: 0.4, z: 2.429668}
+  m_Center: {x: 0, y: -0.2, z: 0.014833927}
+--- !u!65 &4815530407408957325
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -34318,10 +34322,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 5055943877911857126, guid: 1669c48ebd4920049b5e497cc8e02bdb, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 1.7283332, y: 0.4, z: 2.429668}
+  m_Center: {x: 0, y: -0.23, z: 0.014833927}
 --- !u!4 &4964178607018498732 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4964178607100883675, guid: 0988cffd299e6094a83c02b90cf45721, type: 3}
