@@ -15,6 +15,8 @@ public class ResetObjectPosition : MonoBehaviour
     private float amt = 0.7f;
     private float curWeight;
 
+    private GameObject[] doors;
+
     private void Start()
     {
         if(meshRenderer != null)
@@ -22,6 +24,8 @@ public class ResetObjectPosition : MonoBehaviour
             meshRenderer.material.shader = Shader.Find("TNTC/Disintegration");
             curWeight = meshRenderer.material.GetFloat("_Weight");
         }
+
+        doors = GameObject.FindGameObjectsWithTag("DoorManager");
     }
 
     private void Update()
@@ -116,6 +120,12 @@ public class ResetObjectPosition : MonoBehaviour
                 playerCam.DropObject();
             }
         }
+
+        foreach (GameObject door in doors)
+        {
+            door.GetComponent<DoorManager>().OnRespawn();
+        }
+
         isAlive = true;
     }
 
