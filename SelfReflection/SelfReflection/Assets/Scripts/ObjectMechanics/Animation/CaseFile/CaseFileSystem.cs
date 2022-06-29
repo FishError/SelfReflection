@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class CaseFileSystem : MonoBehaviour
 {
     public GameObject fileCam;
-    public GameObject alarmClockCanvas;
     public string nextScene;
     private Animator anim;
     private PlayerMovement playerMovement;
@@ -36,8 +35,6 @@ public class CaseFileSystem : MonoBehaviour
             playerMovement.DisableMovement();
             this.transform.parent.localEulerAngles = new Vector3(0, 90, 0);
             player.SetActive(false);
-            alarmClockCanvas.GetComponent<AlarmClock>().timerIsRunning = false;
-            alarmClockCanvas.transform.GetChild(1).gameObject.SetActive(false);
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
