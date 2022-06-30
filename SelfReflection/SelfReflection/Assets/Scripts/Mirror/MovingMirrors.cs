@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum Axis
@@ -24,18 +23,22 @@ public class MovingMirrors : MonoBehaviour
     public bool isRotating;
     public Axis axisOfRoatation;
     public float rotationSpeed;
+    public float waitTime;
 
     // Start is called before the first frame update
     void Start()
     {
         targetPoint = pointA;
+
+        if (isRotating)
+            StartCoroutine(RotationRoutine());
     }
 
     // Update is called once per frame
     void Update()
     {
         MoveMirror();
-        RotateMirror();
+        // RotateMirror();
     }
 
     private void MoveMirror()
@@ -59,22 +62,67 @@ public class MovingMirrors : MonoBehaviour
         }
     }
 
-    private void RotateMirror()
+    // private void RotateMirror()
+    // {
+    //     if (isRotating)
+    //     {
+    //         switch (axisOfRoatation)
+    //         {
+    //             case Axis.x:
+    //                 mirror.transform.Rotate(rotationSpeed * Time.deltaTime, 0f, 0f, Space.Self);
+    //                 break;
+    //             case Axis.y:
+    //                 mirror.transform.Rotate(0f, rotationSpeed * Time.deltaTime, 0f, Space.Self);
+    //                 break;
+    //             case Axis.z:
+    //                 mirror.transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime, Space.Self);
+    //                 break;
+    //         }
+    //     }
+    // }
+
+    private IEnumerator RotationRoutine()
     {
-        if (isRotating)
+        while (true)
         {
-            switch(axisOfRoatation)
-            {
-                case Axis.x:
-                    mirror.transform.Rotate(rotationSpeed * Time.deltaTime, 0f, 0f, Space.Self);
-                    break;
-                case Axis.y:
-                    mirror.transform.Rotate(0f, rotationSpeed * Time.deltaTime, 0f, Space.Self);
-                    break;
-                case Axis.z:
-                    mirror.transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime, Space.Self);
-                    break;
-            }
+            yield return RotateAroundAxis(axisOfRoatation);
+            yield return Wait();
+            yield return null;
         }
+    }
+
+    private IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(waitTime);
+    }
+
+    private IEnumerator RotateAroundAxis(Axis axis)
+    {
+        float duration = 360f / rotationSpeed;
+        float timeElapsed = 0f;
+        Quaternion startRotation = transform.rotation;
+        Vector3 axisVector3 = Vector3.zero;
+        
+        switch (axis)
+        {
+            case Axis.x:
+                axisVector3 = Vector3.forward;
+                break;
+            case Axis.y:
+                axisVector3 = Vector3.up;
+                break;
+            case Axis.z:
+                axisVector3 = Vector3.right;
+                break;
+        }
+        
+        while (timeElapsed < duration)
+        {
+            timeElapsed += Time.deltaTime;
+            transform.rotation = startRotation * Quaternion.AngleAxis(timeElapsed / duration * 360f, axisVector3);
+            yield return null;
+        }
+        
+        yield return null;
     }
 }
