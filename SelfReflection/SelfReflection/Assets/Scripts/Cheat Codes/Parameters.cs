@@ -20,15 +20,19 @@ public class Parameters : MonoBehaviour
                 {
                     case "mass":
                         player.GetComponent<Rigidbody>().mass = PlayerPrefs.GetInt(param[i].transform.GetChild(1).name);
+                        //GameObject.Find(param[i].transform.GetChild(1).name).GetComponent<Text>().text = player.GetComponent<Rigidbody>().mass.ToString();
                         break;
                     case "jumpforce":
                         player.GetComponent<PlayerMovement>().jumpForce = PlayerPrefs.GetInt(param[i].transform.GetChild(1).name);
+                        //GameObject.Find(param[i].transform.GetChild(1).name).GetComponent<Text>().text = player.GetComponent<PlayerMovement>().jumpForce.ToString();
                         break;
                     case "speed":
                         player.GetComponent<PlayerMovement>().moveSpeed = PlayerPrefs.GetInt(param[i].transform.GetChild(1).name);
+                        //GameObject.Find(param[i].transform.GetChild(1).name).GetComponent<Text>().text = player.GetComponent<PlayerMovement>().moveSpeed.ToString();
                         break;
                     case "climbspeed":
                         player.GetComponent<PlayerMovement>().climbUpSpeed = PlayerPrefs.GetInt(param[i].transform.GetChild(1).name);
+                        //GameObject.Find(param[i].transform.GetChild(1).name).GetComponent<Text>().text = player.GetComponent<PlayerMovement>().climbUpSpeed.ToString();
                         break;
                 }
             }
