@@ -66,10 +66,14 @@ public class InteractablePlatform : Interactable
         timeLeft = resetTimer;
     }
 
-    public override void MoveRelativeToPlayer(float mouseX, float mouseY, float mouseScroll, Vector3 playerPosition, Vector3 mirrorPosition)
+    public override void MoveObject(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition, Vector3 mirrorPosition)
     {
-        var dir = (playerPosition - mirrorPosition).normalized;
-        var forwardBackwardDir = new Vector3(dir.x, 0, dir.z);
+        MoveRelativeToObject(mouseX, mouseY, mouseScroll);
+    }
+
+    public void MoveRelativeToPlayer(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir)
+    {
+        var forwardBackwardDir = new Vector3(rayDir.x, 0, rayDir.z);
         var leftRightDir = Vector3.Cross(forwardBackwardDir, Vector3.up);
 
         if (xAxis)
@@ -80,7 +84,7 @@ public class InteractablePlatform : Interactable
             zDir = forwardBackwardDir;
     }
 
-    public override void MoveRelativeToObject(float mouseX, float mouseY, float mouseScroll)
+    public void MoveRelativeToObject(float mouseX, float mouseY, float mouseScroll)
     {
         if (xAxis)
             xDir = transform.right * mouseX;

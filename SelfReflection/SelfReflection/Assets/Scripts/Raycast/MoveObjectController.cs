@@ -203,17 +203,10 @@ public class MoveObjectController : MonoBehaviour
 
     void MoveObjectThroughMirror()
     {
-        if (interactable is InteractableObject || interactable is InteractableMirror)
-        {
-            var x = mouseX * objectMoveSpeed;
-            var y = mouseY * objectMoveSpeed;
-            var z = mouseScroll * mouseScrollSense * objectMoveSpeed * 15;
-            interactable.MoveRelativeToPlayer(x, y, z, lastPlayerPosition, relativeMirror.transform.position);
-        }
-        else if (interactable is InteractablePlatform)
-        {
-            interactable.MoveRelativeToObject(mouseX, mouseY, mouseScroll * mouseScrollSense * 5);
-        }
+        var x = mouseX * objectMoveSpeed;
+        var y = mouseY * objectMoveSpeed;
+        var z = mouseScroll * mouseScrollSense * objectMoveSpeed * 15;
+        interactable.MoveObject(x, y, z, ray.direction, lastPlayerPosition, relativeMirror.transform.position);
     }
 
     void MoveObjectNoMirror()

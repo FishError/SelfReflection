@@ -125,6 +125,11 @@ public class InteractableMirror : Interactable
         state = ObjectState.Interactable;
     }
 
+    public override void MoveObject(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition, Vector3 mirrorPosition)
+    {
+        MoveRelativeToPlayer(mouseX, mouseY, mouseScroll, playerPosition, mirrorPosition);
+    }
+
     private bool OutOfBounds()
     {
         if (transform.position.x < minX || transform.position.x > maxX ||
@@ -137,7 +142,7 @@ public class InteractableMirror : Interactable
         return false;
     }
 
-    public override void MoveRelativeToPlayer(float mouseX, float mouseY, float mouseScroll, Vector3 playerPosition, Vector3 mirrorPosition)
+    public void MoveRelativeToPlayer(float mouseX, float mouseY, float mouseScroll, Vector3 playerPosition, Vector3 mirrorPosition)
     {
         var dir = (playerPosition - mirrorPosition).normalized;
         var forwardBackwardDir = new Vector3(dir.x, 0, dir.z);

@@ -36,10 +36,14 @@ public class InteractableObject : Interactable
         state = ObjectState.Interactable;
     }
 
-    public override void MoveRelativeToPlayer(float mouseX, float mouseY, float mouseScroll, Vector3 playerPosition, Vector3 mirrorPosition)
+    public override void MoveObject(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition, Vector3 mirrorPosition)
     {
-        var dir = (playerPosition - mirrorPosition).normalized;
-        var forwardBackwardDir = new Vector3(dir.x, 0, dir.z);
+        MoveRelativeToPlayer(mouseX, mouseY, mouseScroll, rayDir, playerPosition);
+    }
+
+    public void MoveRelativeToPlayer(float mouseX, float mouseY, float mouseScroll, Vector3 cameraDir, Vector3 playerPosition)
+    {
+        var forwardBackwardDir = new Vector3(cameraDir.x, 0, cameraDir.z);
         var leftRightDir = Vector3.Cross(forwardBackwardDir, Vector3.up);
         var playerObjectDistance = (playerPosition - transform.position).magnitude;
 
