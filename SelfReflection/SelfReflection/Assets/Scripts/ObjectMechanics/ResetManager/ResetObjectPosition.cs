@@ -9,7 +9,7 @@ public class ResetObjectPosition : MonoBehaviour
     private GameObject player = null;
     private GameObject pickUpParent;
     private float time;
-    public SkinnedMeshRenderer meshRenderer = null;
+    //public SkinnedMeshRenderer meshRenderer = null;
     private bool isDead = false;
     private bool isAlive = false;
     private float amt = 0.7f;
@@ -19,11 +19,12 @@ public class ResetObjectPosition : MonoBehaviour
 
     private void Start()
     {
+        /*
         if(meshRenderer != null)
         {
             meshRenderer.material.shader = Shader.Find("TNTC/Disintegration");
             curWeight = meshRenderer.material.GetFloat("_Weight");
-        }
+        }*/
 
         doors = GameObject.FindGameObjectsWithTag("DoorManager");
     }
@@ -38,24 +39,26 @@ public class ResetObjectPosition : MonoBehaviour
         if (isDead)
         {
             curWeight += amt * Time.deltaTime;
-            meshRenderer.material.SetFloat("_Weight", curWeight);
+            //meshRenderer.material.SetFloat("_Weight", curWeight);
+            
+            /*
             if(meshRenderer.material.GetFloat("_Weight") > 1)
             {
                 meshRenderer.material.SetFloat("_Weight", 1);
                 isDead = false;
                 ResetPlayer();
-            }
+            }*/
         }
 
         if (isAlive)
         {
             curWeight -= amt * Time.deltaTime;
-            meshRenderer.material.SetFloat("_Weight", curWeight);
+            /*meshRenderer.material.SetFloat("_Weight", curWeight);
             if (meshRenderer.material.GetFloat("_Weight") < 0)
             {
                 meshRenderer.material.SetFloat("_Weight", 0);
                 isAlive = false;
-            }
+            }*/
         }
     }
 

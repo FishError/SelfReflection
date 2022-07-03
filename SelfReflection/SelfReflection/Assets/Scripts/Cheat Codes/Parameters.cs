@@ -11,7 +11,16 @@ public class Parameters : MonoBehaviour
 
     private void Start()
     {
+        //Setting up default values for each parameter
+        defaultVal.Add("mass", 1.25f);
+        defaultVal.Add("jumpforce", 12f);
+        defaultVal.Add("speed", 7f);
+        defaultVal.Add("climbspeed", 12f);
+
+        //Find the player component to get its PlayerMovement component
         player = GameObject.Find("Player");
+
+        //Load on Start: If there exist a key for a parameter, apply the effect of that parameter to the player
         for (int i = 0; i < param.Count; i++)
         {
             if (PlayerPrefs.HasKey(param[i].transform.GetChild(1).name))
@@ -19,16 +28,16 @@ public class Parameters : MonoBehaviour
                 switch (param[i].transform.GetChild(1).name)
                 {
                     case "mass":
-                        player.GetComponent<Rigidbody>().mass = PlayerPrefs.GetInt(param[i].transform.GetChild(1).name);
+                        player.GetComponent<Rigidbody>().mass = PlayerPrefs.GetFloat(param[i].transform.GetChild(1).name, 1.25f);
                         break;
                     case "jumpforce":
-                        player.GetComponent<PlayerMovement>().jumpForce = PlayerPrefs.GetInt(param[i].transform.GetChild(1).name);
+                        player.GetComponent<PlayerMovement>().jumpForce = PlayerPrefs.GetFloat(param[i].transform.GetChild(1).name, 12f);
                         break;
                     case "speed":
-                        player.GetComponent<PlayerMovement>().moveSpeed = PlayerPrefs.GetInt(param[i].transform.GetChild(1).name);
+                        player.GetComponent<PlayerMovement>().moveSpeed = PlayerPrefs.GetFloat(param[i].transform.GetChild(1).name, 7f);
                         break;
                     case "climbspeed":
-                        player.GetComponent<PlayerMovement>().climbUpSpeed = PlayerPrefs.GetInt(param[i].transform.GetChild(1).name);
+                        player.GetComponent<PlayerMovement>().climbUpSpeed = PlayerPrefs.GetFloat(param[i].transform.GetChild(1).name, 12f);
                         break;
                 }
             }
@@ -38,38 +47,63 @@ public class Parameters : MonoBehaviour
             }
         }
 
+        //Load on Start: Update the slider value and the text based on the last saved value
         for (int i = 0; i < param.Count; i++)
         {
-            param[i].transform.GetChild(1).gameObject.GetComponent<Text>().text = PlayerPrefs.GetInt(param[i].transform.GetChild(1).name).ToString();
-            //param[i].transform.GetChild(0).gameObject.GetComponent<Slider>().value = PlayerPrefs.GetInt(param[i].transform.GetChild(1).name);
+            param[i].transform.GetChild(1).gameObject.GetComponent<Text>().text = PlayerPrefs.GetFloat(param[i].transform.GetChild(1).name).ToString("F2");
+            param[i].transform.GetChild(0).gameObject.GetComponent<Slider>().value = PlayerPrefs.GetFloat(param[i].transform.GetChild(1).name);
         }
     }
 
+    //Update the text value based on the slider value
+    private void Update()
+    {
+        for (int i = 0; i < param.Count; i++)
+        {
+            param[i].transform.GetChild(1).gameObject.GetComponent<Text>().text = PlayerPrefs.GetFloat(param[i].transform.GetChild(1).name).ToString("F2");
+        }
+    }
+
+    //Change player mass
     public void playerMass(float mass)
     {
         player.GetComponent<Rigidbody>().mass = mass;
-        GameObject.Find("mass").GetComponent<Text>().text = Mathf.RoundToInt(mass).ToString();
-        PlayerPrefs.SetInt("mass", Mathf.RoundToInt(mass));
+        PlayerPrefs.SetFloat("mass", mass);
     }
 
+    //Change player jump force
     public void playerJumpForce(float force)
     {
         player.GetComponent<PlayerMovement>().jumpForce = force;
-        GameObject.Find("jumpforce").GetComponent<Text>().text = Mathf.RoundToInt(force).ToString();
-        PlayerPrefs.SetInt("jumpforce", Mathf.RoundToInt(force));
+        PlayerPrefs.SetFloat("jumpforce", force);
     }
 
+    //Change player speed
     public void playerSpeed(float speed)
     {
         player.GetComponent<PlayerMovement>().moveSpeed = speed;
-        GameObject.Find("speed").GetComponent<Text>().text = Mathf.RoundToInt(speed).ToString();
-        PlayerPrefs.SetInt("speed", Mathf.RoundToInt(speed));
+        PlayerPrefs.SetFloat("speed", speed);
     }
 
+    //Change player climb speed
     public void playerClimbSpeed(float climbSpeed)
     {
         player.GetComponent<PlayerMovement>().climbUpSpeed = climbSpeed;
-        GameObject.Find("climbspeed").GetComponent<Text>().text = Mathf.RoundToInt(climbSpeed).ToString();
-        PlayerPrefs.SetInt("climbspeed", Mathf.RoundToInt(climbSpeed));
+        PlayerPrefs.SetFloat("climbspeed", climbSpeed);
+    }
+
+    //Reset current parameter values to default values
+    public void resetDebugManager()
+    {
+        player.GetComponent<Rigidbody>().mass = defaultVal["mass"];
+        player.GetComponent<PlayerMovement>().jumpForce = defaultVal["jumpforce"];
+        player.GetComponent<PlayerMovement>().moveSpeed = defaultVal["speed"];
+        player.GetComponent<PlayerMovement>().climbUpSpeed = defaultVal["climbspeed"];
+        
+        for (int i = 0; i < param.Count; i++)
+        {
+            param[i].transform.GetChild(1).gameObject.GetComponent<Text>().text = defaultVal[param[i].transform.GetChild(1).name].ToString();
+            param[i].transform.GetChild(0).gameObject.GetComponent<Slider>().value = defaultVal[param[i].transform.GetChild(1).name];
+        }
     }
 }
