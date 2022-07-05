@@ -3,10 +3,14 @@ using System;
 [Serializable]
 public class SaveData
 {
+    public SceneIndex LastVisitedLevel;
     public SaveData()
     {
-        LastVisitedLevel = LevelStage.Level1;
+        LastVisitedLevel = SceneIndex.DemoStage1;
     }
-    
-    public LevelStage LastVisitedLevel;
+
+    public SaveData(SceneIndex level)
+    {
+        LastVisitedLevel = level;
+    }
 }

@@ -12,11 +12,11 @@ public static class SaveSystem
         File.WriteAllText(Application.dataPath + PATH, saveDataString);
     }
 
-    public static void SaveLevel(LevelStage levelStage)
+    public static void SaveLevel(SceneIndex level)
     {
         CheckSaveFileIntegrity();
         SaveData currentData = Load();
-        currentData.LastVisitedLevel = levelStage;
+        currentData.LastVisitedLevel = level;
         Save(currentData);
     }
     
