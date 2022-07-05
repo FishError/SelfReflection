@@ -5,6 +5,8 @@ using UnityEngine;
 // should be attached to all interactable objects
 public class InteractableObject : Interactable
 {
+    protected Collider playerCollider;
+
     public override void SelectObject(MoveObjectController controller)
     {
         rb.useGravity = false;
@@ -26,6 +28,10 @@ public class InteractableObject : Interactable
         rb.useGravity = true;
         rb.constraints = RigidbodyConstraints.None;
         moveObjectController = null;
+        
+        if (state == ObjectState.Holding)
+            Physics.IgnoreCollision(playerCollider, GetComponent<Collider>(), false);
+
         state = ObjectState.Interactable;
     }
 
@@ -55,6 +61,8 @@ public class InteractableObject : Interactable
 
         if (collision.gameObject.layer == player.layer && state == ObjectState.Holding)
         {
+            Physics.IgnoreCollision(collision.collider, GetComponent<Collider>(), true);
+            playerCollider = collision.collider;
             var distance = (transform.position - collision.GetContact(0).point).magnitude;
             moveObjectController.ScalePickUpParentRange(distance + 1f);
         }
