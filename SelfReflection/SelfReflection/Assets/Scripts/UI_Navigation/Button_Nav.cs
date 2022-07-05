@@ -31,7 +31,9 @@ public class Button_Nav : MonoBehaviour
         }
         else if (button.name == "Start_Button")
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+sceneNum);
+            int nextSceneIndex = (int)SaveSystem.Load().LastVisitedLevel;
+            SceneManager.LoadScene(nextSceneIndex);
+            // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+sceneNum);
             Time.timeScale = 1;
         }
         else if (button.name == "MainMenu_Button")
