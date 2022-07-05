@@ -7,14 +7,12 @@ public static class SaveSystem
 
     public static void Save(SaveData saveData)
     {
-        CheckSaveFileIntegrity();
         string saveDataString = JsonUtility.ToJson(saveData);
         File.WriteAllText(Application.dataPath + PATH, saveDataString);
     }
 
     public static void SaveLevel(SceneIndex level)
     {
-        CheckSaveFileIntegrity();
         SaveData currentData = Load();
         currentData.LastVisitedLevel = level;
         Save(currentData);
