@@ -18,7 +18,7 @@ public class InteractableMirror : Interactable
     private Vector3 distance;
     private float vX = 0;
     private float vY = 0;
-    private float VZ = 0;
+    private float vZ = 0;
 
     private float minX;
     private float maxX;
@@ -44,32 +44,9 @@ public class InteractableMirror : Interactable
         float y = transform.position.y;
         float z = transform.position.z;
 
-        if (transform.position.x < minX)
-        {
-            x = minX;
-        }
-        else if (transform.position.x > maxX)
-        {
-            x = maxX;
-        }
-
-        if (transform.position.y < minY)
-        {
-            y = minY;
-        }
-        else if (transform.position.y > maxY)
-        {
-            y = maxY;
-        }
-
-        if (transform.position.z < minZ)
-        {
-            z = minZ;
-        }
-        else if (transform.position.z > maxZ)
-        {
-            z = maxZ;
-        }
+        x = Mathf.Clamp(transform.position.x, minX, maxX);
+        y = Mathf.Clamp(transform.position.y, minY, maxY);
+        z = Mathf.Clamp(transform.position.z, minZ, maxZ);
 
         if (OutOfBounds())
         {
@@ -92,10 +69,10 @@ public class InteractableMirror : Interactable
             }
             if (zAxis)
             {
-                VZ = dir.z;
+                vZ = dir.z;
             }
 
-            rb.velocity = new Vector3(vX, vY, VZ) * 5;
+            rb.velocity = new Vector3(vX, vY, vZ) * 5;
         }
     }
 
@@ -119,15 +96,13 @@ public class InteractableMirror : Interactable
     public override void UnSelectObject()
     {
         moveObjectController = null;
-        rb.mass = mass;
-        rb.drag = drag;
         rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
         state = ObjectState.Interactable;
     }
 
     public override void MoveObject(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition, Vector3 mirrorPosition)
     {
-        MoveRelativeToPlayer(mouseX, mouseY, mouseScroll, playerPosition, mirrorPosition);
+        MoveRelativeToPlayer(mouseX, mouseY, mouseScroll, rayDir, playerPosition);
     }
 
     private bool OutOfBounds()
@@ -142,17 +117,17 @@ public class InteractableMirror : Interactable
         return false;
     }
 
-    public void MoveRelativeToPlayer(float mouseX, float mouseY, float mouseScroll, Vector3 playerPosition, Vector3 mirrorPosition)
+    public void MoveRelativeToPlayer(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition)
     {
-        var dir = (playerPosition - mirrorPosition).normalized;
-        var forwardBackwardDir = new Vector3(dir.x, 0, dir.z);
+        var forwardBackwardDir = new Vector3(rayDir.x, 0, rayDir.z);
         var leftRightDir = Vector3.Cross(forwardBackwardDir, Vector3.up);
         var playerObjectDistance = (playerPosition - transform.position).magnitude;
 
-        Vector3 upDownForce = Vector3.up * mouseY * playerObjectDistance * 5;
-        Vector3 leftRightForce = leftRightDir * mouseX * playerObjectDistance * 5;
-        Vector3 forwardBackwardsForce = -forwardBackwardDir * mouseScroll * 20;
+        Vector3 upDownVelocity = Vector3.up * mouseY * playerObjectDistance;
+        Vector3 leftRightVelocity = leftRightDir * mouseX * playerObjectDistance;
+        Vector3 forwardBackwardVelocity = -forwardBackwardDir * mouseScroll;
+        Vector3 velocity = upDownVelocity + leftRightVelocity + forwardBackwardVelocity;
 
-        rb.AddForce(leftRightForce + upDownForce + forwardBackwardsForce);
+        rb.velocity = Vector3.Lerp(rb.velocity, Vector3.ClampMagnitude(velocity, maxVelocity), 0.3f);
     }
 }

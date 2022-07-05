@@ -18,6 +18,7 @@ public class MoveObjectController : MonoBehaviour
 
     [Header("Left Click Parameters")]
     private float mouseX, mouseY, mouseScroll;
+    private GameObject gameObjectCopy;
     public float sensX;
     public float sensY;
     public float mouseScrollSense;
@@ -82,7 +83,7 @@ public class MoveObjectController : MonoBehaviour
                 {
                     if (hit.collider.transform.gameObject.layer == interactableLayerIndex)
                     {
-                        interactable = hit.rigidbody.transform.GetComponent<Interactable>();
+                        interactable = hit.transform.GetComponent<Interactable>();
 
                         if (reflections > 0)
                         {
@@ -95,7 +96,7 @@ public class MoveObjectController : MonoBehaviour
                                 SelectInterableObject(false);
                                 if (interactable is InteractableObject)
                                 {
-                                    interactable.transform.parent = pickupParent;
+                                    PickUpObject();
                                 }
                             }
                             else
@@ -162,7 +163,7 @@ public class MoveObjectController : MonoBehaviour
                             // pick up object through mirror
                             interactable.SetToEthereal();
                             interactable.transform.position = spawnLocation;
-                            interactable.transform.parent = pickupParent;
+                            PickUpObject();
                             SelectInterableObject(false);
                         }
                         else
@@ -220,8 +221,22 @@ public class MoveObjectController : MonoBehaviour
         }
     }
 
+    public void PickUpObject()
+    {
+        // creates compound collider so objects don't go through other objects
+        gameObjectCopy = Instantiate(interactable.transform.gameObject);
+        gameObjectCopy.GetComponent<MeshRenderer>().enabled = false;
+        Destroy(gameObjectCopy.GetComponent<Rigidbody>());
+        gameObjectCopy.transform.parent = pickupParent;
+        gameObjectCopy.transform.localPosition = Vector3.zero;
+
+        interactable.transform.parent = pickupParent;
+    }
+
+
     public void DropObject()
     {
+        Destroy(gameObjectCopy);
         interactable.transform.parent = null;
         interactable.UnSelectObject();
         interactable = null;

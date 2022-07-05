@@ -9,16 +9,12 @@ public class InteractablePlatform : Interactable
     public bool yAxis;
     public bool zAxis;
 
-    public float speed;
-
-    protected Vector3 xDir = Vector3.zero;
-    protected Vector3 yDir = Vector3.zero;
-    protected Vector3 zDir = Vector3.zero;
-
     [Header("Reset Settings")]
     public float resetTimer;
     protected float timeLeft;
     protected Vector3 originalPosition;
+
+    protected Vector3 playerPos;
 
     protected override void Start()
     {
@@ -28,11 +24,6 @@ public class InteractablePlatform : Interactable
 
     protected virtual void Update()
     {
-        if (state == ObjectState.MovingThroughMirror)
-        {
-            transform.position += (xDir + yDir + zDir) * speed * Time.deltaTime;
-        }
-
         if (transform.position != originalPosition && state != ObjectState.MovingThroughMirror)
         {
             timeLeft -= Time.deltaTime;
@@ -68,30 +59,28 @@ public class InteractablePlatform : Interactable
 
     public override void MoveObject(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition, Vector3 mirrorPosition)
     {
-        MoveRelativeToObject(mouseX, mouseY, mouseScroll);
+        MoveRelativeToPlayer(mouseX, mouseY, mouseScroll, rayDir, playerPosition);
     }
 
-    public void MoveRelativeToPlayer(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir)
+    public void MoveRelativeToPlayer(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition)
     {
         var forwardBackwardDir = new Vector3(rayDir.x, 0, rayDir.z);
         var leftRightDir = Vector3.Cross(forwardBackwardDir, Vector3.up);
+        var playerObjectDistance = (playerPosition - transform.position).magnitude;
 
-        if (xAxis)
-            xDir = leftRightDir;
-        if (yAxis)
-            yDir = Vector3.up;
-        if (zAxis)
-            zDir = forwardBackwardDir;
-    }
+        Vector3 upDownVelocity = Vector3.up * mouseY * playerObjectDistance;
+        Vector3 leftRightVelocity = leftRightDir * mouseX * playerObjectDistance;
+        Vector3 forwardBackwardVelocity = -forwardBackwardDir * mouseScroll;
+        Vector3 velocity = upDownVelocity + leftRightVelocity + forwardBackwardVelocity;
 
-    public void MoveRelativeToObject(float mouseX, float mouseY, float mouseScroll)
-    {
-        if (xAxis)
-            xDir = transform.right * mouseX;
-        if (yAxis)
-            yDir = transform.up * mouseY;
-        if (zAxis)
-            zDir = transform.forward * mouseScroll * 5f;
+        if (!xAxis)
+            velocity -= new Vector3(transform.right.x * velocity.x, transform.right.y * velocity.y, transform.right.z * velocity.z);
+        if (!yAxis)
+            velocity -= new Vector3(transform.up.x * velocity.x, transform.up.y * velocity.y, transform.up.z * velocity.z);
+        if (!zAxis)
+            velocity -= new Vector3(transform.forward.x * velocity.x, transform.forward.y * velocity.y, transform.forward.z * velocity.z);
+
+        rb.velocity = Vector3.Lerp(rb.velocity, Vector3.ClampMagnitude(velocity, maxVelocity), 0.3f);
     }
 
     protected virtual void OnCollisionEnter(Collision collision)
@@ -100,6 +89,15 @@ public class InteractablePlatform : Interactable
         {
             collision.transform.SetParent(transform);
             collision.transform.GetComponent<Rigidbody>().useGravity = false;
+            playerPos = collision.transform.localPosition;
+        }
+    }
+
+    protected virtual void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player" && state == ObjectState.MovingThroughMirror)
+        {
+            collision.transform.localPosition = playerPos;
         }
     }
 

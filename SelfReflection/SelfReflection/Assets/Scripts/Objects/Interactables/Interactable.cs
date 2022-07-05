@@ -15,21 +15,17 @@ public abstract class Interactable : MonoBehaviour
     [SerializeField] protected Material ethereal;
     [SerializeField] protected Material real;
     [HideInInspector] public Rigidbody rb;
-    public float maxVelocity;
     public ObjectState state;
     public bool canBecomeEthereal;
+    public float maxVelocity;
     protected MoveObjectController moveObjectController;
     protected GameObject player;
-    protected float mass;
-    protected float drag;
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
         state = ObjectState.Interactable;
         rb = transform.GetComponent<Rigidbody>();
-        mass = rb.mass;
-        drag = rb.drag;
 
         player = GameObject.Find("Player");
 

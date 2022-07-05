@@ -13,14 +13,10 @@ public class InteractableObject : Interactable
 
         if (moveObjectController.relativeMirror)
         {
-            rb.mass = 1f;
-            rb.drag = 10f;
             state = ObjectState.MovingThroughMirror;
         }
         else
         {
-            rb.mass = 0f;
-            rb.drag = 1f;
             state = ObjectState.Holding;
         }
     }
@@ -28,9 +24,6 @@ public class InteractableObject : Interactable
     public override void UnSelectObject()
     {
         rb.useGravity = true;
-        rb.mass = mass;
-        rb.drag = drag;
-        rb.velocity = Vector3.zero;
         rb.constraints = RigidbodyConstraints.None;
         moveObjectController = null;
         state = ObjectState.Interactable;
@@ -41,17 +34,18 @@ public class InteractableObject : Interactable
         MoveRelativeToPlayer(mouseX, mouseY, mouseScroll, rayDir, playerPosition);
     }
 
-    public void MoveRelativeToPlayer(float mouseX, float mouseY, float mouseScroll, Vector3 cameraDir, Vector3 playerPosition)
+    public void MoveRelativeToPlayer(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition)
     {
-        var forwardBackwardDir = new Vector3(cameraDir.x, 0, cameraDir.z);
+        var forwardBackwardDir = new Vector3(rayDir.x, 0, rayDir.z);
         var leftRightDir = Vector3.Cross(forwardBackwardDir, Vector3.up);
         var playerObjectDistance = (playerPosition - transform.position).magnitude;
 
-        Vector3 upDownForce = Vector3.up * mouseY * playerObjectDistance * 5;
-        Vector3 leftRightForce = leftRightDir * mouseX * playerObjectDistance * 5;
-        Vector3 forwardBackwardsForce = -forwardBackwardDir * mouseScroll * 20;
+        Vector3 upDownVelocity = Vector3.up * mouseY * playerObjectDistance;
+        Vector3 leftRightVelocity = leftRightDir * mouseX * playerObjectDistance;
+        Vector3 forwardBackwardVelocity = -forwardBackwardDir * mouseScroll;
+        Vector3 velocity = upDownVelocity + leftRightVelocity + forwardBackwardVelocity;
 
-        rb.AddForce(leftRightForce + upDownForce + forwardBackwardsForce);
+        rb.velocity = Vector3.Lerp(rb.velocity, Vector3.ClampMagnitude(velocity, maxVelocity), 0.3f);
     }
 
     private void OnCollisionEnter(Collision collision)
