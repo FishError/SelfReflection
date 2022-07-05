@@ -2,15 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Parameters : MonoBehaviour
 {
     private GameObject player;
+    public GameObject debugMenu;
     public List<GameObject> param = new List<GameObject>();
     public Dictionary<string, float> defaultVal = new Dictionary<string, float>();
 
     private void Start()
     {
+        //Start Debug Menu in an inactive state
+        debugMenu.SetActive(false);
+        Time.timeScale = 1;
+
         //Setting up default values for each parameter
         defaultVal.Add("mass", 1.25f);
         defaultVal.Add("jumpforce", 12f);
@@ -106,4 +112,12 @@ public class Parameters : MonoBehaviour
             param[i].transform.GetChild(0).gameObject.GetComponent<Slider>().value = defaultVal[param[i].transform.GetChild(1).name];
         }
     }
+
+    //Change scenes based on specified scene name
+    public void changeScene(string scene)
+    {
+        SceneManager.LoadScene(scene);
+    }
+
+
 }
