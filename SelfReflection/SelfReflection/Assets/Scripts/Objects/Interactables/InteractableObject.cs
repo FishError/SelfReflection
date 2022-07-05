@@ -35,21 +35,9 @@ public class InteractableObject : Interactable
         state = ObjectState.Interactable;
     }
 
-    public override void MoveObject(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition, Vector3 mirrorPosition)
+    public override void MoveObject(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition)
     {
-        MoveRelativeToPlayer(mouseX, mouseY, mouseScroll, rayDir, playerPosition);
-    }
-
-    public void MoveRelativeToPlayer(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition)
-    {
-        var forwardBackwardDir = new Vector3(rayDir.x, 0, rayDir.z);
-        var leftRightDir = Vector3.Cross(forwardBackwardDir, Vector3.up);
-        var playerObjectDistance = (playerPosition - transform.position).magnitude;
-
-        Vector3 upDownVelocity = Vector3.up * mouseY * playerObjectDistance;
-        Vector3 leftRightVelocity = leftRightDir * mouseX * playerObjectDistance;
-        Vector3 forwardBackwardVelocity = -forwardBackwardDir * mouseScroll;
-        Vector3 velocity = upDownVelocity + leftRightVelocity + forwardBackwardVelocity;
+        Vector3 velocity = CalculateVelocity(mouseX, mouseY, mouseScroll, rayDir, playerPosition);
 
         rb.velocity = Vector3.Lerp(rb.velocity, Vector3.ClampMagnitude(velocity, maxVelocity), 0.3f);
     }

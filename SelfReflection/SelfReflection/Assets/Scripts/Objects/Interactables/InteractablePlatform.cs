@@ -57,30 +57,64 @@ public class InteractablePlatform : Interactable
         timeLeft = resetTimer;
     }
 
-    public override void MoveObject(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition, Vector3 mirrorPosition)
+    public override void MoveObject(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition)
     {
-        MoveRelativeToPlayer(mouseX, mouseY, mouseScroll, rayDir, playerPosition);
+        Vector3 velocity = CalculateVelocity(mouseX, mouseY, mouseScroll, rayDir, playerPosition);
+
+        rb.velocity = Vector3.Lerp(rb.velocity, Vector3.ClampMagnitude(AdjustMovement(velocity), maxVelocity), 0.3f);
     }
 
-    public void MoveRelativeToPlayer(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition)
+    private Vector3 AdjustMovement(Vector3 velocity)
     {
-        var forwardBackwardDir = new Vector3(rayDir.x, 0, rayDir.z);
-        var leftRightDir = Vector3.Cross(forwardBackwardDir, Vector3.up);
-        var playerObjectDistance = (playerPosition - transform.position).magnitude;
-
-        Vector3 upDownVelocity = Vector3.up * mouseY * playerObjectDistance;
-        Vector3 leftRightVelocity = leftRightDir * mouseX * playerObjectDistance;
-        Vector3 forwardBackwardVelocity = -forwardBackwardDir * mouseScroll;
-        Vector3 velocity = upDownVelocity + leftRightVelocity + forwardBackwardVelocity;
-
         if (!xAxis)
-            velocity -= new Vector3(transform.right.x * velocity.x, transform.right.y * velocity.y, transform.right.z * velocity.z);
-        if (!yAxis)
-            velocity -= new Vector3(transform.up.x * velocity.x, transform.up.y * velocity.y, transform.up.z * velocity.z);
-        if (!zAxis)
-            velocity -= new Vector3(transform.forward.x * velocity.x, transform.forward.y * velocity.y, transform.forward.z * velocity.z);
+        {
+            velocity -= new Vector3(-transform.right.x * velocity.x, -transform.right.y * velocity.y, -transform.right.z * velocity.z);
+        }
+        else
+        {
+            if (Vector3.Dot(velocity.normalized, transform.right) > 0f)
+            {
+                velocity += transform.right * maxVelocity;
+            }
+            else if (Vector3.Dot(velocity.normalized, transform.right) < 0f)
+            {
+                velocity -= transform.right * maxVelocity;
+            }
+        }
 
-        rb.velocity = Vector3.Lerp(rb.velocity, Vector3.ClampMagnitude(velocity, maxVelocity), 0.3f);
+        if (!yAxis)
+        {
+            velocity -= new Vector3(transform.up.x * velocity.x, transform.up.y * velocity.y, transform.up.z * velocity.z);
+        }
+        else
+        {
+            if (Vector3.Dot(velocity.normalized, transform.up) > 0f)
+            {
+                velocity += transform.up * maxVelocity;
+            }
+            else if (Vector3.Dot(velocity.normalized, transform.up) < 0f)
+            {
+                velocity -= transform.up * maxVelocity;
+            }
+        }
+
+        if (!zAxis)
+        {
+            velocity -= new Vector3(-transform.forward.x * velocity.x, -transform.forward.y * velocity.y, -transform.forward.z * velocity.z);
+        }
+        else
+        {
+            if (Vector3.Dot(velocity, transform.forward) > 0f)
+            {
+                velocity += transform.forward * maxVelocity;
+            }
+            else if (Vector3.Dot(velocity.normalized, transform.forward) < 0f)
+            {
+                velocity -= transform.forward * maxVelocity;
+            }
+        }
+
+        return velocity;
     }
 
     protected virtual void OnCollisionEnter(Collision collision)

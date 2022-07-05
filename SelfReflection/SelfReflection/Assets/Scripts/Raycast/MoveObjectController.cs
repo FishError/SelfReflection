@@ -85,7 +85,7 @@ public class MoveObjectController : MonoBehaviour
                     {
                         interactable = hit.transform.GetComponent<Interactable>();
 
-                        if (reflections > 0)
+                        if (reflections > 0 && !interactable.IsEthereal())
                         {
                             SelectInterableObject(true);
                         }
@@ -206,8 +206,8 @@ public class MoveObjectController : MonoBehaviour
     {
         var x = mouseX * objectMoveSpeed;
         var y = mouseY * objectMoveSpeed;
-        var z = mouseScroll * mouseScrollSense * objectMoveSpeed * 15;
-        interactable.MoveObject(x, y, z, ray.direction, lastPlayerPosition, relativeMirror.transform.position);
+        var z = mouseScroll * mouseScrollSense * objectMoveSpeed * 20;
+        interactable.MoveObject(x, y, z, ray.direction, lastPlayerPosition);
     }
 
     void MoveObjectNoMirror()
