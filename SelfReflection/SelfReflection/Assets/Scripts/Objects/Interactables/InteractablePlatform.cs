@@ -60,61 +60,20 @@ public class InteractablePlatform : Interactable
     public override void MoveObject(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition)
     {
         Vector3 velocity = CalculateVelocity(mouseX, mouseY, mouseScroll, rayDir, playerPosition);
-
-        rb.velocity = Vector3.Lerp(rb.velocity, Vector3.ClampMagnitude(AdjustMovement(velocity), maxVelocity), 0.3f);
+        rb.velocity = Vector3.Lerp(rb.velocity, Vector3.ClampMagnitude(AdjustVelocity(velocity), maxVelocity), 0.3f);
     }
 
-    private Vector3 AdjustMovement(Vector3 velocity)
+    private Vector3 AdjustVelocity(Vector3 velocity)
     {
-        if (!xAxis)
-        {
-            velocity -= new Vector3(-transform.right.x * velocity.x, -transform.right.y * velocity.y, -transform.right.z * velocity.z);
-        }
-        else
-        {
-            if (Vector3.Dot(velocity.normalized, transform.right) > 0f)
-            {
-                velocity += transform.right * maxVelocity;
-            }
-            else if (Vector3.Dot(velocity.normalized, transform.right) < 0f)
-            {
-                velocity -= transform.right * maxVelocity;
-            }
-        }
+        Vector3 v = Vector3.zero;
+        if (xAxis)
+            v += Vector3.Dot(velocity, transform.right) * transform.right;
+        if (yAxis)
+            v += Vector3.Dot(velocity, transform.up) * transform.up;
+        if (zAxis)
+            v += Vector3.Dot(velocity, transform.forward) * transform.forward;
 
-        if (!yAxis)
-        {
-            velocity -= new Vector3(transform.up.x * velocity.x, transform.up.y * velocity.y, transform.up.z * velocity.z);
-        }
-        else
-        {
-            if (Vector3.Dot(velocity.normalized, transform.up) > 0f)
-            {
-                velocity += transform.up * maxVelocity;
-            }
-            else if (Vector3.Dot(velocity.normalized, transform.up) < 0f)
-            {
-                velocity -= transform.up * maxVelocity;
-            }
-        }
-
-        if (!zAxis)
-        {
-            velocity -= new Vector3(-transform.forward.x * velocity.x, -transform.forward.y * velocity.y, -transform.forward.z * velocity.z);
-        }
-        else
-        {
-            if (Vector3.Dot(velocity, transform.forward) > 0f)
-            {
-                velocity += transform.forward * maxVelocity;
-            }
-            else if (Vector3.Dot(velocity.normalized, transform.forward) < 0f)
-            {
-                velocity -= transform.forward * maxVelocity;
-            }
-        }
-
-        return velocity;
+        return v;
     }
 
     protected virtual void OnCollisionEnter(Collision collision)
