@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,7 @@ public class HighlightObject : MonoBehaviour
     private Ray ray;
 
     private MoveObjectController moveObjectController;
+    private Color? originalColor;
 
     // Start is called before the first frame update
     void Start()
@@ -51,7 +53,10 @@ public class HighlightObject : MonoBehaviour
                         {
                             if (selectedObject)
                             {
+                                var c = (Color)originalColor;
+                                //Highlight(selectedObject, (int)(c.r * 255), (int)(c.g * 255), (int)(c.b * 255), false);
                                 Highlight(selectedObject, 255, 255, 255, false);
+                                originalColor = null;
                             }
                             selectedObject = null;
                         }
@@ -74,6 +79,10 @@ public class HighlightObject : MonoBehaviour
         Renderer parentRenderer = obj.GetComponent<Renderer>();
         if (parentRenderer != null)
         {
+            if (originalColor == null)
+            {
+                originalColor = parentRenderer.material.color;
+            }
             HighlightMaterial(parentRenderer.material, r, g, b, emission);
         }
 

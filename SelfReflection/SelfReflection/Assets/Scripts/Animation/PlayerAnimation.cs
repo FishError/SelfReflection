@@ -18,14 +18,17 @@ public class PlayerAnimation : MonoBehaviour
     {
         bool isWalking = animator.GetBool(isWalkingHash);
         bool forwardPressed = Input.GetKey("w");
+        bool backPressed = Input.GetKey("s");
+        bool leftPressed = Input.GetKey("a");
+        bool rightPressed = Input.GetKey("d");
         bool jumpPressed = Input.GetKey("space");
 
-        if (!isWalking && forwardPressed)
+        if (!isWalking && forwardPressed || backPressed || leftPressed || rightPressed)
         {
             animator.SetBool(isWalkingHash, true);
         }
 
-        if (isWalking && !forwardPressed)
+        if (isWalking && !forwardPressed && !backPressed && !leftPressed && !rightPressed)
         {
             animator.SetBool(isWalkingHash, false);
         }
