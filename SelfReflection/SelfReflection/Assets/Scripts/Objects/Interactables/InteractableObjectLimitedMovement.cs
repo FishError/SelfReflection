@@ -43,32 +43,9 @@ public class InteractableObjectLimitedMovement : InteractableObject
         float y = transform.position.y;
         float z = transform.position.z;
 
-        if (transform.position.x < minX)
-        {
-            x = minX;
-        }
-        else if (transform.position.x > maxX)
-        {
-            x = maxX;
-        }
-
-        if (transform.position.y < minY)
-        {
-            y = minY;
-        }
-        else if (transform.position.y > maxY)
-        {
-            y = maxY;
-        }
-
-        if (transform.position.z < minZ)
-        {
-            z = minZ;
-        }
-        else if (transform.position.z > maxZ)
-        {
-            z = maxZ;
-        }
+        x = Mathf.Clamp(transform.position.x, minX, maxX);
+        y = Mathf.Clamp(transform.position.y, minY, maxY);
+        z = Mathf.Clamp(transform.position.z, minZ, maxZ);
 
         if (OutOfBounds())
         {
