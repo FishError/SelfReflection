@@ -7568,12 +7568,28 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 5babdc201b1757a49990694911c58672, type: 2}
     - target: {fileID: 2956272711218402069, guid: c10be5893257d3a44a63d4280deeb09d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956272711218402069, guid: c10be5893257d3a44a63d4280deeb09d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956272711218402069, guid: c10be5893257d3a44a63d4280deeb09d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956272711218402069, guid: c10be5893257d3a44a63d4280deeb09d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.6767
+      value: 0.674
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956272711218402069, guid: c10be5893257d3a44a63d4280deeb09d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.158
       objectReference: {fileID: 0}
     - target: {fileID: 2956272711218402069, guid: c10be5893257d3a44a63d4280deeb09d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.15033334
+      value: -0.15
       objectReference: {fileID: 0}
     - target: {fileID: 3600095867928549607, guid: c10be5893257d3a44a63d4280deeb09d, type: 3}
       propertyPath: m_Layer
@@ -7644,13 +7660,12 @@ MonoBehaviour:
   ethereal: {fileID: 0}
   real: {fileID: 0}
   rb: {fileID: 0}
-  maxVelocity: 2
   state: 0
   canBecomeEthereal: 0
-  xAxis: 1
-  yAxis: 1
+  maxVelocity: 10
+  xAxis: 0
+  yAxis: 0
   zAxis: 1
-  speed: 2
   resetTimer: 9999
   relativeMinX: 0
   relativeMaxX: 2
@@ -7758,13 +7773,12 @@ MonoBehaviour:
   ethereal: {fileID: 0}
   real: {fileID: 0}
   rb: {fileID: 0}
-  maxVelocity: 2
   state: 0
   canBecomeEthereal: 0
-  xAxis: 1
-  yAxis: 1
+  maxVelocity: 10
+  xAxis: 0
+  yAxis: 0
   zAxis: 1
-  speed: 2
   resetTimer: 9999
   relativeMinX: 0
   relativeMaxX: 2
