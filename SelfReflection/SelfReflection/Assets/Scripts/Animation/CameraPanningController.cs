@@ -60,6 +60,11 @@ public class CameraPanningController : MonoBehaviour
                 }
             }
         }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            StartCoroutine(StopPanning());
+        }
     }
 
     public void StartPanning()
@@ -69,5 +74,20 @@ public class CameraPanningController : MonoBehaviour
         playerMovement.DisableMovement();
         currentAction = cameraActions[0];
         isPanning = true;
+    }
+
+    IEnumerator StopPanning()
+    {
+        yield return new WaitForSeconds(1f);
+        playerCamera.enabled = true;
+        panningCamera.enabled = false;
+        currentAction = null;
+        isPanning = false;
+        GameObject mirrorManager = GameObject.Find("MirrorManager");
+        if (mirrorManager != null)
+        {
+            mirrorManager.GetComponent<MirrorManager>().mainCamera = playerCamera;
+        }
+        playerMovement.EnableMovement();
     }
 }
