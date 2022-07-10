@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class MirrorMovementZone : MonoBehaviour
+public class EventTriggerZone : MonoBehaviour
 {
-    public GameObject mirror;
 
+    public UnityEvent myEvent;
 
     // Start is called before the first frame update
     void Start()
@@ -21,9 +22,9 @@ public class MirrorMovementZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && !mirror.GetComponent<MovingMirrors>().isMoving)
+        if (myEvent != null)
         {
-            mirror.GetComponent<MovingMirrors>().isMoving = true;
+            myEvent.Invoke();
         }
     }
 }
