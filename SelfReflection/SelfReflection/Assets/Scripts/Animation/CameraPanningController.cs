@@ -12,13 +12,14 @@ public class CameraPanningController : MonoBehaviour
     public float cameraSpeed;
     public float rotationSpeed;
 
-    private GameObject currentAction;
+    private GameObject currentAction, mirrorManager;
     private Vector3 direction;
     private Quaternion lookRotation;
     public bool isPanning = false;
 
     private void Start()
     {
+        mirrorManager = GameObject.Find("MirrorManager");
         playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
         StartPanning();
     }
@@ -49,7 +50,6 @@ public class CameraPanningController : MonoBehaviour
                     panningCamera.enabled = false;
                     playerCamera.enabled = true;
 
-                    GameObject mirrorManager = GameObject.Find("MirrorManager");
                     if (mirrorManager != null)
                     {
                         mirrorManager.GetComponent<MirrorManager>().mainCamera = playerCamera;
@@ -65,6 +65,12 @@ public class CameraPanningController : MonoBehaviour
         {
             StartCoroutine(StopPanning());
         }
+        
+        if(mirrorManager.GetComponent<MirrorManager>().mainCamera.name == playerCamera.name)
+        {
+            StartCoroutine(timeToEnableMovement());
+        }
+
     }
 
     public void StartPanning()
@@ -83,11 +89,15 @@ public class CameraPanningController : MonoBehaviour
         panningCamera.enabled = false;
         currentAction = null;
         isPanning = false;
-        GameObject mirrorManager = GameObject.Find("MirrorManager");
         if (mirrorManager != null)
         {
             mirrorManager.GetComponent<MirrorManager>().mainCamera = playerCamera;
         }
+    }
+
+    IEnumerator timeToEnableMovement()
+    {
+        yield return new WaitForSeconds(1f);
         playerMovement.EnableMovement();
     }
 }
