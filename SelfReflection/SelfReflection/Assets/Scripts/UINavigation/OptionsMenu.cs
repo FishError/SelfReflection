@@ -7,19 +7,11 @@ using UnityEngine.UI;
 public class OptionsMenu : MonoBehaviour
 {
     public GameObject optionsMenu;
-    public Canvas optionsCanvas;
     public int menuState = 0;
     public bool isPaused;
     public GameObject lastPage;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        optionsMenu = GetComponent<GameObject>();
-        optionsCanvas = optionsMenu.GetComponent<Canvas>();
-    }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -56,8 +48,23 @@ public class OptionsMenu : MonoBehaviour
 
     public void SetNewPage(GameObject page)
     {
-        page.SetActive(true);
+        if(lastPage != null)
+        {
+            lastPage.SetActive(false);
+            page.SetActive(true);
+
+        }
+        else
+        {
+            page.SetActive(true);
+        }
         lastPage = page;
+
+    }
+
+    public void quitGame()
+    {
+        Application.Quit();
     }
 
 }
