@@ -63,6 +63,11 @@ public class InteractablePlatform : Interactable
         rb.velocity = Vector3.Lerp(rb.velocity, Vector3.ClampMagnitude(AdjustVelocity(velocity), maxVelocity), 0.3f);
     }
 
+    public override void ResizeObject(float mouseScroll, Vector3 rayDir, Vector3 playerPosition)
+    {
+        throw new System.NotImplementedException();
+    }
+
     private Vector3 AdjustVelocity(Vector3 velocity)
     {
         Vector3 v = Vector3.zero;

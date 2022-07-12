@@ -7,7 +7,8 @@ public enum ObjectState
     Interactable,
     MovingThroughMirror,
     Holding,
-    InteractionDisabled
+    InteractionDisabled,
+    Resizing
 }
 
 public abstract class Interactable : MonoBehaviour
@@ -77,6 +78,8 @@ public abstract class Interactable : MonoBehaviour
     public abstract void UnSelectObject();
 
     public abstract void MoveObject(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition);
+
+    public abstract void ResizeObject(float mouseScroll, Vector3 rayDir, Vector3 playerPosition);
 
     public Vector3 CalculateVelocity(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition)
     {

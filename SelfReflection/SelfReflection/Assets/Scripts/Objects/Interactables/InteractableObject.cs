@@ -12,8 +12,13 @@ public class InteractableObject : Interactable
         rb.useGravity = false;
         rb.constraints = RigidbodyConstraints.FreezeRotation;
         moveObjectController = controller;
-
-        if (moveObjectController.relativeMirror)
+        print("hello");
+        print(moveObjectController.relativeMirror.tag);
+        if (moveObjectController.relativeMirror && moveObjectController.relativeMirror.tag == "ResizeMirror")
+        {
+            state = ObjectState.Resizing;
+        }
+        else if (moveObjectController.relativeMirror)
         {
             state = ObjectState.MovingThroughMirror;
         }
@@ -39,6 +44,13 @@ public class InteractableObject : Interactable
     {
         Vector3 velocity = CalculateVelocity(mouseX, mouseY, mouseScroll, rayDir, playerPosition);
         rb.velocity = Vector3.Lerp(rb.velocity, Vector3.ClampMagnitude(velocity, maxVelocity), 0.3f);
+    }
+
+    public override void ResizeObject(float mouseScroll, Vector3 rayDir, Vector3 playerPosition)
+    {
+        
+        print(mouseScroll);
+        transform.localScale += new Vector3(mouseScroll, mouseScroll, mouseScroll) * .1f;
     }
 
     private void OnCollisionEnter(Collision collision)

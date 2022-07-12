@@ -69,6 +69,10 @@ public class MoveObjectController : MonoBehaviour
             {
                 MoveObjectNoMirror();
             }
+            else if (interactable.state == ObjectState.Resizing)
+            {
+                ResizeObject();
+            }
         }
     }
 
@@ -110,7 +114,7 @@ public class MoveObjectController : MonoBehaviour
                         }
                     }
 
-                    if (hit.collider.tag == "Mirror")
+                    if (hit.collider.tag == "Mirror" || hit.collider.tag == "ResizeMirror")
                     {
                         relativeMirror = hit.collider.transform;
                     }
@@ -172,7 +176,7 @@ public class MoveObjectController : MonoBehaviour
                         }
                     }
 
-                    if (hit.collider.tag != "Mirror")
+                    if (hit.collider.tag != "Mirror" && hit.collider.tag != "ResizeMirror")
                     {
                         break;
                     }
@@ -217,6 +221,18 @@ public class MoveObjectController : MonoBehaviour
             if (interactable.transform.position != pickupParent.position)
             {
                 interactable.transform.position = Vector3.MoveTowards(interactable.transform.position, pickupParent.position, 15 * Time.deltaTime);
+            }
+        }
+    }
+
+    void ResizeObject()
+    {
+        if (interactable is InteractableObject)
+        {
+            if (interactable.transform.position != pickupParent.position)
+            {
+                var z = mouseScroll * mouseScrollSense * objectMoveSpeed * 20;
+                interactable.ResizeObject(z, ray.direction, lastPlayerPosition);
             }
         }
     }
