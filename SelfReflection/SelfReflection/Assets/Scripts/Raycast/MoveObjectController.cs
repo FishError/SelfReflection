@@ -6,7 +6,8 @@ public class MoveObjectController : MonoBehaviour
 {
     [Header("Pickup Settings")]
     public Interactable interactable;
-    public int interactableLayerIndex;
+    public LayerMask interactableLayer;
+    public LayerMask physicalLayers;
     [SerializeField] private Transform pickupParent;
 
     [Header("Reflection Parameters")]
@@ -79,9 +80,9 @@ public class MoveObjectController : MonoBehaviour
             ray = new Ray(transform.position, transform.TransformDirection(Vector3.forward));
             for (int reflections = 0; reflections < maxReflections; reflections++)
             {
-                if (Physics.Raycast(ray.origin, ray.direction, out hit, maxReflectionDistance))
+                if (Physics.Raycast(ray.origin, ray.direction, out hit, maxReflectionDistance, physicalLayers))
                 {
-                    if (hit.collider.transform.gameObject.layer == interactableLayerIndex)
+                    if (1 << hit.collider.transform.gameObject.layer == interactableLayer.value)
                     {
                         interactable = hit.transform.GetComponent<Interactable>();
 
@@ -139,14 +140,14 @@ public class MoveObjectController : MonoBehaviour
             ray = new Ray(transform.position, transform.TransformDirection(Vector3.forward));
             for (int reflections = 0; reflections < maxReflections; reflections++)
             {
-                if (Physics.Raycast(ray.origin, ray.direction, out hit, maxReflectionDistance))
+                if (Physics.Raycast(ray.origin, ray.direction, out hit, maxReflectionDistance, physicalLayers))
                 {
                     if (reflections == 0)
                     {
                         spawnLocation = hit.point;
                     }
 
-                    if (hit.collider.transform.gameObject.layer == interactableLayerIndex)
+                    if (1 << hit.collider.transform.gameObject.layer == interactableLayer.value)
                     {
                         interactable = hit.rigidbody.transform.GetComponent<Interactable>();
 
