@@ -5,6 +5,8 @@ public static class SaveSystem
 {
     public const string PATH = "/Saves.json";
 
+    public static bool HasSaveFile => File.Exists(Application.dataPath + PATH);
+
     public static void Save(SaveData saveData)
     {
         string saveDataString = JsonUtility.ToJson(saveData);
@@ -27,7 +29,7 @@ public static class SaveSystem
 
     private static void CheckSaveFileIntegrity()
     {
-        if (File.Exists(Application.dataPath + PATH)) return;
+        if (HasSaveFile) return;
         SaveData newSaveData = new SaveData();
         Save(newSaveData);
     }
