@@ -8254,6 +8254,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 768993476}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &771909707 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2944287611765589804, guid: 0988cffd299e6094a83c02b90cf45721, type: 3}
+  m_PrefabInstance: {fileID: 651831781}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &777637727
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23984,6 +23989,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1127606031186621612, guid: d76906ddf9301134492d0e9d021d885f, type: 3}
+      propertyPath: objectsAbleToTriggerEvent.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1127606031186621612, guid: d76906ddf9301134492d0e9d021d885f, type: 3}
+      propertyPath: objectsAbleToTriggerEvent.Array.data[0]
+      value: 
+      objectReference: {fileID: 771909707}
     - target: {fileID: 1127606031186621612, guid: d76906ddf9301134492d0e9d021d885f, type: 3}
       propertyPath: myEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
