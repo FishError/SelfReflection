@@ -13,16 +13,17 @@ public class ResetObjectPosition : MonoBehaviour
     private bool isDead = false;
     private bool isAlive = false;
     private float amt = 0.7f;
-    private float curWeight;
+    private float curDisintegrate;
 
     private GameObject[] doors;
 
     private void Start()
     {
-        if(meshRenderer != null)
+
+        if (meshRenderer != null)
         {
-            meshRenderer.material.shader = Shader.Find("TNTC/Disintegration");
-            curWeight = meshRenderer.material.GetFloat("_Weight");
+            meshRenderer.material.shader = Shader.Find("Shader Graphs/Disintegration");
+            curDisintegrate = meshRenderer.material.GetFloat("Disintegrate");
         }
 
         doors = GameObject.FindGameObjectsWithTag("DoorManager");
@@ -37,11 +38,13 @@ public class ResetObjectPosition : MonoBehaviour
 
         if (isDead)
         {
-            curWeight += amt * Time.deltaTime;
-            meshRenderer.material.SetFloat("_Weight", curWeight);
-            if(meshRenderer.material.GetFloat("_Weight") > 1)
+            curDisintegrate += amt * Time.deltaTime;
+            meshRenderer.material.SetFloat("Disintegrate", curDisintegrate);
+
+
+            if (meshRenderer.material.GetFloat("Disintegrate") > 1)
             {
-                meshRenderer.material.SetFloat("_Weight", 1);
+                meshRenderer.material.SetFloat("Disintegrate", 1);
                 isDead = false;
                 ResetPlayer();
             }
@@ -49,11 +52,11 @@ public class ResetObjectPosition : MonoBehaviour
 
         if (isAlive)
         {
-            curWeight -= amt * Time.deltaTime;
-            meshRenderer.material.SetFloat("_Weight", curWeight);
-            if (meshRenderer.material.GetFloat("_Weight") < 0)
+            curDisintegrate -= amt * Time.deltaTime;
+            meshRenderer.material.SetFloat("Disintegrate", curDisintegrate);
+            if (meshRenderer.material.GetFloat("Disintegrate") < 0)
             {
-                meshRenderer.material.SetFloat("_Weight", 0);
+                meshRenderer.material.SetFloat("Disintegrate", 0);
                 isAlive = false;
             }
         }
