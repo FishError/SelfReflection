@@ -12,14 +12,16 @@ public class CameraPanningController : MonoBehaviour
     public float cameraSpeed;
     public float rotationSpeed;
 
-    private GameObject currentAction;
+    private GameObject currentAction, mirrorManager, progressBar;
     private Vector3 direction;
     private Quaternion lookRotation;
     public bool isPanning = false;
 
     private void Start()
     {
+        mirrorManager = GameObject.Find("MirrorManager");
         playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
+        progressBar = GameObject.Find("ProgressBar").transform.GetChild(0).gameObject;
         StartPanning();
     }
 
@@ -49,7 +51,6 @@ public class CameraPanningController : MonoBehaviour
                     panningCamera.enabled = false;
                     playerCamera.enabled = true;
 
-                    GameObject mirrorManager = GameObject.Find("MirrorManager");
                     if (mirrorManager != null)
                     {
                         mirrorManager.GetComponent<MirrorManager>().mainCamera = playerCamera;
@@ -57,9 +58,33 @@ public class CameraPanningController : MonoBehaviour
 
                     playerMovement.EnableMovement();
                     isPanning = false;
+                    if (progressBar.transform.parent.gameObject.activeInHierarchy)
+                    {
+                        progressBar.transform.parent.gameObject.SetActive(false);
+                        progressBar.GetComponent<SkipProgressBarAnimation>().curProgress.transform.localScale = new Vector3(0, 1, 1);
+                    }
                 }
             }
         }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            progressBar.GetComponent<SkipProgressBarAnimation>().EnableBarAnimation();
+            if (!progressBar.GetComponent<SkipProgressBarAnimation>().isPlaying)
+            {
+                StopPanning();
+            }
+        }
+        else
+        {
+            progressBar.GetComponent<SkipProgressBarAnimation>().ResetBarAnimation();
+        }
+        
+        if(mirrorManager.GetComponent<MirrorManager>().mainCamera.name == playerCamera.name)
+        {
+            StartCoroutine(timeToEnableMovement());
+        }
+
     }
 
     public void StartPanning()
@@ -69,5 +94,25 @@ public class CameraPanningController : MonoBehaviour
         playerMovement.DisableMovement();
         currentAction = cameraActions[0];
         isPanning = true;
+    }
+
+    public void StopPanning()
+    {
+        playerCamera.enabled = true;
+        panningCamera.enabled = false;
+        currentAction = null;
+        isPanning = false;
+        if (mirrorManager != null)
+        {
+            mirrorManager.GetComponent<MirrorManager>().mainCamera = playerCamera;
+        }
+        progressBar.transform.parent.gameObject.SetActive(false);
+        progressBar.GetComponent<SkipProgressBarAnimation>().curProgress.transform.localScale = new Vector3(0, 1, 1);
+    }
+
+    IEnumerator timeToEnableMovement()
+    {
+        yield return new WaitForSeconds(1f);
+        playerMovement.EnableMovement();
     }
 }
