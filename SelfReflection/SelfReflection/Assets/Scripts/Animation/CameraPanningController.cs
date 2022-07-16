@@ -58,6 +58,11 @@ public class CameraPanningController : MonoBehaviour
 
                     playerMovement.EnableMovement();
                     isPanning = false;
+                    if (progressBar.transform.parent.gameObject.activeInHierarchy)
+                    {
+                        progressBar.transform.parent.gameObject.SetActive(false);
+                        progressBar.GetComponent<SkipProgressBarAnimation>().curProgress.transform.localScale = new Vector3(0, 1, 1);
+                    }
                 }
             }
         }
@@ -69,6 +74,10 @@ public class CameraPanningController : MonoBehaviour
             {
                 StopPanning();
             }
+        }
+        else
+        {
+            progressBar.GetComponent<SkipProgressBarAnimation>().ResetBarAnimation();
         }
         
         if(mirrorManager.GetComponent<MirrorManager>().mainCamera.name == playerCamera.name)
