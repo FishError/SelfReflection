@@ -21,4 +21,10 @@ public class SkipProgressBarAnimation : MonoBehaviour
             isPlaying = false;
         }
     }
+
+    public void ResetBarAnimation()
+    {
+        curProgress.transform.localScale = new Vector3(0, 1, 1);
+        isPlaying = false;
+    }
 }
