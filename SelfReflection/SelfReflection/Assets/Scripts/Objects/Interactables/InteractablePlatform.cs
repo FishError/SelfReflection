@@ -16,6 +16,11 @@ public class InteractablePlatform : Interactable
 
     protected Vector3 playerPos;
 
+    [Header("Reset Feedback Settings")]
+    public float shakeSpeed;
+    public float shakeIntensity;
+    public float speed;
+
     protected override void Start()
     {
         base.Start();
@@ -27,11 +32,20 @@ public class InteractablePlatform : Interactable
         if (transform.position != originalPosition && state != ObjectState.MovingThroughMirror)
         {
             timeLeft -= Time.deltaTime;
-            if (timeLeft < 0f)
+            if (timeLeft < resetTimer / 2f && timeLeft > 0)
             {
-                transform.position = originalPosition;
+                float step = shakeSpeed * Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, transform.position + Random.insideUnitSphere, step);
             }
+
+            if(timeLeft < 0f)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, originalPosition, speed * Time.deltaTime);
+            }
+
         }
+
+        
     }
 
     public override void SelectObject(MoveObjectController controller)
