@@ -58,7 +58,7 @@ public class InteractableMirror : Interactable
     {
         if (state == ObjectState.Holding)
         {
-            var dir = (moveObjectController.transform.position + distance) - transform.position;
+            var dir = (interactionController.transform.position + distance) - transform.position;
             if (xAxis)
             {
                 vX = dir.x;
@@ -76,9 +76,9 @@ public class InteractableMirror : Interactable
         }
     }
 
-    public override void SelectObject(MoveObjectController controller)
+    public override void SelectObject(InteractionController controller, Interaction interaction)
     {
-        moveObjectController = controller;
+        interactionController = controller;
         rb.constraints = RigidbodyConstraints.FreezeRotation;
         if (controller.relativeMirror == null)
         {
@@ -95,7 +95,7 @@ public class InteractableMirror : Interactable
 
     public override void UnSelectObject()
     {
-        moveObjectController = null;
+        interactionController = null;
         rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
         state = ObjectState.Interactable;
     }

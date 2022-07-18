@@ -5,7 +5,7 @@ using UnityEngine;
 public class ResetRealPosition : MonoBehaviour
 {
     private ResetRealManager realManager;
-    private MoveObjectController playerCam = null;
+    private InteractionController playerCam = null;
 
 
     private void Start()
@@ -15,7 +15,7 @@ public class ResetRealPosition : MonoBehaviour
 
     private void Update()
     {
-        playerCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MoveObjectController>();
+        playerCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<InteractionController>();
     }
 
     private void OnTriggerEnter(Collider other)

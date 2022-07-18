@@ -16,9 +16,9 @@ public abstract class Interactable : MonoBehaviour
     [SerializeField] protected Material real;
     [HideInInspector] public Rigidbody rb;
     public ObjectState state;
-    public bool canBecomeEthereal;
+    public bool canSwapStates;
     public float maxVelocity;
-    protected MoveObjectController moveObjectController;
+    protected InteractionController interactionController;
     protected GameObject player;
 
     // Start is called before the first frame update
@@ -72,7 +72,7 @@ public abstract class Interactable : MonoBehaviour
         state = ObjectState.InteractionDisabled;
     }
 
-    public abstract void SelectObject(MoveObjectController controller);
+    public abstract void SelectObject(InteractionController controller, Interaction interaction);
 
     public abstract void UnSelectObject();
 

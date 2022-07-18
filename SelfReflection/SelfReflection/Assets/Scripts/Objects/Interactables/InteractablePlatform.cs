@@ -34,9 +34,9 @@ public class InteractablePlatform : Interactable
         }
     }
 
-    public override void SelectObject(MoveObjectController controller)
+    public override void SelectObject(InteractionController controller, Interaction interaction)
     {
-        moveObjectController = controller;
+        interactionController = controller;
         state = ObjectState.MovingThroughMirror;
 
         if (!yAxis)
@@ -51,7 +51,7 @@ public class InteractablePlatform : Interactable
 
     public override void UnSelectObject()
     {
-        moveObjectController = null;
+        interactionController = null;
         state = ObjectState.Interactable;
         rb.constraints = RigidbodyConstraints.FreezeAll;
         timeLeft = resetTimer;

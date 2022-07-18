@@ -7,12 +7,9 @@ public class InteractableObject : Interactable
 {
     protected Collider playerCollider;
 
-    public override void SelectObject(MoveObjectController controller)
+    public override void SelectObject(InteractionController controller, Interaction interaction)
     {
-        rb.useGravity = false;
-        rb.constraints = RigidbodyConstraints.FreezeRotation;
-        moveObjectController = controller;
-
+        /*
         if (moveObjectController.relativeMirror)
         {
             state = ObjectState.MovingThroughMirror;
@@ -20,6 +17,17 @@ public class InteractableObject : Interactable
         else
         {
             state = ObjectState.Holding;
+        }*/
+
+        interactionController = controller;
+        switch (interaction)
+        {
+            case Interaction.PickUp:
+            case Interaction.Holding:
+            case Interaction.MirrorMove:
+                rb.useGravity = false;
+                rb.constraints = RigidbodyConstraints.FreezeRotation;
+                break;
         }
     }
 
@@ -27,12 +35,21 @@ public class InteractableObject : Interactable
     {
         rb.useGravity = true;
         rb.constraints = RigidbodyConstraints.None;
-        moveObjectController = null;
+        interactionController = null;
         
         if (state == ObjectState.Holding)
             Physics.IgnoreCollision(playerCollider, GetComponent<Collider>(), false);
 
         state = ObjectState.Interactable;
+    }
+
+    public void PickUp(Transform pickUpParent)
+    {
+        if (transform.position != pickUpParent.position)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, pickUpParent.position, 15 * Time.deltaTime);
+        }
+
     }
 
     public override void MoveObject(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition)
@@ -41,17 +58,33 @@ public class InteractableObject : Interactable
         rb.velocity = Vector3.Lerp(rb.velocity, Vector3.ClampMagnitude(velocity, maxVelocity), 0.3f);
     }
 
+    public void SwapState(Vector3 mirrorSpawnLocation, Transform pickUpParent)
+    {
+        if (IsEthereal() && canSwapStates)
+        {
+            SetToReal();
+            transform.position = mirrorSpawnLocation;
+            transform.parent = null;
+        }
+        else if (!IsEthereal() && canSwapStates)
+        {
+            SetToEthereal();
+            transform.position = mirrorSpawnLocation;
+            transform.parent = pickUpParent;
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (state == ObjectState.MovingThroughMirror)
-            moveObjectController.DropObject();
+            interactionController.DropObject();
 
         if (collision.gameObject.layer == player.layer && state == ObjectState.Holding)
         {
             Physics.IgnoreCollision(collision.collider, GetComponent<Collider>(), true);
             playerCollider = collision.collider;
             var distance = (transform.position - collision.GetContact(0).point).magnitude;
-            moveObjectController.ScalePickUpParentRange(distance + 1f);
+            interactionController.ScalePickUpParentRange(distance + 1f);
         }
     }
 }
