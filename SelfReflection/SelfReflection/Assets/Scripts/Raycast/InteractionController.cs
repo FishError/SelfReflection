@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum Interaction
 {
+    None,
     PickUp,
     Holding,
     MirrorMove,
@@ -28,7 +29,7 @@ public class InteractionController : MonoBehaviour
     public int maxReflections;
 
     [Header("Left Click Parameters")]
-    public bool leftClicked;
+    private bool leftClicked;
     private Interaction currentLeftClickInteraction;
     private float mouseX, mouseY, mouseScroll;
     private GameObject gameObjectCopy;
@@ -38,7 +39,7 @@ public class InteractionController : MonoBehaviour
     public float objectMoveSpeed;
 
     [Header("Right Click Parameters")]
-    public bool rightClicked;
+    private bool rightClicked;
     private Interaction currentRightClickInteraction;
     private Vector3 spawnLocation;
 
@@ -110,7 +111,7 @@ public class InteractionController : MonoBehaviour
                         }
                         else if (interactable.IsEthereal() && hit.distance < maxGrabDistance && reflections == 0)
                         {
-                            if (interactable.state == ObjectState.Interactable)
+                            if (interactable.isInteractable)
                             {
                                 leftClicked = true;
                                 currentLeftClickInteraction = Interaction.PickUp;
@@ -163,7 +164,6 @@ public class InteractionController : MonoBehaviour
                     if (1 << hit.collider.transform.gameObject.layer == interactableLayer.value && reflections > 0)
                     {
                         rightClicked = true;
-                        currentRightClickInteraction = Interaction.SwapState;
                         interactable = hit.rigidbody.transform.GetComponent<Interactable>();
                     }
 
@@ -197,18 +197,17 @@ public class InteractionController : MonoBehaviour
 
     void InteractWithObject(Interaction interaction)
     {
-        //print(interaction);
         switch(interaction)
         {
             case Interaction.PickUp:
                 if (interactable is InteractableObject)
                 {
                     // creates compound collider so objects don't go through other objects
-                    /*gameObjectCopy = Instantiate(interactable.transform.gameObject);
+                    gameObjectCopy = Instantiate(interactable.transform.gameObject);
                     gameObjectCopy.GetComponent<MeshRenderer>().enabled = false;
                     Destroy(gameObjectCopy.GetComponent<Rigidbody>());
                     gameObjectCopy.transform.parent = pickupParent;
-                    gameObjectCopy.transform.localPosition = Vector3.zero;*/
+                    gameObjectCopy.transform.localPosition = Vector3.zero;
 
                     SelectInterableObject(interaction);
                     currentLeftClickInteraction = Interaction.Holding;
@@ -260,19 +259,6 @@ public class InteractionController : MonoBehaviour
                 break;
         }
     }
-
-    public void PickUpObject()
-    {
-        // creates compound collider so objects don't go through other objects
-        gameObjectCopy = Instantiate(interactable.transform.gameObject);
-        gameObjectCopy.GetComponent<MeshRenderer>().enabled = false;
-        Destroy(gameObjectCopy.GetComponent<Rigidbody>());
-        gameObjectCopy.transform.parent = pickupParent;
-        gameObjectCopy.transform.localPosition = Vector3.zero;
-
-        interactable.transform.parent = pickupParent;
-    }
-
 
     public void DropObject()
     {

@@ -56,7 +56,7 @@ public class InteractableMirror : Interactable
 
     private void FixedUpdate()
     {
-        if (state == ObjectState.Holding)
+        if (interactionState == Interaction.Holding)
         {
             var dir = (interactionController.transform.position + distance) - transform.position;
             if (xAxis)
@@ -82,12 +82,12 @@ public class InteractableMirror : Interactable
         rb.constraints = RigidbodyConstraints.FreezeRotation;
         if (controller.relativeMirror == null)
         {
-            state = ObjectState.Holding;
+            interactionState = Interaction.Holding;
         }
         else
         {
             rb.drag = 10;
-            state = ObjectState.MovingThroughMirror;
+            interactionState = Interaction.MirrorMove;
         }
 
         distance = transform.position - controller.transform.position;
@@ -97,7 +97,7 @@ public class InteractableMirror : Interactable
     {
         interactionController = null;
         rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
-        state = ObjectState.Interactable;
+        interactionState = Interaction.None;
     }
 
     private bool OutOfBounds()

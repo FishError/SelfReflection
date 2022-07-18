@@ -30,7 +30,7 @@ public class ResetRealPosition : MonoBehaviour
                     realManager.realObj[i].transform.position = realManager.realPos[realManager.realObj[i]];
                     realManager.realObj[i].transform.localEulerAngles = realManager.realRot[realManager.realObj[i]];
                     realManager.realObj[i].GetComponent<Rigidbody>().freezeRotation = true;
-                    if (realManager.realObj[i].GetComponent<InteractableObject>().state == ObjectState.MovingThroughMirror)
+                    if (realManager.realObj[i].GetComponent<InteractableObject>().interactionState == Interaction.MirrorMove)
                     {
                         playerCam.DropObject();
                     }

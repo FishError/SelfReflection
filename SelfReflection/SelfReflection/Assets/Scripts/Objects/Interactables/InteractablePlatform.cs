@@ -24,7 +24,7 @@ public class InteractablePlatform : Interactable
 
     protected virtual void Update()
     {
-        if (transform.position != originalPosition && state != ObjectState.MovingThroughMirror)
+        if (transform.position != originalPosition && interactionState != Interaction.MirrorMove)
         {
             timeLeft -= Time.deltaTime;
             if (timeLeft < 0f)
@@ -37,7 +37,7 @@ public class InteractablePlatform : Interactable
     public override void SelectObject(InteractionController controller, Interaction interaction)
     {
         interactionController = controller;
-        state = ObjectState.MovingThroughMirror;
+        interactionState = Interaction.MirrorMove;
 
         if (!yAxis)
         {
@@ -52,7 +52,7 @@ public class InteractablePlatform : Interactable
     public override void UnSelectObject()
     {
         interactionController = null;
-        state = ObjectState.Interactable;
+        interactionState = Interaction.None;
         rb.constraints = RigidbodyConstraints.FreezeAll;
         timeLeft = resetTimer;
     }
@@ -88,7 +88,7 @@ public class InteractablePlatform : Interactable
 
     protected virtual void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.tag == "Player" && state == ObjectState.MovingThroughMirror)
+        if (collision.gameObject.tag == "Player" && interactionState == Interaction.MirrorMove)
         {
             collision.transform.localPosition = playerPos;
         }

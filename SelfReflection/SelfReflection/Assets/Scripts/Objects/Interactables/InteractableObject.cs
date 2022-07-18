@@ -9,22 +9,18 @@ public class InteractableObject : Interactable
 
     public override void SelectObject(InteractionController controller, Interaction interaction)
     {
-        /*
-        if (moveObjectController.relativeMirror)
-        {
-            state = ObjectState.MovingThroughMirror;
-        }
-        else
-        {
-            state = ObjectState.Holding;
-        }*/
-
         interactionController = controller;
         switch (interaction)
         {
             case Interaction.PickUp:
             case Interaction.Holding:
+                interactionState = Interaction.Holding;
+                rb.useGravity = false;
+                rb.constraints = RigidbodyConstraints.FreezeRotation;
+                break;
+
             case Interaction.MirrorMove:
+                interactionState = Interaction.MirrorMove;
                 rb.useGravity = false;
                 rb.constraints = RigidbodyConstraints.FreezeRotation;
                 break;
@@ -37,10 +33,10 @@ public class InteractableObject : Interactable
         rb.constraints = RigidbodyConstraints.None;
         interactionController = null;
         
-        if (state == ObjectState.Holding)
+        if (interactionState == Interaction.Holding)
             Physics.IgnoreCollision(playerCollider, GetComponent<Collider>(), false);
 
-        state = ObjectState.Interactable;
+        interactionState = Interaction.None;
     }
 
     public void PickUp(Transform pickUpParent)
@@ -76,10 +72,10 @@ public class InteractableObject : Interactable
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (state == ObjectState.MovingThroughMirror)
+        if (interactionState == Interaction.MirrorMove)
             interactionController.DropObject();
 
-        if (collision.gameObject.layer == player.layer && state == ObjectState.Holding)
+        if (collision.gameObject.layer == player.layer && interactionState == Interaction.Holding)
         {
             Physics.IgnoreCollision(collision.collider, GetComponent<Collider>(), true);
             playerCollider = collision.collider;

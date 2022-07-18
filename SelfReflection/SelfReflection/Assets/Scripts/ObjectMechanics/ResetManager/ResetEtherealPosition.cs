@@ -32,7 +32,7 @@ public class ResetEtherealPosition : MonoBehaviour
                     etherealManager.etherealObj[i].transform.position = etherealManager.etherealPos[etherealManager.etherealObj[i]];
                     etherealManager.etherealObj[i].transform.localEulerAngles = etherealManager.etherealRot[etherealManager.etherealObj[i]];
                     etherealManager.etherealObj[i].GetComponent<Rigidbody>().freezeRotation = true;
-                    if (pickUpParent.transform.childCount != 0 || etherealManager.etherealObj[i].GetComponent<InteractableObject>().state == ObjectState.MovingThroughMirror)
+                    if (pickUpParent.transform.childCount != 0 || etherealManager.etherealObj[i].GetComponent<InteractableObject>().interactionState == Interaction.MirrorMove)
                     {
                         playerCam.DropObject();
                     }

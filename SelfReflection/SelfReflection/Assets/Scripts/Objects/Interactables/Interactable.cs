@@ -2,20 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ObjectState
-{
-    Interactable,
-    MovingThroughMirror,
-    Holding,
-    InteractionDisabled
-}
-
 public abstract class Interactable : MonoBehaviour
 {
     [SerializeField] protected Material ethereal;
     [SerializeField] protected Material real;
     [HideInInspector] public Rigidbody rb;
-    public ObjectState state;
+    public Interaction interactionState;
+    public bool isInteractable;
     public bool canSwapStates;
     public float maxVelocity;
     protected InteractionController interactionController;
@@ -24,7 +17,8 @@ public abstract class Interactable : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        state = ObjectState.Interactable;
+        interactionState = Interaction.None;
+        isInteractable = true;
         rb = transform.GetComponent<Rigidbody>();
 
         player = GameObject.Find("Player");
@@ -64,12 +58,12 @@ public abstract class Interactable : MonoBehaviour
 
     public void EnableInteraction()
     {
-        state = ObjectState.Interactable;
+        isInteractable = true;
     }
 
     public void DisableInteraction()
     {
-        state = ObjectState.InteractionDisabled;
+        isInteractable = false;
     }
 
     public abstract void SelectObject(InteractionController controller, Interaction interaction);
