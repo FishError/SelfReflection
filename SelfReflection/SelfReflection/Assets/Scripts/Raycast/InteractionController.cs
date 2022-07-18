@@ -204,12 +204,16 @@ public class InteractionController : MonoBehaviour
                 {
                     // creates compound collider so objects don't go through other objects
                     gameObjectCopy = Instantiate(interactable.transform.gameObject);
-                    gameObjectCopy.GetComponent<MeshRenderer>().enabled = false;
+                    foreach(MeshRenderer mr in gameObjectCopy.GetComponentsInChildren<MeshRenderer>())
+                    {
+                        mr.enabled = false;
+                    }
                     Destroy(gameObjectCopy.GetComponent<Rigidbody>());
                     gameObjectCopy.transform.parent = pickupParent;
                     gameObjectCopy.transform.localPosition = Vector3.zero;
 
                     SelectInterableObject(interaction);
+                    interactable.transform.parent = pickupParent;
                     currentLeftClickInteraction = Interaction.Holding;
                 }
                 break;
@@ -218,7 +222,7 @@ public class InteractionController : MonoBehaviour
                 if (interactable is InteractableObject)
                 {
                     InteractableObject interactableObject = (InteractableObject)interactable;
-                    interactableObject.PickUp(pickupParent);
+                    interactableObject.HoldObject(pickupParent);
                 }
                 break;
 
@@ -233,7 +237,7 @@ public class InteractionController : MonoBehaviour
                 if (interactable is InteractableObject)
                 {
                     InteractableObject interactableObject = (InteractableObject)interactable;
-                    interactableObject.SwapState(spawnLocation, pickupParent);
+                    interactableObject.SwapState(spawnLocation);
 
                     if (interactableObject.IsEthereal())
                     {

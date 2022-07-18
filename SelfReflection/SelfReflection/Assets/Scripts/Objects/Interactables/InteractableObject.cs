@@ -34,12 +34,15 @@ public class InteractableObject : Interactable
         interactionController = null;
         
         if (interactionState == Interaction.Holding)
-            Physics.IgnoreCollision(playerCollider, GetComponent<Collider>(), false);
+            foreach (Collider c in GetComponentsInChildren<Collider>())
+            {
+                Physics.IgnoreCollision(playerCollider, c, true);
+            }
 
         interactionState = Interaction.None;
     }
 
-    public void PickUp(Transform pickUpParent)
+    public void HoldObject(Transform pickUpParent)
     {
         if (transform.position != pickUpParent.position)
         {
@@ -54,7 +57,7 @@ public class InteractableObject : Interactable
         rb.velocity = Vector3.Lerp(rb.velocity, Vector3.ClampMagnitude(velocity, maxVelocity), 0.3f);
     }
 
-    public void SwapState(Vector3 mirrorSpawnLocation, Transform pickUpParent)
+    public void SwapState(Vector3 mirrorSpawnLocation)
     {
         if (IsEthereal() && canSwapStates)
         {
@@ -66,7 +69,6 @@ public class InteractableObject : Interactable
         {
             SetToEthereal();
             transform.position = mirrorSpawnLocation;
-            transform.parent = pickUpParent;
         }
     }
 
@@ -77,7 +79,10 @@ public class InteractableObject : Interactable
 
         if (collision.gameObject.layer == player.layer && interactionState == Interaction.Holding)
         {
-            Physics.IgnoreCollision(collision.collider, GetComponent<Collider>(), true);
+            foreach(Collider c in GetComponentsInChildren<Collider>())
+            {
+                Physics.IgnoreCollision(collision.collider, c, true);
+            }
             playerCollider = collision.collider;
             var distance = (transform.position - collision.GetContact(0).point).magnitude;
             interactionController.ScalePickUpParentRange(distance + 1f);
