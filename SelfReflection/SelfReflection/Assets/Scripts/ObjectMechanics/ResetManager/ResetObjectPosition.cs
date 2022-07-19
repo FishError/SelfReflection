@@ -5,7 +5,7 @@ using UnityEngine;
 public class ResetObjectPosition : MonoBehaviour
 {
     private ResetObjectManager manager = null;
-    private MoveObjectController playerCam = null;
+    private InteractionController playerCam = null;
     private GameObject player = null;
     private GameObject pickUpParent;
     private float time;
@@ -31,7 +31,7 @@ public class ResetObjectPosition : MonoBehaviour
 
     private void Update()
     {
-        playerCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MoveObjectController>();
+        playerCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<InteractionController>();
         manager = GameObject.FindGameObjectWithTag("ObjectManager").GetComponent<ResetObjectManager>();
         player = GameObject.FindGameObjectWithTag("Player");
         pickUpParent = GameObject.Find("PickupParent");

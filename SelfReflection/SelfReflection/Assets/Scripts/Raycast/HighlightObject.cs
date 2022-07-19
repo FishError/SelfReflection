@@ -22,13 +22,13 @@ public class HighlightObject : MonoBehaviour
     private RaycastHit hit;
     private Ray ray;
 
-    private MoveObjectController moveObjectController;
+    private InteractionController moveObjectController;
     private Color? originalColor;
 
     // Start is called before the first frame update
     void Start()
     {
-        moveObjectController = GetComponent<MoveObjectController>();
+        moveObjectController = GetComponent<InteractionController>();
     }
 
     // Update is called once per frame
