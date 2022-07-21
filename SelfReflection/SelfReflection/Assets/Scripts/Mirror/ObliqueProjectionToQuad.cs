@@ -7,6 +7,7 @@
 // http://csc.lsu.edu/~kooima/pdfs/gen-perspective.pdf
 
 using UnityEngine;
+using UnityEngine.Rendering;
 
 // Use the following line to apply the script in the editor:
 [ExecuteInEditMode]
@@ -20,6 +21,21 @@ public class ObliqueProjectionToQuad : MonoBehaviour
     public float nearClipDistanceOffset = -0.01f;
 
     private Camera cameraComponent;
+
+    private void OnEnable()
+    {
+        RenderPipelineManager.beginCameraRendering += ProjectCameraToQuad;
+    }
+
+    private void OnDisable()
+    {
+        RenderPipelineManager.beginCameraRendering -= ProjectCameraToQuad;
+    }
+
+    private void ProjectCameraToQuad(ScriptableRenderContext context, Camera camera)
+    {
+        OnPreCull();
+    }
 
     void OnPreCull()
     {

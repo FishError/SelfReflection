@@ -5,6 +5,8 @@ using UnityEngine;
 // should be attached to all interactable objects
 public class InteractableObject : Interactable
 {
+    protected Collider playerCollider;
+
     public override void SelectObject(MoveObjectController controller)
     {
         rb.useGravity = false;
@@ -13,14 +15,10 @@ public class InteractableObject : Interactable
 
         if (moveObjectController.relativeMirror)
         {
-            rb.mass = 1f;
-            rb.drag = 10f;
             state = ObjectState.MovingThroughMirror;
         }
         else
         {
-            rb.mass = 0f;
-            rb.drag = 1f;
             state = ObjectState.Holding;
         }
     }
@@ -28,26 +26,19 @@ public class InteractableObject : Interactable
     public override void UnSelectObject()
     {
         rb.useGravity = true;
-        rb.mass = mass;
-        rb.drag = drag;
-        rb.velocity = Vector3.zero;
         rb.constraints = RigidbodyConstraints.None;
         moveObjectController = null;
+        
+        if (state == ObjectState.Holding)
+            Physics.IgnoreCollision(playerCollider, GetComponent<Collider>(), false);
+
         state = ObjectState.Interactable;
     }
 
-    public override void MoveRelativeToPlayer(float mouseX, float mouseY, float mouseScroll, Vector3 playerPosition, Vector3 mirrorPosition)
+    public override void MoveObject(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition)
     {
-        var dir = (playerPosition - mirrorPosition).normalized;
-        var forwardBackwardDir = new Vector3(dir.x, 0, dir.z);
-        var leftRightDir = Vector3.Cross(forwardBackwardDir, Vector3.up);
-        var playerObjectDistance = (playerPosition - transform.position).magnitude;
-
-        Vector3 upDownForce = Vector3.up * mouseY * playerObjectDistance * 5;
-        Vector3 leftRightForce = leftRightDir * mouseX * playerObjectDistance * 5;
-        Vector3 forwardBackwardsForce = -forwardBackwardDir * mouseScroll * 20;
-
-        rb.AddForce(leftRightForce + upDownForce + forwardBackwardsForce);
+        Vector3 velocity = CalculateVelocity(mouseX, mouseY, mouseScroll, rayDir, playerPosition);
+        rb.velocity = Vector3.Lerp(rb.velocity, Vector3.ClampMagnitude(velocity, maxVelocity), 0.3f);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -57,6 +48,8 @@ public class InteractableObject : Interactable
 
         if (collision.gameObject.layer == player.layer && state == ObjectState.Holding)
         {
+            Physics.IgnoreCollision(collision.collider, GetComponent<Collider>(), true);
+            playerCollider = collision.collider;
             var distance = (transform.position - collision.GetContact(0).point).magnitude;
             moveObjectController.ScalePickUpParentRange(distance + 1f);
         }

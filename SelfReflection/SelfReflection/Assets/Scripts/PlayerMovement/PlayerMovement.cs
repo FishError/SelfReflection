@@ -308,22 +308,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void ChangeJumpForce(float value)
-    {
-        jumpForce = value;
-    }
-
-
-    public void ChangeMovementSpeed(float value)
-    {
-        moveSpeed = value;
-    }
-
-    public void ChangeClimbUpSpeed(float value)
-    {
-        climbUpSpeed = value;
-    }
-
     private bool GetKeyDown(KeyCode key)
     {
         if (!keys.ContainsKey(key))

@@ -17,7 +17,8 @@ public class HighlightObject : MonoBehaviour
     public float maxReflectionDistance;
     public float maxGrabDistance = 5f;
 
-    public int interactableLayer;
+    public LayerMask interactableLayer;
+    public LayerMask physicalLayers;
     private RaycastHit hit;
     private Ray ray;
 
@@ -40,7 +41,7 @@ public class HighlightObject : MonoBehaviour
             {
                 if (hit.collider.tag != "Mirror")
                 {
-                    if (hit.collider.transform.gameObject.layer == interactableLayer)
+                    if (1 << hit.collider.transform.gameObject.layer == interactableLayer)
                     {
                         if (reflections > 0 || hit.distance < maxGrabDistance)
                         {

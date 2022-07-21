@@ -15,21 +15,17 @@ public abstract class Interactable : MonoBehaviour
     [SerializeField] protected Material ethereal;
     [SerializeField] protected Material real;
     [HideInInspector] public Rigidbody rb;
-    public float maxVelocity;
     public ObjectState state;
     public bool canBecomeEthereal;
+    public float maxVelocity;
     protected MoveObjectController moveObjectController;
     protected GameObject player;
-    protected float mass;
-    protected float drag;
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
         state = ObjectState.Interactable;
         rb = transform.GetComponent<Rigidbody>();
-        mass = rb.mass;
-        drag = rb.drag;
 
         player = GameObject.Find("Player");
 
@@ -80,13 +76,18 @@ public abstract class Interactable : MonoBehaviour
 
     public abstract void UnSelectObject();
 
-    public virtual void MoveRelativeToPlayer(float mouseX, float mouseY, float mouseScroll, Vector3 playerPosition, Vector3 mirrorPosition)
+    public abstract void MoveObject(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition);
+
+    public Vector3 CalculateVelocity(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition)
     {
+        var forwardBackwardDir = new Vector3(rayDir.x, 0, rayDir.z);
+        var leftRightDir = Vector3.Cross(forwardBackwardDir, Vector3.up);
+        var playerObjectDistance = (playerPosition - transform.position).magnitude;
 
-    }
+        Vector3 upDownVelocity = Vector3.up * mouseY * playerObjectDistance;
+        Vector3 leftRightVelocity = leftRightDir * mouseX * playerObjectDistance;
+        Vector3 forwardBackwardVelocity = -forwardBackwardDir * mouseScroll;
 
-    public virtual void MoveRelativeToObject(float mouseX, float mouseY, float mouseScroll)
-    {
-
+        return upDownVelocity + leftRightVelocity + forwardBackwardVelocity;
     }
 }
