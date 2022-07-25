@@ -18,7 +18,6 @@ public abstract class Interactable : MonoBehaviour
     protected virtual void Start()
     {
         interactionState = Interaction.None;
-        isInteractable = true;
         rb = transform.GetComponent<Rigidbody>();
 
         player = GameObject.Find("Player");

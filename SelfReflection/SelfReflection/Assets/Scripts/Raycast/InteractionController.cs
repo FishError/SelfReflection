@@ -163,8 +163,11 @@ public class InteractionController : MonoBehaviour
 
                     if (1 << hit.collider.transform.gameObject.layer == interactableLayer.value && reflections > 0)
                     {
-                        rightClicked = true;
                         interactable = hit.rigidbody.transform.GetComponent<Interactable>();
+                        if (interactable.isInteractable)
+                            rightClicked = true;
+                        else
+                            interactable = null;
                     }
 
                     if (hit.collider.tag != "Mirror")
@@ -234,7 +237,7 @@ public class InteractionController : MonoBehaviour
                 break;
 
             case Interaction.SwapState:
-                if (interactable is InteractableObject)
+                if (interactable is InteractableObject && interactable.canSwapStates)
                 {
                     InteractableObject interactableObject = (InteractableObject)interactable;
                     interactableObject.SwapState(spawnLocation);
@@ -249,6 +252,11 @@ public class InteractionController : MonoBehaviour
                     {
                         DropObject();
                     }
+                }
+                else
+                {
+                    rightClicked = false;
+                    interactable = null;
                 }
                 break;
 
