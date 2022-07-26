@@ -14,7 +14,7 @@ public class VideoManager : MonoBehaviour
     {
         resOptions = resDropdown.GetComponent<TMP_Dropdown>().options;
         displayOptions = displayMode.GetComponent<TMP_Dropdown>().options;
-
+        LoadScreenResolution();
     }
 
     public List<int> ParseScreenResolution()
@@ -37,7 +37,6 @@ public class VideoManager : MonoBehaviour
     }
 
 
-
     public void ChangeScreenResolution()
     {
         List<int> getSize = ParseScreenResolution();
@@ -48,15 +47,25 @@ public class VideoManager : MonoBehaviour
                 Screen.SetResolution(getSize[0], getSize[1], FullScreenMode.Windowed);
                 print("Windowed - " + getSize[0] + "x" + getSize[1]);
                 break;
-            case "Windowed Fullscreen":
+            case "Borderless":
                 Screen.SetResolution(getSize[0], getSize[1], FullScreenMode.FullScreenWindow);
-                print("FullScreen Window - " + getSize[0] + "x" + getSize[1]);
+                print("Borderless - " + getSize[0] + "x" + getSize[1]);
                 break;
             case "Fullscreen":
                 Screen.SetResolution(getSize[0], getSize[1], FullScreenMode.ExclusiveFullScreen);
                 print("Fullscreen - " + getSize[0] + "x" + getSize[1]);
                 break;
         }
-        
+        PlayerPrefs.SetString("displayMode", displayMode);
+    }
+
+    public void LoadScreenResolution()
+    {
+        if (PlayerPrefs.HasKey("displayMode"))
+        {
+            resDropdown.RefreshShownValue();
+            displayMode.RefreshShownValue();
+        }
     }
 }
+
