@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject pauseMenu;
+    public GameObject optionMenu;
+    public List<GameObject> menus = new List<GameObject>();
     public bool isPaused;
     private int isOpen = 0;
     // Start is called before the first frame update
@@ -31,9 +32,9 @@ public class PauseMenu : MonoBehaviour
 
     void OpenPauseMenu()
     {
-        if (pauseMenu.activeInHierarchy == false)
+        if (optionMenu.activeInHierarchy == false)
         {
-            pauseMenu.SetActive(true);
+            optionMenu.SetActive(true);
             isPaused = true;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
@@ -43,7 +44,10 @@ public class PauseMenu : MonoBehaviour
 
     public void ClosePauseMenu()
     {
-        pauseMenu.SetActive(false);
+        for (int i = 0; i < menus.Count; i++)
+        {
+            menus[i].SetActive(false);
+        }
         isPaused = false;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;

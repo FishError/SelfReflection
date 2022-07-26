@@ -106,4 +106,12 @@ public class MovingMirrors : MonoBehaviour
             yield return null;
         }
     }
+
+    public void EnableMovement() { isMoving = true; }
+
+    public void DisableMovement() { isMoving = false; }
+
+    public void EnableRotation() { isRotating = true; }
+
+    public void DisableRotation() { isRotating = false; }
 }
