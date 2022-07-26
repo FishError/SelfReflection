@@ -19,6 +19,9 @@ public class SubtitleManager : MonoBehaviour
         // Update is called once per frame
         void Update()
     {
+        if (subtitles != null) {
+            playSubtitle();
+        }
         
     }
 
