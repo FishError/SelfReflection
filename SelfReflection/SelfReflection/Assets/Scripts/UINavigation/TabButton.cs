@@ -4,25 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-[RequireComponent(typeof(Image))]
-public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler
+public class TabButton : MonoBehaviour
 {
-    public TabGroup tabGroup;
-    public Image background;
-
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnMouseDown()
     {
-        tabGroup.OnTabSelected(this);
-    }
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        tabGroup.OnTabEnter(this);
-    }
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        tabGroup.OnTabExit(this);
+        print(this.gameObject.name);
     }
 
-    
 
 }
