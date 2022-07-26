@@ -240,6 +240,11 @@ public class InteractionController : MonoBehaviour
                     interactable.transform.parent = pickupParent;
                     currentLeftClickInteraction = Interaction.Holding;
                 }
+                else if (interactable is InteractableMirror)
+                {
+                    SelectInterableObject(interaction);
+                    currentLeftClickInteraction = Interaction.Holding;
+                }
                 break;
 
             case Interaction.Holding:
