@@ -52,7 +52,7 @@ public class InteractableObjectLimitedMovement : InteractableObject
             transform.position = new Vector3(x, y, z);
         }
 
-        if (transform.position != originalPosition && state != ObjectState.MovingThroughMirror)
+        if (transform.position != originalPosition && interactionState != Interaction.MirrorMove)
         {
             timeLeft -= Time.deltaTime;
             if (timeLeft < 0f)
