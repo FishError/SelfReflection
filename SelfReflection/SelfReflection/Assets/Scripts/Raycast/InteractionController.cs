@@ -300,8 +300,11 @@ public class InteractionController : MonoBehaviour
 
     public void DropObject()
     {
-        Destroy(gameObjectCopy);
-        interactable.transform.parent = null;
+        if (currentLeftClickInteraction == Interaction.Holding)
+        {
+            Destroy(gameObjectCopy);
+            interactable.transform.parent = null;
+        }
         interactable.UnSelectObject();
         interactable = null;
         relativeMirror = null;
