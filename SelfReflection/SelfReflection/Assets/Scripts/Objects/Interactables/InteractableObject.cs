@@ -7,19 +7,23 @@ public class InteractableObject : Interactable
 {
     protected Collider playerCollider;
 
-    public override void SelectObject(MoveObjectController controller)
+    public override void SelectObject(InteractionController controller, Interaction interaction)
     {
-        rb.useGravity = false;
-        rb.constraints = RigidbodyConstraints.FreezeRotation;
-        moveObjectController = controller;
+        interactionController = controller;
+        switch (interaction)
+        {
+            case Interaction.PickUp:
+            case Interaction.Holding:
+                interactionState = Interaction.Holding;
+                rb.useGravity = false;
+                rb.constraints = RigidbodyConstraints.FreezeRotation;
+                break;
 
-        if (moveObjectController.relativeMirror)
-        {
-            state = ObjectState.MovingThroughMirror;
-        }
-        else
-        {
-            state = ObjectState.Holding;
+            case Interaction.MirrorMove:
+                interactionState = Interaction.MirrorMove;
+                rb.useGravity = false;
+                rb.constraints = RigidbodyConstraints.FreezeRotation;
+                break;
         }
     }
 
@@ -27,12 +31,24 @@ public class InteractableObject : Interactable
     {
         rb.useGravity = true;
         rb.constraints = RigidbodyConstraints.None;
-        moveObjectController = null;
+        interactionController = null;
         
-        if (state == ObjectState.Holding)
-            Physics.IgnoreCollision(playerCollider, GetComponent<Collider>(), false);
+        if (interactionState == Interaction.Holding)
+            foreach (Collider c in GetComponentsInChildren<Collider>())
+            {
+                Physics.IgnoreCollision(playerCollider, c, true);
+            }
 
-        state = ObjectState.Interactable;
+        interactionState = Interaction.None;
+    }
+
+    public void HoldObject(Transform pickUpParent)
+    {
+        if (transform.position != pickUpParent.position)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, pickUpParent.position, 15 * Time.deltaTime);
+        }
+
     }
 
     public override void MoveObject(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition)
@@ -41,17 +57,35 @@ public class InteractableObject : Interactable
         rb.velocity = Vector3.Lerp(rb.velocity, Vector3.ClampMagnitude(velocity, maxVelocity), 0.3f);
     }
 
+    public void SwapState(Vector3 mirrorSpawnLocation)
+    {
+        if (IsEthereal() && canSwapStates)
+        {
+            SetToReal();
+            transform.position = mirrorSpawnLocation;
+            transform.parent = null;
+        }
+        else if (!IsEthereal() && canSwapStates)
+        {
+            SetToEthereal();
+            transform.position = mirrorSpawnLocation;
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        if (state == ObjectState.MovingThroughMirror)
-            moveObjectController.DropObject();
+        if (interactionState == Interaction.MirrorMove)
+            interactionController.DropObject();
 
-        if (collision.gameObject.layer == player.layer && state == ObjectState.Holding)
+        if (collision.gameObject.layer == player.layer && interactionState == Interaction.Holding)
         {
-            Physics.IgnoreCollision(collision.collider, GetComponent<Collider>(), true);
+            foreach(Collider c in GetComponentsInChildren<Collider>())
+            {
+                Physics.IgnoreCollision(collision.collider, c, true);
+            }
             playerCollider = collision.collider;
             var distance = (transform.position - collision.GetContact(0).point).magnitude;
-            moveObjectController.ScalePickUpParentRange(distance + 1f);
+            interactionController.ScalePickUpParentRange(distance + 1f);
         }
     }
 }
