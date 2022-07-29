@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b6d16909fda77340aa637f6c5b9dbc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: 
+  nextScene: Tutorial Hub After Seq Tut
 --- !u!136 &7873523
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7417,8 +7417,9 @@ MonoBehaviour:
   ethereal: {fileID: 0}
   real: {fileID: 2100000, guid: fbe6c2fc1eda9434ca2b84e032573c98, type: 2}
   rb: {fileID: 0}
-  state: 0
-  canBecomeEthereal: 0
+  interactionState: 0
+  isInteractable: 0
+  canSwapStates: 0
   maxVelocity: 10
   xAxis: 0
   yAxis: 1

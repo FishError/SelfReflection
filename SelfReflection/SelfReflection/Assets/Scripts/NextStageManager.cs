@@ -15,7 +15,8 @@ public class NextStageManager : MonoBehaviour
         if (count >= 2)
         {
             /*SceneManager.LoadScene("");*/
-            print("switch scene here");
+            SceneManager.LoadScene("ButtonsSwitches_S3");
+            // print("switch scene here");
         }
     }
 
