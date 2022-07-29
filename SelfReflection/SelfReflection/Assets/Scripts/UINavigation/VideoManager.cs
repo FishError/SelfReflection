@@ -6,15 +6,16 @@ using TMPro;
 public class VideoManager : MonoBehaviour
 {
     public TMP_Dropdown resDropdown;
-    public TMP_Dropdown displayMode;
+    public TMP_Dropdown displayDropdown;
     private List<TMP_Dropdown.OptionData> resOptions = new List<TMP_Dropdown.OptionData>();
     private List<TMP_Dropdown.OptionData> displayOptions = new List<TMP_Dropdown.OptionData>();
 
     private void Start()
     {
         resOptions = resDropdown.GetComponent<TMP_Dropdown>().options;
-        displayOptions = displayMode.GetComponent<TMP_Dropdown>().options;
+        displayOptions = displayDropdown.GetComponent<TMP_Dropdown>().options;
         LoadScreenResolution();
+        LoadDisplayMode();
     }
 
     public List<int> ParseScreenResolution()
@@ -31,17 +32,11 @@ public class VideoManager : MonoBehaviour
         return screenRes;
     }
 
-    public string GetDisplayMode()
-    {
-        return displayOptions[displayMode.value].text;
-    }
-
 
     public void ChangeScreenResolution()
     {
         List<int> getSize = ParseScreenResolution();
-        string displayMode = GetDisplayMode();
-        switch (displayMode)
+        switch (ReturnDisplayMode())
         {
             case "Windowed":
                 Screen.SetResolution(getSize[0], getSize[1], FullScreenMode.Windowed);
@@ -56,15 +51,45 @@ public class VideoManager : MonoBehaviour
                 print("Fullscreen - " + getSize[0] + "x" + getSize[1]);
                 break;
         }
-        PlayerPrefs.SetString("displayMode", displayMode);
+        PlayerPrefs.SetInt("ResValue", resDropdown.value);
+    }
+
+    public string ReturnDisplayMode()
+    {
+        return displayOptions[displayDropdown.value].text;
+    }
+
+    public void ChangeDisplayMode()
+    {
+        List<int> getSize = ParseScreenResolution();
+        switch (ReturnDisplayMode())
+        {
+            case "Windowed":
+                Screen.SetResolution(getSize[0], getSize[1], FullScreenMode.Windowed);
+                break;
+            case "Borderless":
+                Screen.SetResolution(getSize[0], getSize[1], FullScreenMode.FullScreenWindow);
+                break;
+            case "Fullscreen":
+                Screen.SetResolution(getSize[0], getSize[1], FullScreenMode.ExclusiveFullScreen);
+                break;
+        }
+        PlayerPrefs.SetInt("DisplayValue", displayDropdown.value);
     }
 
     public void LoadScreenResolution()
     {
-        if (PlayerPrefs.HasKey("displayMode"))
+        if (PlayerPrefs.HasKey("ResValue"))
         {
-            resDropdown.RefreshShownValue();
-            displayMode.RefreshShownValue();
+            resDropdown.value = PlayerPrefs.GetInt("ResValue");
+        }
+    }
+
+    public void LoadDisplayMode()
+    {
+        if (PlayerPrefs.HasKey("DisplayValue"))
+        {
+            displayDropdown.value = PlayerPrefs.GetInt("DisplayValue");
         }
     }
 }
