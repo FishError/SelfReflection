@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,6 +43,7 @@ public class InteractionController : MonoBehaviour
     private bool rightClicked;
     private Interaction currentRightClickInteraction;
     private Vector3 spawnLocation;
+    private List<Interaction> interactionToolbar;
 
     public Transform relativeMirror;
     public Vector3 lastPlayerPosition;
@@ -56,18 +58,37 @@ public class InteractionController : MonoBehaviour
         playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
         ik = GameObject.Find("Player").transform.GetChild(2).GetComponent<IKController>();
 
-        currentRightClickInteraction = Interaction.SwapState;
+        interactionToolbar = new List<Interaction>() { Interaction.SwapState, Interaction.Resize, Interaction.Rotate };
+        currentRightClickInteraction = interactionToolbar[0];
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if ((Input.GetKeyDown("q") || Input.GetKeyDown("e")) && !rightClicked)
         {
-            LeftClick();
+            int index = interactionToolbar.IndexOf(currentRightClickInteraction);
+            if (Input.GetKeyDown("q"))
+                index -= 1;
+            else if (Input.GetKeyDown("e"))
+                index += 1;
+
+            if (index < 0)
+                index = interactionToolbar.Count + index;
+            else if (index > interactionToolbar.Count - 1)
+                index %= interactionToolbar.Count;
+
+            currentRightClickInteraction = interactionToolbar[index];
         }
-        else if (Input.GetMouseButtonDown(1))
+        else
         {
-            RightClick();
+            if (Input.GetMouseButtonDown(0))
+            {
+                LeftClick();
+            }
+            else if (Input.GetMouseButtonDown(1))
+            {
+                RightClick();
+            }
         }
     }
 
@@ -219,6 +240,11 @@ public class InteractionController : MonoBehaviour
                     interactable.transform.parent = pickupParent;
                     currentLeftClickInteraction = Interaction.Holding;
                 }
+                else if (interactable is InteractableMirror)
+                {
+                    SelectInterableObject(interaction);
+                    currentLeftClickInteraction = Interaction.Holding;
+                }
                 break;
 
             case Interaction.Holding:
@@ -274,8 +300,11 @@ public class InteractionController : MonoBehaviour
 
     public void DropObject()
     {
-        Destroy(gameObjectCopy);
-        interactable.transform.parent = null;
+        if (currentLeftClickInteraction == Interaction.Holding)
+        {
+            Destroy(gameObjectCopy);
+            interactable.transform.parent = null;
+        }
         interactable.UnSelectObject();
         interactable = null;
         relativeMirror = null;
