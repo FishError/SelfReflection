@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum Interaction
 {
@@ -40,6 +41,8 @@ public class InteractionController : MonoBehaviour
     public float objectMoveSpeed;
 
     [Header("Right Click Parameters")]
+    private GameObject toolbar;
+    private List<Image> skills = new List<Image>();
     private bool rightClicked;
     private Interaction currentRightClickInteraction;
     private Vector3 spawnLocation;
@@ -60,6 +63,16 @@ public class InteractionController : MonoBehaviour
 
         interactionToolbar = new List<Interaction>() { Interaction.SwapState, Interaction.Resize, Interaction.Rotate };
         currentRightClickInteraction = interactionToolbar[0];
+        toolbar = GameObject.Find("Canvas").transform.GetChild(2).gameObject;
+        foreach (Transform child in toolbar.transform)
+        {
+            skills.Add(child.GetComponent<Image>());
+        }
+        if (currentRightClickInteraction.Equals(Interaction.SwapState))
+        {
+            int swapPos = skills.FindIndex(gameObject => string.Equals("Swap", gameObject.name));
+            ColorChange(swapPos);
+        }
     }
 
     private void Update()
@@ -78,6 +91,22 @@ public class InteractionController : MonoBehaviour
                 index %= interactionToolbar.Count;
 
             currentRightClickInteraction = interactionToolbar[index];
+            int pos = 0;
+            switch (currentRightClickInteraction)
+            {
+                case Interaction.SwapState:
+                    pos = skills.FindIndex(gameObject => string.Equals("Swap", gameObject.name));
+                    ColorChange(pos);
+                    break;
+                case Interaction.Rotate:
+                    pos = skills.FindIndex(gameObject => string.Equals("Rotate", gameObject.name));
+                    ColorChange(pos);
+                    break;
+                case Interaction.Resize:
+                    pos = skills.FindIndex(gameObject => string.Equals("Resize", gameObject.name));
+                    ColorChange(pos);
+                    break;
+            }
         }
         else
         {
@@ -221,7 +250,7 @@ public class InteractionController : MonoBehaviour
 
     void InteractWithObject(Interaction interaction)
     {
-        switch(interaction)
+        switch (interaction)
         {
             case Interaction.PickUp:
                 if (interactable is InteractableObject)
@@ -254,7 +283,6 @@ public class InteractionController : MonoBehaviour
                     interactableObject.HoldObject(pickupParent);
                 }
                 break;
-
             case Interaction.MirrorMove:
                 var x = mouseX * objectMoveSpeed;
                 var y = mouseY * objectMoveSpeed;
@@ -317,5 +345,20 @@ public class InteractionController : MonoBehaviour
     public void ScalePickUpParentRange(float distance)
     {
         pickupParent.localPosition = new Vector3(pickupParent.localPosition.x, pickupParent.localPosition.y, distance);
+    }
+
+    public void ColorChange(int index)
+    {
+        for (int i = 0; i < skills.Count; i++)
+        {
+            if (i != index)
+            {
+                skills[i].color = new Color(skills[i].color.r, skills[i].color.g, skills[i].color.b, 0.35f);
+            }
+            else
+            {
+                skills[i].color = new Color(skills[i].color.r, skills[i].color.g, skills[i].color.b, 1f);
+            }
+        }
     }
 }
