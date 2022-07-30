@@ -47,7 +47,6 @@ public class InteractionController : MonoBehaviour
     private Interaction currentRightClickInteraction;
     private Vector3 spawnLocation;
     private List<Interaction> interactionToolbar;
-    public GameObject swap;
 
     public Transform relativeMirror;
     public Vector3 lastPlayerPosition;
@@ -69,6 +68,11 @@ public class InteractionController : MonoBehaviour
         {
             skills.Add(child.GetComponent<Image>());
         }
+        if (currentRightClickInteraction.Equals(Interaction.SwapState))
+        {
+            int swapPos = skills.FindIndex(gameObject => string.Equals("Swap", gameObject.name));
+            ColorChange(swapPos);
+        }
     }
 
     private void Update()
@@ -87,20 +91,21 @@ public class InteractionController : MonoBehaviour
                 index %= interactionToolbar.Count;
 
             currentRightClickInteraction = interactionToolbar[index];
-            if (currentRightClickInteraction.Equals(Interaction.SwapState))
+            int pos = 0;
+            switch (currentRightClickInteraction)
             {
-                int swapPos = skills.FindIndex(gameObject => string.Equals("Swap", gameObject.name));
-                ColorChange(swapPos);
-            }
-            else if (currentRightClickInteraction.Equals(Interaction.Rotate))
-            {
-                int rotatePos = skills.FindIndex(gameObject => string.Equals("Rotate", gameObject.name));
-                ColorChange(rotatePos);
-            }
-            else if (currentRightClickInteraction.Equals(Interaction.Resize))
-            {
-                int resizePos = skills.FindIndex(gameObject => string.Equals("Resize", gameObject.name));
-                ColorChange(resizePos);
+                case Interaction.SwapState:
+                    pos = skills.FindIndex(gameObject => string.Equals("Swap", gameObject.name));
+                    ColorChange(pos);
+                    break;
+                case Interaction.Rotate:
+                    pos = skills.FindIndex(gameObject => string.Equals("Rotate", gameObject.name));
+                    ColorChange(pos);
+                    break;
+                case Interaction.Resize:
+                    pos = skills.FindIndex(gameObject => string.Equals("Resize", gameObject.name));
+                    ColorChange(pos);
+                    break;
             }
         }
         else
@@ -348,7 +353,7 @@ public class InteractionController : MonoBehaviour
         {
             if (i != index)
             {
-                skills[i].color = new Color(skills[i].color.r, skills[i].color.g, skills[i].color.b, 0.5f);
+                skills[i].color = new Color(skills[i].color.r, skills[i].color.g, skills[i].color.b, 0.35f);
             }
             else
             {
