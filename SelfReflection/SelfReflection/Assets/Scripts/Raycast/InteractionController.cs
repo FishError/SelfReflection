@@ -37,7 +37,7 @@ public class InteractionController : MonoBehaviour
     public float sensX;
     public float sensY;
     public float mouseScrollSense;
-    public float objectMoveSpeed;
+    //public float objectMoveSpeed;
 
     [Header("Right Click Parameters")]
     private bool rightClicked;
@@ -256,9 +256,9 @@ public class InteractionController : MonoBehaviour
                 break;
 
             case Interaction.MirrorMove:
-                var x = mouseX * objectMoveSpeed;
-                var y = mouseY * objectMoveSpeed;
-                var z = mouseScroll * mouseScrollSense * objectMoveSpeed * 20;
+                var x = mouseX;
+                var y = mouseY;
+                var z = mouseScroll * mouseScrollSense * 20;
                 interactable.MoveObject(x, y, z, ray.direction, lastPlayerPosition);
                 break;
 
