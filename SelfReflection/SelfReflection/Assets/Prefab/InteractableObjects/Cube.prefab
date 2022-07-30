@@ -15,6 +15,9 @@ GameObject:
   - component: {fileID: 5407183616095388053}
   - component: {fileID: 5407183616095388048}
   - component: {fileID: 1554491305859948535}
+  - component: {fileID: 8609107432906366092}
+  - component: {fileID: 5201262393362865867}
+  - component: {fileID: 5848962156702362035}
   m_Layer: 7
   m_Name: Cube
   m_TagString: Real
@@ -145,8 +148,44 @@ MonoBehaviour:
   ethereal: {fileID: 2100000, guid: b257c23f6899cbb4f8056f4e32c62aef, type: 2}
   real: {fileID: 2100000, guid: a1c0a9da6c6652144889a26461968c4f, type: 2}
   rb: {fileID: 0}
-  mass: 100
-  drag: 0
-  maxVelocity: 0
-  state: 0
-  canBecomeEthereal: 1
+  interactionState: 0
+  isInteractable: 1
+  canSwapStates: 1
+  maxVelocity: 15
+--- !u!114 &8609107432906366092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5407183616095388042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3ca9c52f8c41214ab8209ee64adbbb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshRenderer: {fileID: 0}
+--- !u!114 &5201262393362865867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5407183616095388042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90c694aa8675a4142ad9b19c90ae1676, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5848962156702362035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5407183616095388042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a865ae42fd0a4448b51080a60a48114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
