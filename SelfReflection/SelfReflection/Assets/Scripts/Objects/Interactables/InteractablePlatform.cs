@@ -20,6 +20,8 @@ public class InteractablePlatform : Interactable
     public float shakeSpeed;
     public float shakeIntensity;
     public float speed;
+    private bool isShaking;
+    private Collision getCollision;
 
     protected override void Start()
     {
@@ -36,13 +38,15 @@ public class InteractablePlatform : Interactable
             {
                 float step = shakeSpeed * Time.deltaTime;
                 transform.position = Vector3.MoveTowards(transform.position, transform.position + Random.insideUnitSphere, step);
+                isShaking = true;
             }
 
             if(timeLeft < 0f)
             {
                 transform.position = Vector3.MoveTowards(transform.position, originalPosition, speed * Time.deltaTime);
+                isShaking = false;
             }
-
+            CheckCollision();
         }
 
         
@@ -92,6 +96,7 @@ public class InteractablePlatform : Interactable
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
+        getCollision = collision;
         if (collision.gameObject.tag == "Player")
         {
             collision.transform.SetParent(transform);
@@ -110,10 +115,20 @@ public class InteractablePlatform : Interactable
 
     protected virtual void OnCollisionExit(Collision collision)
     {
+        getCollision = collision;
         if (collision.gameObject.tag == "Player")
         {
             collision.transform.SetParent(null);
             collision.transform.GetComponent<Rigidbody>().useGravity = true;
+        }
+    }
+
+    public void CheckCollision()
+    {
+        if (getCollision.gameObject.tag == "Player" && isShaking)
+        {
+            getCollision.transform.SetParent(null);
+            getCollision.transform.GetComponent<Rigidbody>().useGravity = true;
         }
     }
 }
