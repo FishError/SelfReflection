@@ -130,5 +130,11 @@ public class InteractablePlatform : Interactable
             getCollision.transform.SetParent(null);
             getCollision.transform.GetComponent<Rigidbody>().useGravity = true;
         }
+        else if(getCollision.gameObject.tag == "Player" && !isShaking)
+        {
+            getCollision.transform.SetParent(transform);
+            getCollision.transform.GetComponent<Rigidbody>().useGravity = false;
+            playerPos = getCollision.transform.localPosition;
+        }
     }
 }
