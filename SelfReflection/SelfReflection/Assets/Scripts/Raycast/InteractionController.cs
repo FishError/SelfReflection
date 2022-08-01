@@ -60,23 +60,17 @@ public class InteractionController : MonoBehaviour
         sensY = transform.GetComponent<PlayerCam>().sensY;
         playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
         ik = GameObject.Find("Player").transform.GetChild(2).GetComponent<IKController>();
-
         interactionToolbar = new List<Interaction>() { Interaction.SwapState, Interaction.Resize, Interaction.Rotate };
         currentRightClickInteraction = interactionToolbar[0];
-        toolbar = GameObject.Find("Canvas").transform.GetChild(2).gameObject;
+        toolbar = GameObject.Find("Toolbar").gameObject;
         foreach (Transform child in toolbar.transform)
         {
             skills.Add(child.GetComponent<Image>());
         }
-        if (currentRightClickInteraction.Equals(Interaction.SwapState))
-        {
-            int swapPos = skills.FindIndex(gameObject => string.Equals("Swap", gameObject.name));
-            ColorChange(swapPos);
-        }
     }
 
     private void Update()
-    {
+    { 
         if ((Input.GetKeyDown("q") || Input.GetKeyDown("e")) && !rightClicked)
         {
             int index = interactionToolbar.IndexOf(currentRightClickInteraction);
@@ -119,6 +113,7 @@ public class InteractionController : MonoBehaviour
                 RightClick();
             }
         }
+
     }
 
     private void FixedUpdate()
