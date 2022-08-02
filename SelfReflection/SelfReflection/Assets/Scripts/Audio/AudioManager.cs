@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using FMOD;
+using FMOD.Studio;
+using FMODUnity;
 
 
 public class AudioManager : MonoBehaviour
@@ -16,6 +19,7 @@ public class AudioManager : MonoBehaviour
     public List<KeyValuePair> audioList = new List<KeyValuePair>();
     Dictionary<GameObject, string> audioObjects = new Dictionary<GameObject, string>();
     public GameObject currentAudioObject;
+    public float audioLength = 0f;
     public GameObject backgroundMusic;
     public SubtitleManager subtitleManager;
     public float playTime = 0f;
@@ -29,16 +33,17 @@ public class AudioManager : MonoBehaviour
             audioObjects[kvp.audioObject] = kvp.subtitleText;
         }
         backgroundMusic.SetActive(true);
-        subtitleManager = GetComponent<SubtitleManager>();
+        subtitleManager = GameObject.Find("SubtitleManager").GetComponent<SubtitleManager>(); 
     }
 
     // Update is called once per frame
     void Update()
     {
+        getAudioLength();
         if (startPlayback)
         {
             play();
-            Debug.Log(audioObjects[currentAudioObject]);
+            subtitleManager.addSubtitle(audioObjects[currentAudioObject], audioLength);
             release();
         }
         setPlayback(false);
@@ -62,5 +67,19 @@ public class AudioManager : MonoBehaviour
     public void setPlayback(bool a)
     {
         startPlayback = a;
+    }
+
+    public void getAudioLength()
+    {
+        
+        StudioEventEmitter tempAudio = currentAudioObject.GetComponent<StudioEventEmitter>();
+        UnityEngine.Debug.Log(tempAudio);
+        tempAudio.EventInstance.getDescription(out EventDescription tempAudioDescription);
+        UnityEngine.Debug.Log(tempAudioDescription.getLength(out int length));
+        tempAudioDescription.getLength(out int tempAudioLength);
+        UnityEngine.Debug.Log(tempAudioLength);
+        audioLength = tempAudioLength;
+        
+        
     }
 }
