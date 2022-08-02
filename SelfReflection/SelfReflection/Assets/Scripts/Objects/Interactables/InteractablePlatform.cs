@@ -16,6 +16,13 @@ public class InteractablePlatform : Interactable
 
     protected Vector3 playerPos;
 
+    [Header("Reset Feedback Settings")]
+    public float shakeSpeed;
+    public float shakeIntensity;
+    public float speed;
+    private bool isShaking;
+    private Collision getCollision;
+
     protected override void Start()
     {
         base.Start();
@@ -27,11 +34,22 @@ public class InteractablePlatform : Interactable
         if (transform.position != originalPosition && interactionState != Interaction.MirrorMove)
         {
             timeLeft -= Time.deltaTime;
-            if (timeLeft < 0f)
+            if (timeLeft < resetTimer / 2f && timeLeft > 0)
             {
-                transform.position = originalPosition;
+                float step = shakeSpeed * Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, transform.position + Random.insideUnitSphere, step);
+                isShaking = true;
             }
+
+            if(timeLeft < 0f)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, originalPosition, speed * Time.deltaTime);
+                isShaking = false;
+            }
+            CheckCollision();
         }
+
+        
     }
 
     public override void SelectObject(InteractionController controller, Interaction interaction)
@@ -78,6 +96,7 @@ public class InteractablePlatform : Interactable
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
+        getCollision = collision;
         if (collision.gameObject.tag == "Player")
         {
             collision.transform.SetParent(transform);
@@ -96,10 +115,26 @@ public class InteractablePlatform : Interactable
 
     protected virtual void OnCollisionExit(Collision collision)
     {
+        getCollision = collision;
         if (collision.gameObject.tag == "Player")
         {
             collision.transform.SetParent(null);
             collision.transform.GetComponent<Rigidbody>().useGravity = true;
+        }
+    }
+
+    public void CheckCollision()
+    {
+        if (getCollision.gameObject.tag == "Player" && isShaking)
+        {
+            getCollision.transform.SetParent(null);
+            getCollision.transform.GetComponent<Rigidbody>().useGravity = true;
+        }
+        else if(getCollision.gameObject.tag == "Player" && !isShaking)
+        {
+            getCollision.transform.SetParent(transform);
+            getCollision.transform.GetComponent<Rigidbody>().useGravity = false;
+            playerPos = getCollision.transform.localPosition;
         }
     }
 }

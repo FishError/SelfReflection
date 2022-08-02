@@ -149,9 +149,10 @@ MonoBehaviour:
   ethereal: {fileID: 2100000, guid: b257c23f6899cbb4f8056f4e32c62aef, type: 2}
   real: {fileID: 2100000, guid: 897ca644286540f4096691da0684d8be, type: 2}
   rb: {fileID: 0}
-  maxVelocity: 0
-  state: 0
-  canBecomeEthereal: 1
+  interactionState: 0
+  isInteractable: 1
+  canSwapStates: 1
+  maxVelocity: 10
 --- !u!114 &2240740574213504669
 MonoBehaviour:
   m_ObjectHideFlags: 0
