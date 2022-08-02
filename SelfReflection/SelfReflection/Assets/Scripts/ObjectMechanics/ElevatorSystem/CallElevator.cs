@@ -24,7 +24,8 @@ public class CallElevator : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.name.Contains("Battery") && elevator != null)
+        print(other.gameObject.name);
+        if (other.gameObject.name.Contains("Switch") && elevator != null)
         {
             elevator.isOff = false;
             elevator.CallElevator();
