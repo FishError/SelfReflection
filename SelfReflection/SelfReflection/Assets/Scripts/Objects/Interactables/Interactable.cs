@@ -10,7 +10,10 @@ public abstract class Interactable : MonoBehaviour
     public Interaction interactionState;
     public bool isInteractable;
     public bool canSwapStates;
+    public bool canResize;
     public float maxVelocity;
+    public float maxScale;
+    public float minScale;
     protected InteractionController interactionController;
     protected GameObject player;
 
