@@ -39,6 +39,10 @@ public class InteractableObjectLimitedMovement : InteractableObject
 
     private void Update()
     {
+        if (interactionState == Interaction.MirrorMove)
+        {
+            rb.isKinematic = false;
+        }
         float x = transform.position.x;
         float y = transform.position.y;
         float z = transform.position.z;
@@ -64,6 +68,7 @@ public class InteractableObjectLimitedMovement : InteractableObject
 
     public override void UnSelectObject()
     {
+        rb.isKinematic = true;
         rb.constraints = RigidbodyConstraints.None;
         interactionController = null;
 
