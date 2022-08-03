@@ -14,6 +14,7 @@ public class InteractableObject : Interactable
         {
             case Interaction.PickUp:
             case Interaction.Holding:
+            case Interaction.SwapState:
                 interactionState = Interaction.Holding;
                 rb.useGravity = false;
                 rb.constraints = RigidbodyConstraints.FreezeRotation;
@@ -23,6 +24,9 @@ public class InteractableObject : Interactable
                 interactionState = Interaction.MirrorMove;
                 rb.useGravity = false;
                 rb.constraints = RigidbodyConstraints.FreezeRotation;
+                break;
+            case Interaction.Rotate:
+                interactionState = Interaction.Rotate;
                 break;
         }
     }
@@ -70,6 +74,13 @@ public class InteractableObject : Interactable
             SetToEthereal();
             transform.position = mirrorSpawnLocation;
         }
+    }
+
+    public override void Rotate(float mouseX, float mouseY, Vector3 rayDir)
+    {
+        transform.RotateAround(transform.position, Vector3.up, mouseX);
+        Vector3 axis = Vector3.Cross(new Vector3(rayDir.x, 0, rayDir.z), Vector3.up);
+        transform.RotateAround(transform.position, axis, mouseY);
     }
 
     private void OnCollisionEnter(Collision collision)
