@@ -74,6 +74,8 @@ public abstract class Interactable : MonoBehaviour
 
     public abstract void MoveObject(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition);
 
+    public abstract void Resize(float mouseScroll);
+
     public Vector3 CalculateVelocity(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition)
     {
         var forwardBackwardDir = new Vector3(rayDir.x, 0, rayDir.z);

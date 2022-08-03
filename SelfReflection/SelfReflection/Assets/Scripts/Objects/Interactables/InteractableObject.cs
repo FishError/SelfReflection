@@ -72,19 +72,19 @@ public class InteractableObject : Interactable
         }
     }
 
-    public void Resize(float z)
+    public override void Resize(float mouseScroll)
     {
-        if ((transform.localScale + (z * transform.localScale)).x > maxScale)
+        if ((transform.localScale + (mouseScroll * transform.localScale)).x > maxScale)
         {
             transform.localScale = new Vector3(maxScale, maxScale, maxScale);
         }
-        else if ((transform.localScale + (z * transform.localScale)).x < minScale)
+        else if ((transform.localScale + (mouseScroll * transform.localScale)).x < minScale)
         {
             transform.localScale = new Vector3(minScale, minScale, minScale);
         }
         else
         {
-            transform.localScale += z * transform.localScale;
+            transform.localScale += mouseScroll * transform.localScale;
         }
 
     }

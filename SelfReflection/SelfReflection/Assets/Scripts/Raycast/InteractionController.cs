@@ -312,11 +312,8 @@ public class InteractionController : MonoBehaviour
             case Interaction.Resize:
                 if (interactable is InteractableObject && interactable.canResize && !interactable.IsEthereal())
                 {
-                    print("hel");
                     InteractableObject interactableObject = (InteractableObject)interactable;
-
                     interactableObject.Resize(mouseScroll);
-
                 }
                 else
                 {
