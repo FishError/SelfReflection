@@ -148,4 +148,9 @@ public class InteractablePlatform : Interactable
             playerPos = getCollision.transform.localPosition;
         }
     }
+
+    public override void Resize(float mouseScroll)
+    {
+        throw new System.NotImplementedException();
+    }
 }

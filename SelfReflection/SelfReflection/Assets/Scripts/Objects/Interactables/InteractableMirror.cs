@@ -125,4 +125,9 @@ public class InteractableMirror : Interactable
     {
         throw new System.NotImplementedException();
     }
+
+    public override void Resize(float mouseScroll)
+    {
+        throw new System.NotImplementedException();
+    }
 }
