@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ElevatorSystem2 : MonoBehaviour
+public class ElevatorSystem2 : ElevatorSystem
 {
 	public Vector3 FloorDistance = Vector3.up;
 	public float Speed = 1.0f;
