@@ -117,4 +117,9 @@ public class InteractableMirror : Interactable
         Vector3 velocity = CalculateVelocity(mouseX, mouseY, mouseScroll, rayDir, playerPosition);
         rb.velocity = Vector3.Lerp(rb.velocity, Vector3.ClampMagnitude(velocity, maxVelocity), 0.3f);
     }
+
+    public override void Resize(float mouseScroll)
+    {
+        throw new System.NotImplementedException();
+    }
 }

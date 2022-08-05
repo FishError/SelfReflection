@@ -32,7 +32,7 @@ public class InteractableObject : Interactable
         rb.useGravity = true;
         rb.constraints = RigidbodyConstraints.None;
         interactionController = null;
-        
+
         if (interactionState == Interaction.Holding)
             foreach (Collider c in GetComponentsInChildren<Collider>())
             {
@@ -72,6 +72,23 @@ public class InteractableObject : Interactable
         }
     }
 
+    public override void Resize(float mouseScroll)
+    {
+        if ((transform.localScale + (mouseScroll * transform.localScale)).x > maxScale)
+        {
+            transform.localScale = new Vector3(maxScale, maxScale, maxScale);
+        }
+        else if ((transform.localScale + (mouseScroll * transform.localScale)).x < minScale)
+        {
+            transform.localScale = new Vector3(minScale, minScale, minScale);
+        }
+        else
+        {
+            transform.localScale += mouseScroll * transform.localScale;
+        }
+
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (interactionState == Interaction.MirrorMove)
@@ -79,7 +96,7 @@ public class InteractableObject : Interactable
 
         if (collision.gameObject.layer == player.layer && interactionState == Interaction.Holding)
         {
-            foreach(Collider c in GetComponentsInChildren<Collider>())
+            foreach (Collider c in GetComponentsInChildren<Collider>())
             {
                 Physics.IgnoreCollision(collision.collider, c, true);
             }

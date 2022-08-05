@@ -70,7 +70,7 @@ public class InteractionController : MonoBehaviour
     }
 
     private void Update()
-    { 
+    {
         if ((Input.GetKeyDown("q") || Input.GetKeyDown("e")) && !rightClicked)
         {
             int index = interactionToolbar.IndexOf(currentRightClickInteraction);
@@ -252,7 +252,7 @@ public class InteractionController : MonoBehaviour
                 {
                     // creates compound collider so objects don't go through other objects
                     gameObjectCopy = Instantiate(interactable.transform.gameObject);
-                    foreach(MeshRenderer mr in gameObjectCopy.GetComponentsInChildren<MeshRenderer>())
+                    foreach (MeshRenderer mr in gameObjectCopy.GetComponentsInChildren<MeshRenderer>())
                     {
                         mr.enabled = false;
                     }
@@ -310,6 +310,16 @@ public class InteractionController : MonoBehaviour
                 break;
 
             case Interaction.Resize:
+                if (interactable is InteractableObject && interactable.canResize && !interactable.IsEthereal())
+                {
+                    InteractableObject interactableObject = (InteractableObject)interactable;
+                    interactableObject.Resize(mouseScroll);
+                }
+                else
+                {
+                    rightClicked = false;
+                    interactable = null;
+                }
                 break;
 
             case Interaction.Rotate:
