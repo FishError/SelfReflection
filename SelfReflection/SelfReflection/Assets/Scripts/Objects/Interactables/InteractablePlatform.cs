@@ -17,10 +17,10 @@ public class InteractablePlatform : Interactable
     protected Vector3 playerPos;
 
     [Header("Reset Feedback Settings")]
-    public float shakeSpeed;
-    public float shakeIntensity;
-    public float speed;
-    private bool isShaking;
+    public float shakeSpeed = 5;
+    public float shakeIntensity = 5;
+    public float speed = 7;
+    private bool isShaking, isStaying;
     private Collision getCollision;
 
     protected override void Start()
@@ -46,7 +46,7 @@ public class InteractablePlatform : Interactable
                 transform.position = Vector3.MoveTowards(transform.position, originalPosition, speed * Time.deltaTime);
                 isShaking = false;
             }
-            // CheckCollision();
+            CheckCollision();
         }
 
         
@@ -102,6 +102,7 @@ public class InteractablePlatform : Interactable
             collision.transform.SetParent(transform);
             collision.transform.GetComponent<Rigidbody>().useGravity = false;
             playerPos = collision.transform.localPosition;
+            isStaying = true;
         }
     }
 
@@ -110,6 +111,7 @@ public class InteractablePlatform : Interactable
         if (collision.gameObject.tag == "Player" && interactionState == Interaction.MirrorMove)
         {
             collision.transform.localPosition = playerPos;
+            isStaying = true;
         }
     }
 
@@ -120,6 +122,7 @@ public class InteractablePlatform : Interactable
         {
             collision.transform.SetParent(null);
             collision.transform.GetComponent<Rigidbody>().useGravity = true;
+            isStaying = false;
         }
     }
 
@@ -130,7 +133,7 @@ public class InteractablePlatform : Interactable
             getCollision.transform.SetParent(null);
             getCollision.transform.GetComponent<Rigidbody>().useGravity = true;
         }
-        else if(getCollision.gameObject.tag == "Player" && !isShaking)
+        else if (getCollision.gameObject.tag == "Player" && !isShaking && isStaying)
         {
             getCollision.transform.SetParent(transform);
             getCollision.transform.GetComponent<Rigidbody>().useGravity = false;

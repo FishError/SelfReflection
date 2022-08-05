@@ -1256,6 +1256,10 @@ PrefabInstance:
       value: InteractableBookBlue (1)
       objectReference: {fileID: 0}
     - target: {fileID: 5756299006339888879, guid: b9d42846f8b2ac74baec510739cb7f82, type: 3}
+      propertyPath: speed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5756299006339888879, guid: b9d42846f8b2ac74baec510739cb7f82, type: 3}
       propertyPath: yAxis
       value: 1
       objectReference: {fileID: 0}
@@ -1264,8 +1268,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5756299006339888879, guid: b9d42846f8b2ac74baec510739cb7f82, type: 3}
+      propertyPath: shakeSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5756299006339888879, guid: b9d42846f8b2ac74baec510739cb7f82, type: 3}
       propertyPath: maxVelocity
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5756299006339888879, guid: b9d42846f8b2ac74baec510739cb7f82, type: 3}
+      propertyPath: shakeIntensity
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9d42846f8b2ac74baec510739cb7f82, type: 3}
@@ -5129,12 +5141,24 @@ PrefabInstance:
       value: InteractableBookLimitedBlue
       objectReference: {fileID: 0}
     - target: {fileID: 6671604140988988156, guid: c3a8b924d632a80449fea528349551f1, type: 3}
+      propertyPath: speed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671604140988988156, guid: c3a8b924d632a80449fea528349551f1, type: 3}
       propertyPath: resetTimer
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6671604140988988156, guid: c3a8b924d632a80449fea528349551f1, type: 3}
+      propertyPath: shakeSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671604140988988156, guid: c3a8b924d632a80449fea528349551f1, type: 3}
       propertyPath: maxVelocity
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671604140988988156, guid: c3a8b924d632a80449fea528349551f1, type: 3}
+      propertyPath: shakeIntensity
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c3a8b924d632a80449fea528349551f1, type: 3}
@@ -8980,8 +9004,16 @@ PrefabInstance:
       value: InteractableBookLimitedGreen
       objectReference: {fileID: 0}
     - target: {fileID: 6671604140988988156, guid: ebf6000b639460644a74c247e44064d6, type: 3}
+      propertyPath: speed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671604140988988156, guid: ebf6000b639460644a74c247e44064d6, type: 3}
       propertyPath: resetTimer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671604140988988156, guid: ebf6000b639460644a74c247e44064d6, type: 3}
+      propertyPath: shakeSpeed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6671604140988988156, guid: ebf6000b639460644a74c247e44064d6, type: 3}
       propertyPath: maxVelocity
@@ -8990,6 +9022,10 @@ PrefabInstance:
     - target: {fileID: 6671604140988988156, guid: ebf6000b639460644a74c247e44064d6, type: 3}
       propertyPath: isInteractable
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671604140988988156, guid: ebf6000b639460644a74c247e44064d6, type: 3}
+      propertyPath: shakeIntensity
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebf6000b639460644a74c247e44064d6, type: 3}
@@ -21162,6 +21198,10 @@ PrefabInstance:
       value: InteractableBookBlood
       objectReference: {fileID: 0}
     - target: {fileID: 5756299006339888879, guid: ad41811ba8424fa44b628105aa8b8534, type: 3}
+      propertyPath: speed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5756299006339888879, guid: ad41811ba8424fa44b628105aa8b8534, type: 3}
       propertyPath: yAxis
       value: 0
       objectReference: {fileID: 0}
@@ -21170,8 +21210,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5756299006339888879, guid: ad41811ba8424fa44b628105aa8b8534, type: 3}
+      propertyPath: shakeSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5756299006339888879, guid: ad41811ba8424fa44b628105aa8b8534, type: 3}
       propertyPath: maxVelocity
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5756299006339888879, guid: ad41811ba8424fa44b628105aa8b8534, type: 3}
+      propertyPath: shakeIntensity
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad41811ba8424fa44b628105aa8b8534, type: 3}
@@ -22416,6 +22464,18 @@ PrefabInstance:
     - target: {fileID: 5756299006339888866, guid: ebf6000b639460644a74c247e44064d6, type: 3}
       propertyPath: m_Name
       value: InteractableBookLimitedGreen (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671604140988988156, guid: ebf6000b639460644a74c247e44064d6, type: 3}
+      propertyPath: speed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671604140988988156, guid: ebf6000b639460644a74c247e44064d6, type: 3}
+      propertyPath: shakeSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671604140988988156, guid: ebf6000b639460644a74c247e44064d6, type: 3}
+      propertyPath: shakeIntensity
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebf6000b639460644a74c247e44064d6, type: 3}
