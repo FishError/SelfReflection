@@ -46,7 +46,11 @@ public class InteractablePlatform : Interactable
                 transform.position = Vector3.MoveTowards(transform.position, originalPosition, speed * Time.deltaTime);
                 isShaking = false;
             }
-            CheckCollision();
+            if(getCollision != null)
+            {
+                CheckCollision();
+            }
+            
         }
 
         
