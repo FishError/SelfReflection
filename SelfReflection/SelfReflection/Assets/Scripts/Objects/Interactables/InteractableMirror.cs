@@ -79,15 +79,18 @@ public class InteractableMirror : Interactable
     public override void SelectObject(InteractionController controller, Interaction interaction)
     {
         interactionController = controller;
-        rb.constraints = RigidbodyConstraints.FreezeRotation;
-        if (controller.relativeMirror == null)
+        switch (interaction)
         {
-            interactionState = Interaction.Holding;
-        }
-        else
-        {
-            rb.drag = 10;
-            interactionState = Interaction.MirrorMove;
+            case Interaction.PickUp:
+            case Interaction.Holding:
+                interactionState = Interaction.Holding;
+                rb.constraints = RigidbodyConstraints.FreezeRotation;
+                break;
+            case Interaction.MirrorMove:
+                interactionState = Interaction.MirrorMove;
+                rb.drag = 10;
+                rb.constraints = RigidbodyConstraints.FreezeRotation;
+                break;
         }
 
         distance = transform.position - controller.transform.position;
@@ -116,6 +119,11 @@ public class InteractableMirror : Interactable
     {
         Vector3 velocity = CalculateVelocity(mouseX, mouseY, mouseScroll, rayDir, playerPosition);
         rb.velocity = Vector3.Lerp(rb.velocity, Vector3.ClampMagnitude(velocity, maxVelocity), 0.3f);
+    }
+
+    public override void Rotate(float mouseX, float mouseY, Vector3 rayDir)
+    {
+        throw new System.NotImplementedException();
     }
 
     public override void Resize(float mouseScroll)

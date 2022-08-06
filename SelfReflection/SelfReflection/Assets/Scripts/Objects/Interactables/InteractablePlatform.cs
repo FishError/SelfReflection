@@ -55,15 +55,19 @@ public class InteractablePlatform : Interactable
     public override void SelectObject(InteractionController controller, Interaction interaction)
     {
         interactionController = controller;
-        interactionState = Interaction.MirrorMove;
-
-        if (!yAxis)
+        switch (interaction)
         {
-            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
-        }
-        else
-        {
-            rb.constraints = RigidbodyConstraints.FreezeRotation;
+            case Interaction.MirrorMove:
+                interactionState = Interaction.MirrorMove;
+                if (!yAxis)
+                    rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+                else
+                    rb.constraints = RigidbodyConstraints.FreezeRotation;
+                break;
+            case Interaction.Rotate:
+                interactionState = Interaction.Rotate;
+                rb.constraints = RigidbodyConstraints.FreezePosition;
+                break;
         }
     }
 
@@ -79,6 +83,13 @@ public class InteractablePlatform : Interactable
     {
         Vector3 velocity = CalculateVelocity(mouseX, mouseY, mouseScroll, rayDir, playerPosition);
         rb.velocity = Vector3.Lerp(rb.velocity, Vector3.ClampMagnitude(AdjustVelocity(velocity), maxVelocity), 0.3f);
+    }
+
+    public override void Rotate(float mouseX, float mouseY, Vector3 rayDir)
+    {
+        transform.RotateAround(transform.position, Vector3.up, mouseX);
+        Vector3 axis = Vector3.Cross(new Vector3(rayDir.x, 0, rayDir.z), Vector3.up);
+        transform.RotateAround(transform.position, axis, mouseY);
     }
 
     private Vector3 AdjustVelocity(Vector3 velocity)
