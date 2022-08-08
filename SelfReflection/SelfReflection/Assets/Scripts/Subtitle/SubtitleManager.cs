@@ -6,43 +6,57 @@ using TMPro;
 
 public class SubtitleManager : MonoBehaviour
 {
-    public Queue<string> subtitles = new Queue<string>();
+    public Queue<AudioManager.AudioLengthPair> subtitles = new Queue<AudioManager.AudioLengthPair>();
     public TMP_Text textBox;
     public float audioLength;
+    public AudioManager.AudioLengthPair curAudioLengthPair;
+    public bool subIncomplete = true;
     // Start is called before the first frame update
     void Start()
     {
         //Console.Write("Text Box has updated.");
         textBox = GameObject.Find("SubtitleText").GetComponent<TMP_Text>();
         
+        
     }
         // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-
-        if (subtitles != null) {
-            playSubtitle();
-            textBox.enabled = true;
-            Invoke("closeSubtitle", audioLength);
+        if (subIncomplete)
+        {
+            if (subtitles.Count != 0)
+            {
+                Debug.Log(subtitles.Count);
+                StartCoroutine(playSubtitle());
+                subIncomplete = false;
+            }
         }
         
-        
     }
 
-    public void addSubtitle(string audioText , float length)
+    public void addSubtitle(List<AudioManager.AudioLengthPair> list)
     {
-        subtitles.Enqueue(audioText);
-        audioLength = length;
+        foreach (var item in list)
+        {
+            subtitles.Enqueue(item);
+        }
     }
 
-    void playSubtitle()
+    IEnumerator playSubtitle()
     {
-        textBox.text = subtitles.Dequeue();
-        
+        textBox.enabled = true;
+        curAudioLengthPair = subtitles.Dequeue();
+        textBox.text = curAudioLengthPair.subtitle;
+        audioLength = curAudioLengthPair.length;
+        yield return new WaitForSeconds(audioLength);
+        closeSubtitle();
+        subIncomplete = true;
+
     }
 
     void closeSubtitle()
     {
         textBox.enabled = false;
     } 
+
 }
