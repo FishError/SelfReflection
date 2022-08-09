@@ -122,12 +122,10 @@ public class ResetObjectPosition : MonoBehaviour
         {
             if (pickUpParent.transform.childCount == 0)
             {
-                Debug.Log("Reset player condition 1.");
                 manager.interactableObj[i].transform.position = manager.objPosition[manager.interactableObj[i]];
             }
             else
             {
-                Debug.Log("Reset Player condition 2");
                 manager.interactableObj[i].transform.position = manager.objPosition[manager.interactableObj[i]];
                 manager.interactableObj[i].transform.localEulerAngles = manager.objRotation[manager.interactableObj[i]];
                 manager.interactableObj[i].GetComponent<Rigidbody>().freezeRotation = true;
