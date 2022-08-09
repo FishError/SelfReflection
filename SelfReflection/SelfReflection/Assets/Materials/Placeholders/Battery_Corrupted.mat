@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Battery_Corrupted
-  m_Shader: {fileID: 4800000, guid: e99f8b80b1693284587af0c131f61f3d, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: b915ab3990eac55438943c1303551631, type: 3}
   m_ShaderKeywords: _ALPHAMASKFEATURE_ON _COLORGLITCHFEATURE_ON _FRESNELFEATURE_ON
     _GRAINFEATURE_ON _LINE1FEATURE_ON _LINE2FEATURE_ON _LINEBOTHFEATURE_ON _LINEGLITCHFEATURE_ON
     _NORMALMAPFEATURE_ON _POSITIONFEATURE_Y _POSITIONSPACEFEATURE_WORLD _RANDOMGLITCHFEATURE_ON
@@ -22,6 +22,14 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_bf564bd7a0754eb1a31fc6a0fb8cab6d:
+        m_Texture: {fileID: 2800000, guid: 9fad512a769a4a14bb8f7888f20dc18b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_c66a9fe19286466f92fc9ea6e4cb4b64:
+        m_Texture: {fileID: 2800000, guid: 94a018b9d16055942a37aba5661f295b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _AlphaMask:
         m_Texture: {fileID: 2800000, guid: 95ee83418455d6a4d86804834eabc2f3, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -87,6 +95,18 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -173,6 +193,9 @@ Material:
     - _ZWrite: 1
     - __dirty: 1
     m_Colors:
+    - Color_5c69e54e4d224dd98d2fb271555b38f5: {r: 0.3850426, g: 0.9150943, b: 0.2561112, a: 0}
+    - Color_90569479adca4926ba0271d459ea2628: {r: 0.4796963, g: 8, b: 0, a: 0}
+    - Vector2_a4c5fe156467458d8a4ec016cd7a99ef: {r: 1, g: 3, b: 0, a: 0}
     - _Color: {r: 0.66518503, g: 0.66518503, b: 0.66518503, a: 0.6509804}
     - _DissolveScale: {r: 0.1, g: 1.01, b: 5, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

@@ -57,7 +57,7 @@ public class TrashCanSystem : MonoBehaviour
                 Book.GetComponent<Rigidbody>().useGravity = true;
                 Vector3 m_NewForce = new Vector3(-40000f, 0f, 0f);
                 Book.GetComponent<Rigidbody>().AddForce(m_NewForce);
-                Book.GetComponent<InteractableObject>().state=ObjectState.InteractionDisabled;
+                Book.GetComponent<InteractableObject>().isInteractable = false;
                 Debug.Log("Made It Here");
             }
         }

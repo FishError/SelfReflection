@@ -16,6 +16,13 @@ public class InteractablePlatform : Interactable
 
     protected Vector3 playerPos;
 
+    [Header("Reset Feedback Settings")]
+    public float shakeSpeed;
+    public float shakeIntensity;
+    public float speed;
+    private bool isShaking;
+    private Collision getCollision;
+
     protected override void Start()
     {
         base.Start();
@@ -24,35 +31,50 @@ public class InteractablePlatform : Interactable
 
     protected virtual void Update()
     {
-        if (transform.position != originalPosition && state != ObjectState.MovingThroughMirror)
+        if (transform.position != originalPosition && interactionState != Interaction.MirrorMove)
         {
             timeLeft -= Time.deltaTime;
-            if (timeLeft < 0f)
+            if (timeLeft < resetTimer / 2f && timeLeft > 0)
             {
-                transform.position = originalPosition;
+                float step = shakeSpeed * Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, transform.position + Random.insideUnitSphere, step);
+                isShaking = true;
             }
+
+            if(timeLeft < 0f)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, originalPosition, speed * Time.deltaTime);
+                isShaking = false;
+            }
+            // CheckCollision();
         }
+
+        
     }
 
-    public override void SelectObject(MoveObjectController controller)
+    public override void SelectObject(InteractionController controller, Interaction interaction)
     {
-        moveObjectController = controller;
-        state = ObjectState.MovingThroughMirror;
-
-        if (!yAxis)
+        interactionController = controller;
+        switch (interaction)
         {
-            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
-        }
-        else
-        {
-            rb.constraints = RigidbodyConstraints.FreezeRotation;
+            case Interaction.MirrorMove:
+                interactionState = Interaction.MirrorMove;
+                if (!yAxis)
+                    rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+                else
+                    rb.constraints = RigidbodyConstraints.FreezeRotation;
+                break;
+            case Interaction.Rotate:
+                interactionState = Interaction.Rotate;
+                rb.constraints = RigidbodyConstraints.FreezePosition;
+                break;
         }
     }
 
     public override void UnSelectObject()
     {
-        moveObjectController = null;
-        state = ObjectState.Interactable;
+        interactionController = null;
+        interactionState = Interaction.None;
         rb.constraints = RigidbodyConstraints.FreezeAll;
         timeLeft = resetTimer;
     }
@@ -61,6 +83,13 @@ public class InteractablePlatform : Interactable
     {
         Vector3 velocity = CalculateVelocity(mouseX, mouseY, mouseScroll, rayDir, playerPosition);
         rb.velocity = Vector3.Lerp(rb.velocity, Vector3.ClampMagnitude(AdjustVelocity(velocity), maxVelocity), 0.3f);
+    }
+
+    public override void Rotate(float mouseX, float mouseY, Vector3 rayDir)
+    {
+        transform.RotateAround(transform.position, Vector3.up, mouseX);
+        Vector3 axis = Vector3.Cross(new Vector3(rayDir.x, 0, rayDir.z), Vector3.up);
+        transform.RotateAround(transform.position, axis, mouseY);
     }
 
     private Vector3 AdjustVelocity(Vector3 velocity)
@@ -78,6 +107,7 @@ public class InteractablePlatform : Interactable
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
+        getCollision = collision;
         if (collision.gameObject.tag == "Player")
         {
             collision.transform.SetParent(transform);
@@ -88,7 +118,7 @@ public class InteractablePlatform : Interactable
 
     protected virtual void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.tag == "Player" && state == ObjectState.MovingThroughMirror)
+        if (collision.gameObject.tag == "Player" && interactionState == Interaction.MirrorMove)
         {
             collision.transform.localPosition = playerPos;
         }
@@ -96,10 +126,31 @@ public class InteractablePlatform : Interactable
 
     protected virtual void OnCollisionExit(Collision collision)
     {
+        getCollision = collision;
         if (collision.gameObject.tag == "Player")
         {
             collision.transform.SetParent(null);
             collision.transform.GetComponent<Rigidbody>().useGravity = true;
         }
+    }
+
+    public void CheckCollision()
+    {
+        if (getCollision.gameObject.tag == "Player" && isShaking)
+        {
+            getCollision.transform.SetParent(null);
+            getCollision.transform.GetComponent<Rigidbody>().useGravity = true;
+        }
+        else if(getCollision.gameObject.tag == "Player" && !isShaking)
+        {
+            getCollision.transform.SetParent(transform);
+            getCollision.transform.GetComponent<Rigidbody>().useGravity = false;
+            playerPos = getCollision.transform.localPosition;
+        }
+    }
+
+    public override void Resize(float mouseScroll)
+    {
+        throw new System.NotImplementedException();
     }
 }

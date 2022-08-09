@@ -2,29 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ObjectState
-{
-    Interactable,
-    MovingThroughMirror,
-    Holding,
-    InteractionDisabled
-}
-
 public abstract class Interactable : MonoBehaviour
 {
     [SerializeField] protected Material ethereal;
     [SerializeField] protected Material real;
     [HideInInspector] public Rigidbody rb;
-    public ObjectState state;
-    public bool canBecomeEthereal;
+    public Interaction interactionState;
+    public bool isInteractable;
+    public bool canSwapStates;
+    public bool canRotate;
+    public bool canResize;
     public float maxVelocity;
-    protected MoveObjectController moveObjectController;
+    public float maxScale;
+    public float minScale;
+    protected InteractionController interactionController;
     protected GameObject player;
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        state = ObjectState.Interactable;
+        interactionState = Interaction.None;
         rb = transform.GetComponent<Rigidbody>();
 
         player = GameObject.Find("Player");
@@ -64,19 +61,23 @@ public abstract class Interactable : MonoBehaviour
 
     public void EnableInteraction()
     {
-        state = ObjectState.Interactable;
+        isInteractable = true;
     }
 
     public void DisableInteraction()
     {
-        state = ObjectState.InteractionDisabled;
+        isInteractable = false;
     }
 
-    public abstract void SelectObject(MoveObjectController controller);
+    public abstract void SelectObject(InteractionController controller, Interaction interaction);
 
     public abstract void UnSelectObject();
 
     public abstract void MoveObject(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition);
+
+    public abstract void Rotate(float mouseX, float mouseY, Vector3 rayDir);
+
+    public abstract void Resize(float mouseScroll);
 
     public Vector3 CalculateVelocity(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition)
     {
