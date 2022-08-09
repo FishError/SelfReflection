@@ -17,6 +17,9 @@ public class ResetObjectPosition : MonoBehaviour
 
     private GameObject[] doors;
 
+    //Save the position of the checkpoints you pass in that level to use as future spawn points.
+    private Transform spawnPoint;
+
     private void Start()
     {
 
@@ -82,6 +85,12 @@ public class ResetObjectPosition : MonoBehaviour
         {
             StartCoroutine(playerSpawn());
         }
+        
+        //If you pass the checkpoint, sets the checkpoint as the new spawnpoint.
+        if (other.tag == "Checkpoint")
+        {
+            spawnPoint = other.transform;
+        }
     }
 
     public void ResetObject(GameObject item)
@@ -128,7 +137,12 @@ public class ResetObjectPosition : MonoBehaviour
         {
             door.GetComponent<DoorManager>().OnRespawn();
         }
-
+        
+        //If a checkpoint has been passed, moves the player to the spawnpoint.
+        if (spawnPoint != null)
+        {
+            player.transform.position = spawnPoint.position;
+        }
         isAlive = true;
     }
 
