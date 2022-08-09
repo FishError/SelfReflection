@@ -9,7 +9,10 @@ public class EnableToolbar : MonoBehaviour
 
     private void Start()
     {
-        cameraPanning = GameObject.Find("CameraPanningController").GetComponent<CameraPanningController>();
+        if (GameObject.Find("CameraPanningController") != null)
+        {
+            cameraPanning = GameObject.Find("CameraPanningController").GetComponent<CameraPanningController>();
+        }
         toolbar = GameObject.Find("Toolbar").gameObject;
     }
 
