@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3122873915807559276}
   - component: {fileID: 3122873915807559277}
-  - component: {fileID: 3122873915807559278}
+  - component: {fileID: 6673840918580361035}
   - component: {fileID: 3122873915807559187}
   m_Layer: 2
-  m_Name: SpecificPositions
+  m_Name: SpecificPRS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,7 +46,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3122873915807559278
+--- !u!114 &6673840918580361035
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -55,40 +55,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 3122873915807559279}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f4fca0b31e6224489f1a97cee671492, type: 3}
+  m_Script: {fileID: 11500000, guid: ec3efd4f3414c6d4a852b318ffe19956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _object: {fileID: 0}
   _onObjectInPosition:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3122873915807559187}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  _targetRotationLeeway: 5
-  _targetSize: 2
-  _targetSizeLeeway: 2
+      m_Calls: []
+  _targetRotationX: 0
+  _targetRotationY: 0
+  _targetRotationZ: 0
+  _xRotationLeeway: 0
+  _yRotationLeeway: 0
+  _zRotationLeeway: 0
+  _targetSize: 0
+  _sizeLeeway: 0
   inPosition: 0
 --- !u!82 &3122873915807559187
 AudioSource:

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class SpecificPositionsManager : MonoBehaviour
+public class SpecificPRSChecker : MonoBehaviour
 {
     [Tooltip("The GameObject reference to keep track of.")]
     [SerializeField] private GameObject _object;
@@ -36,13 +36,14 @@ public class SpecificPositionsManager : MonoBehaviour
         interactionController = GameObject.Find("PlayerCam").GetComponent<InteractionController>();
     }
 
-    
+
     private void OnTriggerStay(Collider other)
     {
         //If other is the specified object
         if (_object == other.gameObject)
         {
-            if(checkRotation(other.gameObject) && checkSize(other.gameObject)){
+            if (checkRotation(other.gameObject) && checkSize(other.gameObject))
+            {
                 ObjectInPosition();
             }
         }
@@ -50,6 +51,7 @@ public class SpecificPositionsManager : MonoBehaviour
 
     private void ObjectInPosition()
     {
+        inPosition = true;
         _onObjectInPosition?.Invoke();
         _object.GetComponent<InteractableObject>().gameObject.layer = 0;
         interactionController.DropObject();
@@ -68,6 +70,6 @@ public class SpecificPositionsManager : MonoBehaviour
 
     bool checkSize(GameObject other)
     {
-        return other.transform.localScale.x <=_targetSize+_sizeLeeway && other.transform.localScale.x >= _targetSize - _sizeLeeway;
+        return other.transform.localScale.x <= _targetSize + _sizeLeeway && other.transform.localScale.x >= _targetSize - _sizeLeeway;
     }
 }
