@@ -33,7 +33,6 @@ public class SpecificPositionsManager : MonoBehaviour
 
     private void Awake()
     {
-        _boxCollider = GetComponent<BoxCollider>();
         interactionController = GameObject.Find("PlayerCam").GetComponent<InteractionController>();
     }
 
