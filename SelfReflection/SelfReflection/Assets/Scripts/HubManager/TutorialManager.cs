@@ -17,6 +17,7 @@ public class TutorialManager : MonoBehaviour
     public string currentScene;
     public string lastScene;
     public TutorialScene lastTutorialScene;
+    public bool lastTutorialFirstCompletion;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +38,10 @@ public class TutorialManager : MonoBehaviour
         List<TutorialScene> tutorial = Tutorials.Where(t => t.sceneName == currentScene).ToList();
         if (tutorial.Any())
         {
+            if (!tutorial[0].completed)
+            {
+                lastTutorialFirstCompletion = true;
+            }
             tutorial[0].completed = true;
             lastTutorialScene = tutorial[0];
         }
@@ -56,7 +61,7 @@ public class TutorialManager : MonoBehaviour
             if (exit != null)
             {
                 SceneChanger sceneChanger = exit.GetComponentInChildren<SceneChanger>();
-                if (lastTutorialScene.completed)
+                if (lastTutorialScene.completed && !lastTutorialFirstCompletion)
                 {
                     sceneChanger.nextScene = lastScene;
                 }
@@ -64,6 +69,7 @@ public class TutorialManager : MonoBehaviour
                 {
                     if (lastTutorialScene.nextScene != null)
                         sceneChanger.nextScene = lastTutorialScene.nextScene;
+                    lastTutorialFirstCompletion = false;
                 }
             }
         }
