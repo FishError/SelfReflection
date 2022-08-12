@@ -17,15 +17,15 @@ public class SpecificPositionsManager : MonoBehaviour
     [Tooltip("The target rotation on the z-axis for rotation")]
     [SerializeField] private float _targetRotationZ;
     [Tooltip("The margin of error for x-axis rotation")]
-    [SerializeField] private float _targetRotationLeewayX;
+    [SerializeField] private float _xRotationLeeway;
     [Tooltip("The margin of error for y-axis rotation")]
-    [SerializeField] private float _targetRotationLeewayY;
+    [SerializeField] private float _yRotationLeeway;
     [Tooltip("The margin of error for z-axis rotation")]
-    [SerializeField] private float _targetRotationLeewayZ;
+    [SerializeField] private float _zRotationLeeway;
     [Tooltip("The target value of the object's scale")]
     [SerializeField] private float _targetSize;
     [Tooltip("The margin of error for scale")]
-    [SerializeField] private float _targetSizeLeeway;
+    [SerializeField] private float _sizeLeeway;
 
     private InteractionController interactionController;
     public bool inPosition = false;
@@ -60,14 +60,14 @@ public class SpecificPositionsManager : MonoBehaviour
     bool checkRotation(GameObject other)
     {
 
-        return Mathf.Abs(other.transform.rotation.eulerAngles.x - _targetRotationX) <= _targetRotationLeewayX &&
-            Mathf.Abs(other.transform.rotation.eulerAngles.y - _targetRotationY) <= _targetRotationLeewayY &&
-            Mathf.Abs(other.transform.rotation.eulerAngles.z - _targetRotationZ) <= _targetRotationLeewayZ;
+        return Mathf.Abs(other.transform.rotation.eulerAngles.x - _targetRotationX) <= _xRotationLeeway &&
+            Mathf.Abs(other.transform.rotation.eulerAngles.y - _targetRotationY) <= _yRotationLeeway &&
+            Mathf.Abs(other.transform.rotation.eulerAngles.z - _targetRotationZ) <= _zRotationLeeway;
 
     }
 
     bool checkSize(GameObject other)
     {
-        return other.transform.localScale.x <=_targetSize+_targetSizeLeeway && other.transform.localScale.x >= _targetSize - _targetSizeLeeway;
+        return other.transform.localScale.x <=_targetSize+_sizeLeeway && other.transform.localScale.x >= _targetSize - _sizeLeeway;
     }
 }
