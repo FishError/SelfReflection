@@ -10,6 +10,7 @@ public abstract class Interactable : MonoBehaviour
     public Interaction interactionState;
     public bool isInteractable;
     public bool canSwapStates;
+    public bool canRotate;
     public bool canResize;
     public float maxVelocity;
     public float maxScale;
@@ -73,6 +74,8 @@ public abstract class Interactable : MonoBehaviour
     public abstract void UnSelectObject();
 
     public abstract void MoveObject(float mouseX, float mouseY, float mouseScroll, Vector3 rayDir, Vector3 playerPosition);
+
+    public abstract void Rotate(float mouseX, float mouseY, Vector3 rayDir);
 
     public abstract void Resize(float mouseScroll);
 

@@ -14,6 +14,7 @@ public class InteractableObject : Interactable
         {
             case Interaction.PickUp:
             case Interaction.Holding:
+            case Interaction.SwapState:
                 interactionState = Interaction.Holding;
                 rb.useGravity = false;
                 rb.constraints = RigidbodyConstraints.FreezeRotation;
@@ -23,6 +24,12 @@ public class InteractableObject : Interactable
                 interactionState = Interaction.MirrorMove;
                 rb.useGravity = false;
                 rb.constraints = RigidbodyConstraints.FreezeRotation;
+                break;
+            case Interaction.Resize:
+                interactionState = Interaction.Resize;
+                break;
+            case Interaction.Rotate:
+                interactionState = Interaction.Rotate;
                 break;
         }
     }
@@ -72,6 +79,13 @@ public class InteractableObject : Interactable
         }
     }
 
+    public override void Rotate(float mouseX, float mouseY, Vector3 rayDir)
+    {
+        transform.RotateAround(transform.position, Vector3.up, mouseX);
+        Vector3 axis = Vector3.Cross(new Vector3(rayDir.x, 0, rayDir.z), Vector3.up);
+        transform.RotateAround(transform.position, axis, mouseY);
+    }
+
     public override void Resize(float mouseScroll)
     {
         if ((transform.localScale + (mouseScroll * transform.localScale)).x > maxScale)
@@ -86,7 +100,6 @@ public class InteractableObject : Interactable
         {
             transform.localScale += mouseScroll * transform.localScale;
         }
-
     }
 
     private void OnCollisionEnter(Collision collision)

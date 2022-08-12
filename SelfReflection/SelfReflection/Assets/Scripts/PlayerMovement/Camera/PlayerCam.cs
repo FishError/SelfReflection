@@ -17,6 +17,8 @@ public class PlayerCam : MonoBehaviour
 
     PlayerMovement playerMovement;
 
+    public bool playerCamLocked;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +30,7 @@ public class PlayerCam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!playerMovement.movementDisabled)
+        if (!playerMovement.movementDisabled && !playerCamLocked)
         {
             float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
             float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
