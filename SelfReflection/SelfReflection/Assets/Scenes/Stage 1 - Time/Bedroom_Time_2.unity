@@ -13994,6 +13994,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3724496694418517016, guid: 43ba8ed2976b6c744a6e97cb2b776ab2, type: 3}
   m_PrefabInstance: {fileID: 1198604446}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1199587530
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3697281153801643185, guid: 8019ebe5e34d94743a1632b6d4438da1, type: 3}
+      propertyPath: m_Name
+      value: SubtitleManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697281153801643191, guid: 8019ebe5e34d94743a1632b6d4438da1, type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697281153801643191, guid: 8019ebe5e34d94743a1632b6d4438da1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697281153801643191, guid: 8019ebe5e34d94743a1632b6d4438da1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697281153801643191, guid: 8019ebe5e34d94743a1632b6d4438da1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697281153801643191, guid: 8019ebe5e34d94743a1632b6d4438da1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697281153801643191, guid: 8019ebe5e34d94743a1632b6d4438da1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697281153801643191, guid: 8019ebe5e34d94743a1632b6d4438da1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697281153801643191, guid: 8019ebe5e34d94743a1632b6d4438da1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697281153801643191, guid: 8019ebe5e34d94743a1632b6d4438da1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697281153801643191, guid: 8019ebe5e34d94743a1632b6d4438da1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697281153801643191, guid: 8019ebe5e34d94743a1632b6d4438da1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8019ebe5e34d94743a1632b6d4438da1, type: 3}
 --- !u!4 &1199707501 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3418084128028153967, guid: e8eadf351b5340745bd6eb7127043a62, type: 3}
@@ -17087,14 +17144,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cd41d9bfcf3e734c9f3081fdce0602b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioObjects:
-  - {fileID: 365013724}
-  - {fileID: 903010708}
-  - {fileID: 590390361}
-  - {fileID: 1579522176}
+  audioList:
+  - audioObject: {fileID: 365013724}
+    audioLengthPairs:
+    - subtitle: ...here for nothing.
+      length: 1.8
+  - audioObject: {fileID: 903010708}
+    audioLengthPairs:
+    - subtitle: ' Ahh this is the one, The life of death. Maybe I''ll learn more
+        about... it... from this.'
+      length: 7.5
+  - audioObject: {fileID: 590390361}
+    audioLengthPairs:
+    - subtitle: What the hell, it's the same!? No wait, there's some new information
+        on it.
+      length: 6
+  audioLengthPairs: []
   currentAudioObject: {fileID: 365013724}
   backgroundMusic: {fileID: 873454192}
-  playTime: 0
+  subtitleManager: {fileID: 0}
   startPlayback: 1
 --- !u!4 &1575629472
 Transform:
