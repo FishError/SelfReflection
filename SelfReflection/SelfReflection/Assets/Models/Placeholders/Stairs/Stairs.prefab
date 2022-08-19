@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7697601019395662983}
   - component: {fileID: 2473380458000245370}
   - component: {fileID: 8907440706862028574}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: supporto_ringhiera1.001_Cylinder.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 3651364671523486660}
   - component: {fileID: 37878581922372351}
   - component: {fileID: 6169238487820590564}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: carpet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 5553772505994862477}
   - component: {fileID: 7512249246761884132}
   - component: {fileID: 8386067347996014468}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: supporto_ringhiera1.002_Cylinder.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,7 +254,8 @@ GameObject:
   - component: {fileID: 5383521694132762469}
   - component: {fileID: 9014455895881119936}
   - component: {fileID: 6556450137201937418}
-  m_Layer: 0
+  - component: {fileID: 7809715636632972790}
+  m_Layer: 6
   m_Name: Stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,7 +271,7 @@ Transform:
   m_GameObject: {fileID: 4755182016936553951}
   m_LocalRotation: {x: -0, y: -0.9999993, z: 0, w: -0.0012216415}
   m_LocalPosition: {x: -50.11061, y: 14.44, z: 5.329999}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_Children:
   - {fileID: 3651364671523486660}
   - {fileID: 8829414870779092429}
@@ -332,6 +333,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7809715636632972790
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4755182016936553951}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7855004975864596260, guid: e9a4dfde4eff525499baaba90df6f579, type: 3}
 --- !u!1 &5039125211893511887
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,7 +358,7 @@ GameObject:
   - component: {fileID: 5539594231105230820}
   - component: {fileID: 501927900993548471}
   - component: {fileID: 5081663272746000023}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: maniglia_Cube.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -424,7 +439,7 @@ GameObject:
   - component: {fileID: 9201236289332456406}
   - component: {fileID: 9951253693443452}
   - component: {fileID: 4709185517140400695}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: supporto_ringhiera1.003_Cylinder.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -505,7 +520,7 @@ GameObject:
   - component: {fileID: 8829414870779092429}
   - component: {fileID: 4587943162499002803}
   - component: {fileID: 7064525561649039780}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: maniglia.001_Cube.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -586,7 +601,7 @@ GameObject:
   - component: {fileID: 3821747168481703459}
   - component: {fileID: 7796363701301313770}
   - component: {fileID: 8336627256300295636}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: supporto_ringhiera1_Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
