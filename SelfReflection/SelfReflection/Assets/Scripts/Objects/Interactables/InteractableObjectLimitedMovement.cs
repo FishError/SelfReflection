@@ -52,7 +52,7 @@ public class InteractableObjectLimitedMovement : InteractableObject
             transform.position = new Vector3(x, y, z);
         }
 
-        if (transform.position != originalPosition && state != ObjectState.MovingThroughMirror)
+        if (transform.position != originalPosition && interactionState != Interaction.MirrorMove)
         {
             timeLeft -= Time.deltaTime;
             if (timeLeft < 0f)
@@ -64,7 +64,16 @@ public class InteractableObjectLimitedMovement : InteractableObject
 
     public override void UnSelectObject()
     {
-        base.UnSelectObject();
+        rb.constraints = RigidbodyConstraints.None;
+        interactionController = null;
+
+        if (interactionState == Interaction.Holding)
+            foreach (Collider c in GetComponentsInChildren<Collider>())
+            {
+                Physics.IgnoreCollision(playerCollider, c, true);
+            }
+
+        interactionState = Interaction.None;
         timeLeft = resetTimer;
     }
 
