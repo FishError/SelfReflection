@@ -3767,11 +3767,18 @@ MonoBehaviour:
   interactionState: 0
   isInteractable: 0
   canSwapStates: 0
+  canRotate: 0
+  canResize: 0
   maxVelocity: 10
+  maxScale: 0
+  minScale: 0
   xAxis: 0
   yAxis: 0
   zAxis: 1
   resetTimer: 9999
+  shakeSpeed: 5
+  shakeIntensity: 5
+  speed: 7
   relativeMinX: 0
   relativeMaxX: 2
   relativeMinY: 0
@@ -3812,11 +3819,18 @@ MonoBehaviour:
   interactionState: 0
   isInteractable: 0
   canSwapStates: 0
+  canRotate: 0
+  canResize: 0
   maxVelocity: 10
+  maxScale: 0
+  minScale: 0
   xAxis: 0
   yAxis: 0
   zAxis: 1
   resetTimer: 9999
+  shakeSpeed: 5
+  shakeIntensity: 5
+  speed: 7
   relativeMinX: 0
   relativeMaxX: 2
   relativeMinY: 0
@@ -7331,6 +7345,10 @@ PrefabInstance:
       propertyPath: PlayerCam
       value: 
       objectReference: {fileID: 1633265779}
+    - target: {fileID: 7513230204201217139, guid: 2c196b39c2a348141a64aabc9a215dcf, type: 3}
+      propertyPath: nextScene
+      value: Hub 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7513230204201217139, guid: 2c196b39c2a348141a64aabc9a215dcf, type: 3}
       propertyPath: audioObject
       value: 
