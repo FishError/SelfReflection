@@ -43,6 +43,15 @@ public class FragmentManager : MonoBehaviour
         {
             StartCoroutine(CompleteFragments());
         }
+
+        //If the first half of fragments collected, active remaining fragments
+        if (_inZoneObjects.Count >= _fragments.Count/2)
+        {
+            foreach (var fragment in _fragments)
+            {
+                fragment.SetActive(true);
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)
