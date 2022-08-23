@@ -2490,6 +2490,50 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 488508705}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &507133899 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b742e956f8d348948a0965bb40dfa7ab, type: 3}
+  m_PrefabInstance: {fileID: 1023581734}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &507133900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507133899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3539cd38205a7034b83bcd49b3d21172, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waveX: 1
+  waveY: 1
+  waveZ: 1
+  intensity: -0.45
+  frequency: 0.77
+--- !u!1 &530312839 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b742e956f8d348948a0965bb40dfa7ab, type: 3}
+  m_PrefabInstance: {fileID: 2049283602}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &530312840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530312839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3539cd38205a7034b83bcd49b3d21172, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waveX: 1
+  waveY: 1
+  waveZ: 1
+  intensity: 0.73
+  frequency: 0.62
 --- !u!1 &553148978
 GameObject:
   m_ObjectHideFlags: 0
@@ -3849,11 +3893,18 @@ MonoBehaviour:
   interactionState: 0
   isInteractable: 0
   canSwapStates: 0
+  canRotate: 0
+  canResize: 0
   maxVelocity: 10
+  maxScale: 0
+  minScale: 0
   xAxis: 0
   yAxis: 0
   zAxis: 1
   resetTimer: 9999
+  shakeSpeed: 5
+  shakeIntensity: 5
+  speed: 7
   relativeMinX: 0
   relativeMaxX: 2
   relativeMinY: 0
@@ -3894,11 +3945,18 @@ MonoBehaviour:
   interactionState: 0
   isInteractable: 0
   canSwapStates: 0
+  canRotate: 0
+  canResize: 0
   maxVelocity: 10
+  maxScale: 0
+  minScale: 0
   xAxis: 0
   yAxis: 0
   zAxis: 1
   resetTimer: 9999
+  shakeSpeed: 5
+  shakeIntensity: 5
+  speed: 7
   relativeMinX: 0
   relativeMaxX: 2
   relativeMinY: 0
@@ -8029,6 +8087,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21f5216456c2f834d8c19537feda1c11, type: 3}
+--- !u!1 &1152164304 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b742e956f8d348948a0965bb40dfa7ab, type: 3}
+  m_PrefabInstance: {fileID: 559213852}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1152164305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152164304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3539cd38205a7034b83bcd49b3d21172, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waveX: 1
+  waveY: 1
+  waveZ: 1
+  intensity: 0.42
+  frequency: 0.62
 --- !u!1 &1173859295
 GameObject:
   m_ObjectHideFlags: 0
