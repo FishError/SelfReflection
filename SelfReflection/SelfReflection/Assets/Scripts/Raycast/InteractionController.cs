@@ -51,13 +51,15 @@ public class InteractionController : MonoBehaviour
     public Transform relativeMirror;
     public Vector3 lastPlayerPosition;
 
+    private PlayerCam playerCam;
     private PlayerMovement playerMovement;
     private IKController ik;
 
     private void Start()
     {
-        sensX = transform.GetComponent<PlayerCam>().sensX;
-        sensY = transform.GetComponent<PlayerCam>().sensY;
+        playerCam = transform.GetComponent<PlayerCam>();
+        sensX = playerCam.sensX;
+        sensY = playerCam.sensY;
         playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
         ik = GameObject.Find("Player").transform.GetChild(2).GetComponent<IKController>();
         interactionToolbar = new List<Interaction>() { Interaction.SwapState, Interaction.Resize, Interaction.Rotate };
@@ -70,7 +72,7 @@ public class InteractionController : MonoBehaviour
     }
 
     private void Update()
-    { 
+    {
         if ((Input.GetKeyDown("q") || Input.GetKeyDown("e")) && !rightClicked)
         {
             int index = interactionToolbar.IndexOf(currentRightClickInteraction);
@@ -151,7 +153,7 @@ public class InteractionController : MonoBehaviour
                         if (reflections > 0 && !interactable.IsEthereal())
                         {
                             leftClicked = true;
-                            SelectInterableObject(Interaction.MirrorMove);
+                            SelectInteractableObject(Interaction.MirrorMove);
                             currentLeftClickInteraction = Interaction.MirrorMove;
                         }
                         else if (interactable.IsEthereal() && hit.distance < maxGrabDistance && reflections == 0)
@@ -160,6 +162,7 @@ public class InteractionController : MonoBehaviour
                             {
                                 leftClicked = true;
                                 currentLeftClickInteraction = Interaction.PickUp;
+                                SelectInteractableObject(Interaction.PickUp);
                             }
                             else
                             {
@@ -210,9 +213,51 @@ public class InteractionController : MonoBehaviour
                     {
                         interactable = hit.rigidbody.transform.GetComponent<Interactable>();
                         if (interactable.isInteractable)
+                        {
                             rightClicked = true;
+                            switch (currentRightClickInteraction)
+                            {
+                                case Interaction.SwapState:
+                                    if (interactable is InteractableObject && interactable.canSwapStates)
+                                    {
+                                        if (!interactable.IsEthereal())
+                                            SelectInteractableObject(Interaction.SwapState);
+                                    }
+                                    else
+                                    {
+                                        rightClicked = false;
+                                        interactable = null;
+                                    }
+                                    break;
+                                case Interaction.Resize:
+                                    if (interactable.canResize && !interactable.IsEthereal())
+                                    {
+                                        SelectInteractableObject(Interaction.Resize);
+                                    }
+                                    else
+                                    {
+                                        rightClicked = false;
+                                        interactable = null;
+                                    }
+                                    break;
+                                case Interaction.Rotate:
+                                    if (interactable.canRotate && !interactable.IsEthereal())
+                                    {
+                                        SelectInteractableObject(Interaction.Rotate);
+                                        playerCam.playerCamLocked = true;
+                                    } 
+                                    else
+                                    {
+                                        rightClicked = false;
+                                        interactable = null;
+                                    }
+                                    break;
+                            }
+                        }
                         else
+                        {
                             interactable = null;
+                        }
                     }
 
                     if (hit.collider.tag != "Mirror")
@@ -232,7 +277,7 @@ public class InteractionController : MonoBehaviour
         }
     }
 
-    void SelectInterableObject(Interaction interaction)
+    void SelectInteractableObject(Interaction interaction)
     {
         if (interactable.transform.GetComponent<Rigidbody>())
         {
@@ -252,7 +297,7 @@ public class InteractionController : MonoBehaviour
                 {
                     // creates compound collider so objects don't go through other objects
                     gameObjectCopy = Instantiate(interactable.transform.gameObject);
-                    foreach(MeshRenderer mr in gameObjectCopy.GetComponentsInChildren<MeshRenderer>())
+                    foreach (MeshRenderer mr in gameObjectCopy.GetComponentsInChildren<MeshRenderer>())
                     {
                         mr.enabled = false;
                     }
@@ -260,21 +305,19 @@ public class InteractionController : MonoBehaviour
                     gameObjectCopy.transform.parent = pickupParent;
                     gameObjectCopy.transform.localPosition = Vector3.zero;
 
-                    SelectInterableObject(interaction);
                     interactable.transform.parent = pickupParent;
                     currentLeftClickInteraction = Interaction.Holding;
                 }
                 else if (interactable is InteractableMirror)
                 {
-                    SelectInterableObject(interaction);
+                    SelectInteractableObject(interaction);
                     currentLeftClickInteraction = Interaction.Holding;
                 }
                 break;
 
             case Interaction.Holding:
-                if (interactable is InteractableObject)
+                if (interactable is InteractableObject interactableObject)
                 {
-                    InteractableObject interactableObject = (InteractableObject)interactable;
                     interactableObject.HoldObject(pickupParent);
                 }
                 break;
@@ -286,33 +329,27 @@ public class InteractionController : MonoBehaviour
                 break;
 
             case Interaction.SwapState:
-                if (interactable is InteractableObject && interactable.canSwapStates)
-                {
-                    InteractableObject interactableObject = (InteractableObject)interactable;
-                    interactableObject.SwapState(spawnLocation);
+                InteractableObject io = (InteractableObject)interactable;
+                io.SwapState(spawnLocation);
 
-                    if (interactableObject.IsEthereal())
-                    {
-                        currentLeftClickInteraction = Interaction.PickUp;
-                        rightClicked = false;
-                        leftClicked = true;
-                    }
-                    else
-                    {
-                        DropObject();
-                    }
+                if (io.IsEthereal())
+                {
+                    currentLeftClickInteraction = Interaction.PickUp;
+                    rightClicked = false;
+                    leftClicked = true;
                 }
                 else
                 {
-                    rightClicked = false;
-                    interactable = null;
+                    DropObject();
                 }
                 break;
 
             case Interaction.Resize:
+                interactable.Resize(mouseScroll);
                 break;
 
             case Interaction.Rotate:
+                interactable.Rotate(mouseX, mouseY, ray.direction);
                 break;
 
             default:
@@ -331,6 +368,7 @@ public class InteractionController : MonoBehaviour
         interactable.UnSelectObject();
         interactable = null;
         relativeMirror = null;
+        playerCam.playerCamLocked = false;
         playerMovement.ledgeGrabbingDisabled = false;
         ik.ikActive = false;
         rightClicked = false;

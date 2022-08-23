@@ -10,7 +10,7 @@ public class SceneChanger : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Player") {
-            if (nextScene.Contains("Hub"))
+            if (nextScene.Contains("Hub") && !nextScene.Contains("Tutorial"))
             {
                 GameObject hubManager = GameObject.Find("HubManager");
                 if (hubManager != null)
