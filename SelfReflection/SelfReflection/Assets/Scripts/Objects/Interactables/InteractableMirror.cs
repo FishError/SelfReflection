@@ -56,9 +56,9 @@ public class InteractableMirror : Interactable
 
     private void FixedUpdate()
     {
-        if (state == ObjectState.Holding)
+        if (interactionState == Interaction.Holding)
         {
-            var dir = (moveObjectController.transform.position + distance) - transform.position;
+            var dir = (interactionController.transform.position + distance) - transform.position;
             if (xAxis)
             {
                 vX = dir.x;
@@ -76,18 +76,21 @@ public class InteractableMirror : Interactable
         }
     }
 
-    public override void SelectObject(MoveObjectController controller)
+    public override void SelectObject(InteractionController controller, Interaction interaction)
     {
-        moveObjectController = controller;
-        rb.constraints = RigidbodyConstraints.FreezeRotation;
-        if (controller.relativeMirror == null)
+        interactionController = controller;
+        switch (interaction)
         {
-            state = ObjectState.Holding;
-        }
-        else
-        {
-            rb.drag = 10;
-            state = ObjectState.MovingThroughMirror;
+            case Interaction.PickUp:
+            case Interaction.Holding:
+                interactionState = Interaction.Holding;
+                rb.constraints = RigidbodyConstraints.FreezeRotation;
+                break;
+            case Interaction.MirrorMove:
+                interactionState = Interaction.MirrorMove;
+                rb.drag = 10;
+                rb.constraints = RigidbodyConstraints.FreezeRotation;
+                break;
         }
 
         distance = transform.position - controller.transform.position;
@@ -95,9 +98,9 @@ public class InteractableMirror : Interactable
 
     public override void UnSelectObject()
     {
-        moveObjectController = null;
+        interactionController = null;
         rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
-        state = ObjectState.Interactable;
+        interactionState = Interaction.None;
     }
 
     private bool OutOfBounds()
@@ -116,5 +119,15 @@ public class InteractableMirror : Interactable
     {
         Vector3 velocity = CalculateVelocity(mouseX, mouseY, mouseScroll, rayDir, playerPosition);
         rb.velocity = Vector3.Lerp(rb.velocity, Vector3.ClampMagnitude(velocity, maxVelocity), 0.3f);
+    }
+
+    public override void Rotate(float mouseX, float mouseY, Vector3 rayDir)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void Resize(float mouseScroll)
+    {
+        throw new System.NotImplementedException();
     }
 }

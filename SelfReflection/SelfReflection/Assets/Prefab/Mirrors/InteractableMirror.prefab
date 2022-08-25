@@ -31,9 +31,10 @@ MonoBehaviour:
   ethereal: {fileID: 0}
   real: {fileID: 0}
   rb: {fileID: 0}
+  interactionState: 0
+  isInteractable: 1
+  canSwapStates: 0
   maxVelocity: 10
-  state: 0
-  canBecomeEthereal: 0
   xAxis: 1
   relativeMinX: 0
   relativeMaxX: 0
@@ -79,9 +80,37 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -74.27999
       objectReference: {fileID: 0}
+    - target: {fileID: 8469968573461780282, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.8898298
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469968573461780282, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.08189248
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469968573461780282, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.44699475
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469968573461780282, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.041137647
+      objectReference: {fileID: 0}
     - target: {fileID: 8469968573461780283, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: m_Name
       value: MirrorCam
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469968573461780284, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
+      propertyPath: field of view
+      value: 36.253468
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469968573461780284, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
+      propertyPath: near clip plane
+      value: 14.847998
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469968573461780284, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
+      propertyPath: m_projectionMatrixMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8469968574141035541, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: m_Name
@@ -225,7 +254,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: bc7c652eb3cead8429f2ca0c447b47ad, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: be6e7e4671dd3604896945f564a9c2a4, type: 2}
+      objectReference: {fileID: 2100000, guid: 2106f5fe2fd3f16478c6094d5d73d112, type: 2}
     - target: {fileID: 919132149155446097, guid: bc7c652eb3cead8429f2ca0c447b47ad, type: 3}
       propertyPath: m_Name
       value: Model_Mirror_Frame_No_Texture_Final

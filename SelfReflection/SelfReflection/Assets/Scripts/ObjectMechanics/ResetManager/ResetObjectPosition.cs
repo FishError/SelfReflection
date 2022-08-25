@@ -5,7 +5,7 @@ using UnityEngine;
 public class ResetObjectPosition : MonoBehaviour
 {
     private ResetObjectManager manager = null;
-    private MoveObjectController playerCam = null;
+    private InteractionController playerCam = null;
     private GameObject player = null;
     private GameObject pickUpParent;
     private float time;
@@ -16,6 +16,9 @@ public class ResetObjectPosition : MonoBehaviour
     private float curDisintegrate;
 
     private GameObject[] doors;
+
+    //Save the position of the checkpoints you pass in that level to use as future spawn points.
+    private Transform spawnPoint;
 
     private void Start()
     {
@@ -31,7 +34,7 @@ public class ResetObjectPosition : MonoBehaviour
 
     private void Update()
     {
-        playerCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MoveObjectController>();
+        playerCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<InteractionController>();
         manager = GameObject.FindGameObjectWithTag("ObjectManager").GetComponent<ResetObjectManager>();
         player = GameObject.FindGameObjectWithTag("Player");
         pickUpParent = GameObject.Find("PickupParent");
@@ -82,6 +85,12 @@ public class ResetObjectPosition : MonoBehaviour
         {
             StartCoroutine(playerSpawn());
         }
+        
+        //If you pass the checkpoint, sets the checkpoint as the new spawnpoint.
+        if (other.tag == "Checkpoint")
+        {
+            spawnPoint = other.transform;
+        }
     }
 
     public void ResetObject(GameObject item)
@@ -128,7 +137,12 @@ public class ResetObjectPosition : MonoBehaviour
         {
             door.GetComponent<DoorManager>().OnRespawn();
         }
-
+        
+        //If a checkpoint has been passed, moves the player to the spawnpoint.
+        if (spawnPoint != null)
+        {
+            player.transform.position = spawnPoint.position;
+        }
         isAlive = true;
     }
 
