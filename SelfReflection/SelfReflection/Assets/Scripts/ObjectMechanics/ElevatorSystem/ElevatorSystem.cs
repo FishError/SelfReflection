@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ElevatorSystem : MonoBehaviour
 {
+	public ChairSeatPlayerCheck Seat;
 	public Vector3 FloorDistance = Vector3.up;
 	public float Speed = 1.0f;
 	public int Floor = 0;
@@ -13,6 +14,7 @@ public class ElevatorSystem : MonoBehaviour
 	public bool isOff;
 	public bool CanGoUp = true;
 	public bool isPlayerOn;
+	private bool isChair=false;
 
 	private float tTotal;
 	private bool isMoving;
@@ -21,18 +23,25 @@ public class ElevatorSystem : MonoBehaviour
 	private float randNum=0;
 	private float randNum1=0;
 
-
 	// Use this for initialization
 	void Start()
 	{
 		moveTransform = moveTransform ?? transform;
+		if(this.gameObject.name.Contains("Raiser")){
+			isChair=true;
+		}
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		if (isMoving)
+		if (isMoving && isChair)
 		{
+			if(!Seat.isPlayerGrabbing){
+				MoveElevator();
+			}
+		}
+		else if(isMoving){
 			MoveElevator();
 		}
         
@@ -57,9 +66,10 @@ public class ElevatorSystem : MonoBehaviour
 
 	void MoveElevator()
 	{
-		if(randNum==0 && randNum1==0)
+		if(randNum==0 && randNum1==0){
 			randNum=Random.Range(1f,3f);
 			randNum1=Random.Range(6f,12f);
+		}
 		var v = moveDirection * FloorDistance.normalized * Speed;
 		var t = Time.deltaTime;
 		var tMax = FloorDistance.magnitude / Speed;
@@ -115,15 +125,27 @@ public class ElevatorSystem : MonoBehaviour
 			MoveUp();
 		}
 		else if(Floor == MaxFloor){
-			Debug.Log(isPlayerOn);
-			if(!isPlayerOn)
-			{
-				theTime+=Time.deltaTime;
-				if(theTime>=randNum1){
-					randNum1=Random.Range(6f,12f);
-					theTime=0;
-					CanGoUp = false;
-					MoveDown();
+			if(isChair){
+				if(!Seat.isPlayerGrabbing){
+					theTime+=Time.deltaTime;
+					if(theTime>=randNum1){
+						randNum1=Random.Range(6f,12f);
+						theTime=0;
+						CanGoUp = false;
+						MoveDown();
+					}
+				
+				}
+			}
+			else{
+				if(!isPlayerOn){
+					theTime+=Time.deltaTime;
+					if(theTime>=randNum1){
+						randNum1=Random.Range(6f,12f);
+						theTime=0;
+						CanGoUp = false;
+						MoveDown();
+					}
 				}
 			}
 		}
@@ -134,30 +156,41 @@ public class ElevatorSystem : MonoBehaviour
 		}
 		else if(Floor == MinFloor)
         {
-			theTime+=Time.deltaTime;
-			if(theTime>=randNum){
-				randNum=Random.Range(1f,3f);
-				theTime=0;
-				CanGoUp = true;
-				MoveUp();
+			if(isChair){
+				if(!Seat.isPlayerGrabbing){
+					theTime+=Time.deltaTime;
+					if(theTime>=randNum){
+						randNum=Random.Range(1f,3f);
+						theTime=0;
+						CanGoUp = true;
+						MoveUp();
+					}
+				}
+			}
+			else{
+				theTime+=Time.deltaTime;
+				if(theTime>=randNum){
+					randNum=Random.Range(1f,3f);
+					theTime=0;
+					CanGoUp = true;
+					MoveUp();
+				}
 			}
         }
 	}
 
 	private void OnTriggerStay(Collider other)
     {
-		Debug.Log(other.gameObject.tag);
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && !isChair)
         {
 			isPlayerOn=true;
 		}
 	}
 	private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && !isChair)
         {
 			isPlayerOn=false;
-			Debug.Log("OnTriggerExit: " + isPlayerOn);
 		}
 	}
 

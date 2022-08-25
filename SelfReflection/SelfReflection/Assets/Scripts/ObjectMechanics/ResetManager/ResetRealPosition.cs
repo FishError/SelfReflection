@@ -5,7 +5,7 @@ using UnityEngine;
 public class ResetRealPosition : MonoBehaviour
 {
     private ResetRealManager realManager;
-    private MoveObjectController playerCam = null;
+    private InteractionController playerCam = null;
 
 
     private void Start()
@@ -15,7 +15,7 @@ public class ResetRealPosition : MonoBehaviour
 
     private void Update()
     {
-        playerCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MoveObjectController>();
+        playerCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<InteractionController>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -30,7 +30,7 @@ public class ResetRealPosition : MonoBehaviour
                     realManager.realObj[i].transform.position = realManager.realPos[realManager.realObj[i]];
                     realManager.realObj[i].transform.localEulerAngles = realManager.realRot[realManager.realObj[i]];
                     realManager.realObj[i].GetComponent<Rigidbody>().freezeRotation = true;
-                    if (realManager.realObj[i].GetComponent<InteractableObject>().state == ObjectState.MovingThroughMirror)
+                    if (realManager.realObj[i].GetComponent<InteractableObject>().interactionState == Interaction.MirrorMove)
                     {
                         playerCam.DropObject();
                     }
