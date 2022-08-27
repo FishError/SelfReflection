@@ -7,12 +7,15 @@ using UnityEngine.SceneManagement;
 public class Parameters : MonoBehaviour
 {
     private GameObject player;
+    public GameObject crosshair;
+    public Color crosshairColor;
     public GameObject debugMenu;
     public List<GameObject> param = new List<GameObject>();
     public Dictionary<string, float> defaultVal = new Dictionary<string, float>();
 
     private void Start()
     {
+        crosshairColor = crosshair.GetComponent<Image>().color;
         //Start Debug Menu in an inactive state
         debugMenu.SetActive(false);
         Time.timeScale = 1;
@@ -22,6 +25,9 @@ public class Parameters : MonoBehaviour
         defaultVal.Add("jumpforce", 12f);
         defaultVal.Add("speed", 7f);
         defaultVal.Add("climbspeed", 12f);
+        defaultVal.Add("red", 0f);
+        defaultVal.Add("green", 0f);
+        defaultVal.Add("blue", 0f);
 
         //Find the player component to get its PlayerMovement component
         player = GameObject.Find("Player");
@@ -44,6 +50,8 @@ public class Parameters : MonoBehaviour
                         break;
                     case "climbspeed":
                         player.GetComponent<PlayerMovement>().climbUpSpeed = PlayerPrefs.GetFloat(param[i].transform.GetChild(1).name, 12f);
+                        break;
+                    default:
                         break;
                 }
             }
@@ -68,6 +76,7 @@ public class Parameters : MonoBehaviour
         {
             param[i].transform.GetChild(1).gameObject.GetComponent<Text>().text = PlayerPrefs.GetFloat(param[i].transform.GetChild(1).name).ToString("F2");
         }
+        //Debug.Log(crosshairColor);
     }
 
     //Change player mass
@@ -98,6 +107,26 @@ public class Parameters : MonoBehaviour
         PlayerPrefs.SetFloat("climbspeed", climbSpeed);
     }
 
+    public void crosshairColorRed(float red)
+    {
+        crosshairColor.r = red/255;
+        crosshair.GetComponent<Image>().color = crosshairColor;
+        PlayerPrefs.SetFloat("red", red);
+    }
+
+    public void crosshairColorGreen(float green)
+    {
+        crosshairColor.g = green/255;
+        crosshair.GetComponent<Image>().color = crosshairColor;
+        PlayerPrefs.SetFloat("green", green);
+    }
+
+    public void crosshairColorBlue(float blue)
+    {
+        crosshairColor.b = blue/255;
+        crosshair.GetComponent<Image>().color = crosshairColor;
+        PlayerPrefs.SetFloat("blue", blue);
+    }
     //Reset current parameter values to default values
     public void resetDebugManager()
     {
