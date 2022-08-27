@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.23315534, g: 0.23638168, b: 0.27299175, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -555,6 +555,8 @@ MonoBehaviour:
   - {fileID: 1207579351}
   NumOfObjectToThrow: 2
   theTime: 0
+  audioManager: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!64 &28881554
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6888,6 +6890,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b5eec7307317d84d8f0b8a7eb7f0dff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Seat: {fileID: 0}
   FloorDistance: {x: 0, y: 1, z: 0}
   Speed: 1.5
   Floor: 1
@@ -6896,6 +6899,7 @@ MonoBehaviour:
   moveTransform: {fileID: 102798972}
   isOff: 0
   CanGoUp: 1
+  isPlayerOn: 0
 --- !u!114 &102798967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6911,21 +6915,27 @@ MonoBehaviour:
   ethereal: {fileID: 0}
   real: {fileID: 5561349426305759274, guid: e539930dccc9fb7419fa342e3bd9d5cf, type: 3}
   rb: {fileID: 0}
+  interactionState: 0
+  isInteractable: 0
+  canSwapStates: 0
+  canRotate: 0
+  canResize: 0
   maxVelocity: 2
-  state: 0
-  canBecomeEthereal: 0
+  maxScale: 0
+  minScale: 0
   xAxis: 0
   yAxis: 1
   zAxis: 1
-  speed: 4
   resetTimer: 9999
+  shakeSpeed: 5
+  shakeIntensity: 5
+  speed: 4
   relativeMinX: 0
   relativeMaxX: 0
   relativeMinY: 0
   relativeMaxY: 0
   relativeMinZ: -2.3
   relativeMaxZ: 1
-  mirrorToShow: {fileID: 1451539690}
 --- !u!65 &102798968
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7896,6 +7906,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   elevatorObject: {fileID: 102798965}
+  audioManager: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!65 &168455699
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9038,6 +9050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b5eec7307317d84d8f0b8a7eb7f0dff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Seat: {fileID: 0}
   FloorDistance: {x: 0, y: 1, z: 0}
   Speed: 1.5
   Floor: 1
@@ -9046,6 +9059,7 @@ MonoBehaviour:
   moveTransform: {fileID: 285062371}
   isOff: 0
   CanGoUp: 1
+  isPlayerOn: 0
 --- !u!65 &285062373
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11135,9 +11149,14 @@ MonoBehaviour:
   ethereal: {fileID: 2100000, guid: 9cabbef02570d5448abd07b409f98b42, type: 2}
   real: {fileID: 0}
   rb: {fileID: 0}
+  interactionState: 0
+  isInteractable: 0
+  canSwapStates: 0
+  canRotate: 0
+  canResize: 0
   maxVelocity: 7
-  state: 0
-  canBecomeEthereal: 0
+  maxScale: 0
+  minScale: 0
 --- !u!64 &414544863
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -16678,11 +16697,11 @@ PrefabInstance:
     - target: {fileID: 511377154357762006, guid: 1d84710eef1e0f04a8210e3af3b56e62, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1095188005}
+      objectReference: {fileID: 0}
     - target: {fileID: 511377154357762006, guid: 1d84710eef1e0f04a8210e3af3b56e62, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 1095188005}
+      objectReference: {fileID: 0}
     - target: {fileID: 511377154357762006, guid: 1d84710eef1e0f04a8210e3af3b56e62, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
@@ -16754,7 +16773,7 @@ PrefabInstance:
     - target: {fileID: 3040585897091237090, guid: 1d84710eef1e0f04a8210e3af3b56e62, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1095188005}
+      objectReference: {fileID: 0}
     - target: {fileID: 3040585897091237090, guid: 1d84710eef1e0f04a8210e3af3b56e62, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ResetParameters
@@ -16790,11 +16809,11 @@ PrefabInstance:
     - target: {fileID: 4663785254176251715, guid: 1d84710eef1e0f04a8210e3af3b56e62, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1095188005}
+      objectReference: {fileID: 0}
     - target: {fileID: 4663785254176251715, guid: 1d84710eef1e0f04a8210e3af3b56e62, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 1095188005}
+      objectReference: {fileID: 0}
     - target: {fileID: 4663785254176251715, guid: 1d84710eef1e0f04a8210e3af3b56e62, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
@@ -16887,6 +16906,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6647363780032375531, guid: 1d84710eef1e0f04a8210e3af3b56e62, type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 1972254946}
     - target: {fileID: 7218642663134840487, guid: 1d84710eef1e0f04a8210e3af3b56e62, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
       value: 2
@@ -16910,11 +16933,11 @@ PrefabInstance:
     - target: {fileID: 7218642663134840487, guid: 1d84710eef1e0f04a8210e3af3b56e62, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1095188005}
+      objectReference: {fileID: 0}
     - target: {fileID: 7218642663134840487, guid: 1d84710eef1e0f04a8210e3af3b56e62, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 1095188005}
+      objectReference: {fileID: 0}
     - target: {fileID: 7218642663134840487, guid: 1d84710eef1e0f04a8210e3af3b56e62, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
@@ -16966,7 +16989,7 @@ PrefabInstance:
     - target: {fileID: 7324531870047682171, guid: 1d84710eef1e0f04a8210e3af3b56e62, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1095188007}
+      objectReference: {fileID: 0}
     - target: {fileID: 7324531870047682171, guid: 1d84710eef1e0f04a8210e3af3b56e62, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -17058,11 +17081,11 @@ PrefabInstance:
     - target: {fileID: 8552030731961477314, guid: 1d84710eef1e0f04a8210e3af3b56e62, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1095188005}
+      objectReference: {fileID: 0}
     - target: {fileID: 8552030731961477314, guid: 1d84710eef1e0f04a8210e3af3b56e62, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 1095188005}
+      objectReference: {fileID: 0}
     - target: {fileID: 8552030731961477314, guid: 1d84710eef1e0f04a8210e3af3b56e62, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
@@ -20741,9 +20764,14 @@ MonoBehaviour:
   ethereal: {fileID: 2100000, guid: 9cabbef02570d5448abd07b409f98b42, type: 2}
   real: {fileID: 5561349426305759274, guid: 1669c48ebd4920049b5e497cc8e02bdb, type: 3}
   rb: {fileID: 0}
+  interactionState: 0
+  isInteractable: 0
+  canSwapStates: 0
+  canRotate: 0
+  canResize: 0
   maxVelocity: 7
-  state: 0
-  canBecomeEthereal: 0
+  maxScale: 0
+  minScale: 0
 --- !u!64 &953824708
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -22666,17 +22694,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21f5216456c2f834d8c19537feda1c11, type: 3}
---- !u!114 &1095188005 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3443540270445949798, guid: 21f5216456c2f834d8c19537feda1c11, type: 3}
-  m_PrefabInstance: {fileID: 1095188004}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c74c6e2f9825344299a47c3e0848ba9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1095188006 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3635602676427875549, guid: 21f5216456c2f834d8c19537feda1c11, type: 3}
@@ -22686,17 +22703,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ce0d4ed2008c954590d2bcffd53f197, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1095188007 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3635602676427875548, guid: 21f5216456c2f834d8c19537feda1c11, type: 3}
-  m_PrefabInstance: {fileID: 1095188004}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d2368b2cd7975e45b72afcdce3b385d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1102883491 stripped
@@ -24544,9 +24550,14 @@ MonoBehaviour:
   ethereal: {fileID: 2100000, guid: be6e7e4671dd3604896945f564a9c2a4, type: 2}
   real: {fileID: 0}
   rb: {fileID: 0}
+  interactionState: 0
+  isInteractable: 0
+  canSwapStates: 0
+  canRotate: 0
+  canResize: 0
   maxVelocity: 7
-  state: 0
-  canBecomeEthereal: 1
+  maxScale: 0
+  minScale: 0
 --- !u!114 &1207579354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26807,6 +26818,8 @@ MonoBehaviour:
   - {fileID: 124158341}
   NumOfObjectToThrow: 2
   theTime: 0
+  audioManager: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!64 &1377644676
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -27922,9 +27935,14 @@ MonoBehaviour:
   ethereal: {fileID: 2100000, guid: be6e7e4671dd3604896945f564a9c2a4, type: 2}
   real: {fileID: 0}
   rb: {fileID: 0}
+  interactionState: 0
+  isInteractable: 0
+  canSwapStates: 0
+  canRotate: 0
+  canResize: 0
   maxVelocity: 7
-  state: 0
-  canBecomeEthereal: 1
+  maxScale: 0
+  minScale: 0
 --- !u!54 &1449816226
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -28036,11 +28054,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1451301266}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1451539690 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8469968574141035541, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
-  m_PrefabInstance: {fileID: 840137268}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1451539691 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8469968574141035543, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
@@ -29594,6 +29607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b5eec7307317d84d8f0b8a7eb7f0dff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Seat: {fileID: 0}
   FloorDistance: {x: 0, y: 1, z: 0}
   Speed: 0.2
   Floor: 1
@@ -29602,6 +29616,7 @@ MonoBehaviour:
   moveTransform: {fileID: 1545484491}
   isOff: 0
   CanGoUp: 1
+  isPlayerOn: 0
 --- !u!4 &1545484491 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5857571077745366757, guid: 1e34339a91d228245ae38c9523efe452, type: 3}
@@ -34525,9 +34540,14 @@ MonoBehaviour:
   ethereal: {fileID: 2100000, guid: 9cabbef02570d5448abd07b409f98b42, type: 2}
   real: {fileID: 5561349426305759274, guid: 1669c48ebd4920049b5e497cc8e02bdb, type: 3}
   rb: {fileID: 0}
+  interactionState: 0
+  isInteractable: 0
+  canSwapStates: 0
+  canRotate: 0
+  canResize: 0
   maxVelocity: 7
-  state: 0
-  canBecomeEthereal: 0
+  maxScale: 0
+  minScale: 0
 --- !u!114 &1871672209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35928,6 +35948,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1de1cda16f47fe345ab501101898c8bb, type: 3}
+--- !u!1 &1972254946 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 72608089578539531, guid: 1de1cda16f47fe345ab501101898c8bb, type: 3}
+  m_PrefabInstance: {fileID: 1972254945}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1972297297 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3988935666186486691, guid: 25dd6add82dcbe54f94f58b6a42ff940, type: 3}
@@ -36502,21 +36527,27 @@ MonoBehaviour:
   ethereal: {fileID: 0}
   real: {fileID: 0}
   rb: {fileID: 0}
+  interactionState: 0
+  isInteractable: 0
+  canSwapStates: 0
+  canRotate: 0
+  canResize: 0
   maxVelocity: 4
-  state: 0
-  canBecomeEthereal: 0
+  maxScale: 0
+  minScale: 0
   xAxis: 0
   yAxis: 1
   zAxis: 0
-  speed: 4
   resetTimer: 9999
+  shakeSpeed: 5
+  shakeIntensity: 5
+  speed: 4
   relativeMinX: 0
   relativeMaxX: 0
   relativeMinY: -5
   relativeMaxY: 0
   relativeMinZ: 0
   relativeMaxZ: 0
-  mirrorToShow: {fileID: 0}
 --- !u!54 &2054026810
 Rigidbody:
   m_ObjectHideFlags: 0
