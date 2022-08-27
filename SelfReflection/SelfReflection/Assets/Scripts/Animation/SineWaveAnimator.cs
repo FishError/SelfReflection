@@ -8,6 +8,8 @@ public class SineWaveAnimator : MonoBehaviour
     private bool waveX, waveY, waveZ;
     [SerializeField]
     private float intensity = 1.0f;
+    [SerializeField]
+    private float frequency = 1.0f;
 
     private Vector3 startPos;
 
@@ -19,9 +21,9 @@ public class SineWaveAnimator : MonoBehaviour
     void Update()
     {
         Vector3 sinWave = new Vector3(0, 0, 0);
-        if (waveX) sinWave.x = Mathf.Sin(Time.time);
-        if (waveY) sinWave.y = Mathf.Sin(Time.time);
-        if (waveZ) sinWave.z = Mathf.Sin(Time.time);
+        if (waveX) sinWave.x = Mathf.Sin(Time.time * frequency);
+        if (waveY) sinWave.y = Mathf.Sin(Time.time * frequency);
+        if (waveZ) sinWave.z = Mathf.Sin(Time.time * frequency);
         sinWave = sinWave * intensity;
         transform.position = startPos + sinWave;
     }
