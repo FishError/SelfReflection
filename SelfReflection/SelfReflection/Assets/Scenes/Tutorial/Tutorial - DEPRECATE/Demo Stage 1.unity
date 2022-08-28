@@ -281,6 +281,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6647363780032375531, guid: 1d84710eef1e0f04a8210e3af3b56e62, type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 889915036}
     - target: {fileID: 7218642663134840487, guid: 1d84710eef1e0f04a8210e3af3b56e62, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -4317,6 +4321,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 816323756}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &889915036 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 72608089578539531, guid: 1de1cda16f47fe345ab501101898c8bb, type: 3}
+  m_PrefabInstance: {fileID: 779801221}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &914523898
 GameObject:
   m_ObjectHideFlags: 0
@@ -8092,13 +8101,21 @@ MonoBehaviour:
   ethereal: {fileID: 0}
   real: {fileID: 0}
   rb: {fileID: 0}
-  state: 0
-  canBecomeEthereal: 0
+  interactionState: 0
+  isInteractable: 0
+  canSwapStates: 0
+  canRotate: 0
+  canResize: 0
   maxVelocity: 15
+  maxScale: 0
+  minScale: 0
   xAxis: 1
   yAxis: 0
   zAxis: 0
   resetTimer: 9999
+  shakeSpeed: 5
+  shakeIntensity: 5
+  speed: 7
 --- !u!65 &1774092604
 BoxCollider:
   m_ObjectHideFlags: 0
