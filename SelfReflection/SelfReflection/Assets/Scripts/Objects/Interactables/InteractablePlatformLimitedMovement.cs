@@ -63,17 +63,24 @@ public class InteractablePlatformLimitedMovement : InteractablePlatform
 
     protected override void OnCollisionEnter(Collision collision)
     {
-        /*if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             collision.transform.SetParent(transform);
-        }*/
+            collision.transform.GetComponent<Rigidbody>().useGravity = false;
+        }
     }
 
     protected override void OnCollisionExit(Collision collision)
     {
-        /*if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             collision.transform.SetParent(null);
-        }*/
+            collision.transform.GetComponent<Rigidbody>().useGravity = true;
+        }
+    }
+
+    protected override void OnCollisionStay(Collision collision)
+    {
+        
     }
 }
