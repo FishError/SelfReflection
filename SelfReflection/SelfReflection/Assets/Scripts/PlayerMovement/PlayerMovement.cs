@@ -47,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
+    Collider playerCollider;
     private Animator anim;
 
     // ledge variables
@@ -70,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        playerCollider = GetComponentInChildren<Collider>();
         rb.freezeRotation = true;
         readyToJump = true;
         CombinedLayers = GroundLayer | InteractableLayer | MoveNotGrabLayer;
@@ -274,6 +276,7 @@ public class PlayerMovement : MonoBehaviour
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
         playerCam.GetComponent<PlayerCam>().limitYRotation = transform.rotation.eulerAngles.y;
+        playerCollider.enabled = false;
         
         if (downCastHit.transform.GetComponent<Interactable>())
         {
@@ -298,6 +301,7 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = Vector3.zero;
                 rb.useGravity = true;
                 state = PlayerState.Grounded;
+                playerCollider.enabled = true;
                 anim.SetBool("isLifting", false);
                 if (interactableGroundObject)
                 {
