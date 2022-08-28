@@ -66,6 +66,7 @@ public class RingPickupSystem : MonoBehaviour
                 isSequenceStarted = false;
                 PlayerCam.GetComponent<CameraShake>().shakeDuration = 0.0f;
                 exposureSetting.enabled.Override(false);
+                SceneManager.LoadScene(sceneName: nextScene);
             }
 
             timeSinceSequenceStart += Time.deltaTime;
