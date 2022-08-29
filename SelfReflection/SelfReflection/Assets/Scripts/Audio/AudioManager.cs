@@ -6,9 +6,9 @@ using FMOD;
 using FMOD.Studio;
 using FMODUnity;
 
+
 public class AudioManager : MonoBehaviour
 {
-    public GameObject[] audioObjects;
     [Serializable]
     public class AudioSubtitlePair
     {
@@ -26,37 +26,42 @@ public class AudioManager : MonoBehaviour
     public List<AudioSubtitlePair> audioList = new List<AudioSubtitlePair>();
     public List<AudioLengthPair> audioLengthPairs = new List<AudioLengthPair>();
 
+    public Queue<GameObject> audioQueue = new Queue<GameObject>();
     public GameObject currentAudioObject;
     //private int curAudioLength = 10;
     public GameObject backgroundMusic;
-    public float playTime = 0f;
     public SubtitleManager subtitleManager;
     public bool startPlayback = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        currentAudioObject = audioObjects[0];
         backgroundMusic.SetActive(true);
         subtitleManager = GameObject.Find("SubtitleManager").GetComponent<SubtitleManager>();
-
+        audioQueue.Enqueue(currentAudioObject);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (startPlayback)
+        if (audioQueue.Count > 0)
         {
-            play();
-            subtitleManager.addSubtitle(audioList.Find(x => x.audioObject == currentAudioObject).audioLengthPairs);
-            release();
+            currentAudioObject = audioQueue.Dequeue();
+            if (startPlayback)
+            {
+                play();
+                subtitleManager.addSubtitle(audioList.Find(x => x.audioObject == currentAudioObject).audioLengthPairs);
+                release();
+            }
+            setPlayback(false);
         }
-        setPlayback(false);
+
     }
 
     public void setCurAudioObject(GameObject audio)
     {
-        currentAudioObject = audio;
+        audioQueue.Enqueue(audio);
+        setPlayback(true);
     }
     private void play()
     {
@@ -73,4 +78,6 @@ public class AudioManager : MonoBehaviour
     {
         startPlayback = a;
     }
+
+    
 }
