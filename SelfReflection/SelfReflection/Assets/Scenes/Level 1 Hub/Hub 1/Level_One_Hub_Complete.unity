@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6266,7 +6266,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8469968573461780284, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: field of view
-      value: 26.893372
+      value: 37.78458
       objectReference: {fileID: 0}
     - target: {fileID: 8469968573461780284, guid: e7a85fbac5f92c2469c85bfa17f70ccb, type: 3}
       propertyPath: near clip plane
@@ -6971,6 +6971,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cd41d9bfcf3e734c9f3081fdce0602b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioObjects: []
   audioList:
   - audioObject: {fileID: 766378832}
     audioLengthPairs:
@@ -7020,6 +7021,7 @@ MonoBehaviour:
   audioLengthPairs: []
   currentAudioObject: {fileID: 766378832}
   backgroundMusic: {fileID: 2118572892}
+  playTime: 0
   subtitleManager: {fileID: 0}
   startPlayback: 1
 --- !u!4 &1097427938
@@ -7148,6 +7150,14 @@ PrefabInstance:
     - target: {fileID: 305517197, guid: 94d8956704e67a84aa728a0c8ed8e4bd, type: 3}
       propertyPath: timeBetweenShakes
       value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 55766335809310974, guid: 94d8956704e67a84aa728a0c8ed8e4bd, type: 3}
+      propertyPath: m_ShowToolkit
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 55766335809310974, guid: 94d8956704e67a84aa728a0c8ed8e4bd, type: 3}
+      propertyPath: m_ShowCustomSorter
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1414669376302483394, guid: 94d8956704e67a84aa728a0c8ed8e4bd, type: 3}
       propertyPath: pickupParent
