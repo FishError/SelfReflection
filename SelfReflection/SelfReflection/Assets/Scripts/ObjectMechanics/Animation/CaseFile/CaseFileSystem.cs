@@ -10,12 +10,14 @@ public class CaseFileSystem : MonoBehaviour
     private Animator anim;
     private PlayerMovement playerMovement;
     private GameObject player;
+    private PauseMenu pauseMenu;
 
     private void Start()
     {
         anim = this.transform.parent.GetComponent<Animator>();
         playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
         player = GameObject.Find("Player");
+        pauseMenu = GameObject.Find("GameManager").GetComponent<PauseMenu>();
     }
 
     private void Update()
@@ -37,6 +39,8 @@ public class CaseFileSystem : MonoBehaviour
             player.SetActive(false);
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+
+            pauseMenu.GetComponent<PauseMenu>().enabled = false;
         }
     }
 

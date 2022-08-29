@@ -8,11 +8,10 @@ public class SineWaveAnimator : MonoBehaviour
     private bool waveX, waveY, waveZ;
     [SerializeField]
     private float intensity = 1.0f;
-    [SerializeField, Range(0.0f, 5.0f)]
+    [SerializeField]
     private float frequency = 1.0f;
 
     private Vector3 startPos;
-    
 
     void Start()
     {

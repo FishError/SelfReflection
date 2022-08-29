@@ -115,7 +115,7 @@ public class InteractableObject : Interactable
             }
             playerCollider = collision.collider;
             var distance = (transform.position - collision.GetContact(0).point).magnitude;
-            interactionController.ScalePickUpParentRange(distance + 1f);
+            interactionController.ScalePickUpParentRange(distance + 2f);
         }
     }
 }

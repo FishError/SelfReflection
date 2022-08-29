@@ -2928,6 +2928,38 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fa7a4a73b59abcc49b9fdb54de80603b, type: 3}
   m_PrefabInstance: {fileID: 683442890}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &683442892 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -7521107938104356900, guid: fa7a4a73b59abcc49b9fdb54de80603b, type: 3}
+  m_PrefabInstance: {fileID: 683442890}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &683442893
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683442892}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3847965790516040701, guid: fa7a4a73b59abcc49b9fdb54de80603b, type: 3}
+--- !u!114 &683442894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683442892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c5ec5d06dd685f41917948c8ddd5292, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextScene: Hub2-Challenge1
 --- !u!1001 &685359483
 PrefabInstance:
   m_ObjectHideFlags: 0
