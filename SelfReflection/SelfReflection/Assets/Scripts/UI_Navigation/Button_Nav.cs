@@ -47,7 +47,7 @@ public class Button_Nav : MonoBehaviour
         }
     }
 
-    void ExitGame()
+    public void ExitGame()
     {
         Application.Quit();
     }

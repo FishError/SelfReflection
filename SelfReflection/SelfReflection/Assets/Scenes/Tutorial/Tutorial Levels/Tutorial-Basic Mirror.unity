@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5509,7 +5509,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f2cdd04abe4fa71438280f32023533a5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.660963
+      value: -5.16
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f2cdd04abe4fa71438280f32023533a5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6981,7 +6981,7 @@ PrefabInstance:
     - target: {fileID: 3635602676427875549, guid: 21f5216456c2f834d8c19537feda1c11, type: 3}
       propertyPath: musicSlider
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2046029740}
     - target: {fileID: 3635602676427875549, guid: 21f5216456c2f834d8c19537feda1c11, type: 3}
       propertyPath: masterVolume
       value: 0.5
@@ -6989,7 +6989,7 @@ PrefabInstance:
     - target: {fileID: 4219446249187904192, guid: 21f5216456c2f834d8c19537feda1c11, type: 3}
       propertyPath: optionMenu
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2046029739}
     - target: {fileID: 4219446249187904192, guid: 21f5216456c2f834d8c19537feda1c11, type: 3}
       propertyPath: menus.Array.size
       value: 3
@@ -6997,15 +6997,15 @@ PrefabInstance:
     - target: {fileID: 4219446249187904192, guid: 21f5216456c2f834d8c19537feda1c11, type: 3}
       propertyPath: menus.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2046029739}
     - target: {fileID: 4219446249187904192, guid: 21f5216456c2f834d8c19537feda1c11, type: 3}
       propertyPath: menus.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2046029741}
     - target: {fileID: 4219446249187904192, guid: 21f5216456c2f834d8c19537feda1c11, type: 3}
       propertyPath: menus.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2046029738}
     - target: {fileID: 5436927761302623171, guid: 21f5216456c2f834d8c19537feda1c11, type: 3}
       propertyPath: optionsMenu
       value: 
@@ -7029,7 +7029,7 @@ PrefabInstance:
     - target: {fileID: 7966498283888150616, guid: 21f5216456c2f834d8c19537feda1c11, type: 3}
       propertyPath: musicSlider
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2046029740}
     - target: {fileID: 8963932246957420785, guid: 21f5216456c2f834d8c19537feda1c11, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -7222,6 +7222,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73b2806a16fdd374abdac44cec26a869, type: 3}
+--- !u!1 &2046029738 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6201273909560599535, guid: 73b2806a16fdd374abdac44cec26a869, type: 3}
+  m_PrefabInstance: {fileID: 2046029737}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2046029739 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3657365103465739474, guid: 73b2806a16fdd374abdac44cec26a869, type: 3}
+  m_PrefabInstance: {fileID: 2046029737}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2046029740 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3657365104374805616, guid: 73b2806a16fdd374abdac44cec26a869, type: 3}
+  m_PrefabInstance: {fileID: 2046029737}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &2046029741 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3657365103356025277, guid: 73b2806a16fdd374abdac44cec26a869, type: 3}
+  m_PrefabInstance: {fileID: 2046029737}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2061333938
 GameObject:
   m_ObjectHideFlags: 0
