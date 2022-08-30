@@ -5,10 +5,17 @@ using System;
 using FMOD;
 using FMOD.Studio;
 using FMODUnity;
+<<<<<<< HEAD
 
 
 public class AudioManager : MonoBehaviour
 {
+=======
+
+public class AudioManager : MonoBehaviour
+{
+    public GameObject[] audioObjects;
+>>>>>>> develop
     [Serializable]
     public class AudioSubtitlePair
     {
@@ -26,10 +33,17 @@ public class AudioManager : MonoBehaviour
     public List<AudioSubtitlePair> audioList = new List<AudioSubtitlePair>();
     public List<AudioLengthPair> audioLengthPairs = new List<AudioLengthPair>();
 
+<<<<<<< HEAD
     public Queue<GameObject> audioQueue = new Queue<GameObject>();
     public GameObject currentAudioObject;
     //private int curAudioLength = 10;
     public GameObject backgroundMusic;
+=======
+    public GameObject currentAudioObject;
+    //private int curAudioLength = 10;
+    public GameObject backgroundMusic;
+    public float playTime = 0f;
+>>>>>>> develop
     public SubtitleManager subtitleManager;
     public bool startPlayback = false;
 
@@ -38,7 +52,11 @@ public class AudioManager : MonoBehaviour
     {
         backgroundMusic.SetActive(true);
         subtitleManager = GameObject.Find("SubtitleManager").GetComponent<SubtitleManager>();
+<<<<<<< HEAD
         audioQueue.Enqueue(currentAudioObject);
+=======
+
+>>>>>>> develop
     }
 
     // Update is called once per frame
@@ -46,6 +64,7 @@ public class AudioManager : MonoBehaviour
     {
         if (audioQueue.Count > 0)
         {
+<<<<<<< HEAD
             currentAudioObject = audioQueue.Dequeue();
             if (startPlayback)
             {
@@ -54,6 +73,11 @@ public class AudioManager : MonoBehaviour
                 release();
             }
             setPlayback(false);
+=======
+            play();
+            subtitleManager.addSubtitle(audioList.Find(x => x.audioObject == currentAudioObject).audioLengthPairs);
+            release();
+>>>>>>> develop
         }
 
     }
