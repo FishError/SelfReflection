@@ -36,6 +36,7 @@ public class FragmentManager : MonoBehaviour
         if (_fragments.Contains(other.gameObject) && !_inZoneObjects.Contains(other.gameObject))
         {
             _inZoneObjects.Add(other.gameObject);
+            Debug.Log("Correct item added to the zone");
         }
 
         // If all the specified fragments are in zone, trigger event
