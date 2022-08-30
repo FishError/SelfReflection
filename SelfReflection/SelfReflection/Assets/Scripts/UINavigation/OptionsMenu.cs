@@ -11,6 +11,7 @@ public class OptionsMenu : MonoBehaviour
     public int menuState = 0;
     public bool isPaused;
     public GameObject lastPage;
+    private int isOpen = 0;
 
 
     void Update()
@@ -18,10 +19,11 @@ public class OptionsMenu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Debug.Log("You Pressed Escape");
+            isOpen++;
             OpenOptionsMenu();
         }
 
-        if (isPaused)
+        if (isOpen == 2)
         {
             CloseOptionsMenu();
         }
@@ -46,6 +48,7 @@ public class OptionsMenu : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1;
+        isOpen = 0;
     }
 
     public void SetNewPage(GameObject page)
