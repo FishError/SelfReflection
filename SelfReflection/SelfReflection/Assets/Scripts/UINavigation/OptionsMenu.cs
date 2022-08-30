@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class OptionsMenu : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class OptionsMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            Debug.Log("You Pressed Escape");
             OpenOptionsMenu();
         }
 
@@ -62,6 +64,16 @@ public class OptionsMenu : MonoBehaviour
 
     }
 
+    public void ToggleQuit(GameObject page)
+    {
+        if (page.activeSelf != false) { page.SetActive(true); }
+        else { page.SetActive(false); }
+    }
+
+    public void ToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
     public void quitGame()
     {
         Application.Quit();
