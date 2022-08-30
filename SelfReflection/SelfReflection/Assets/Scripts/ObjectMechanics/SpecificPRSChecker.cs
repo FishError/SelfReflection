@@ -42,6 +42,7 @@ public class SpecificPRSChecker : MonoBehaviour
         //If other is the specified object
         if (_object == other.gameObject)
         {
+            Debug.Log("This happened ");
             if (checkRotation(other.gameObject) && checkSize(other.gameObject))
             {
                 ObjectInPosition();

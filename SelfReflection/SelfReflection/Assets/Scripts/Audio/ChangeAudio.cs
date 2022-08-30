@@ -28,6 +28,10 @@ public class ChangeAudio : MonoBehaviour
         {
             audioManager.setCurAudioObject(audioObject);
             audioManager.setPlayback(true);
+            if (gameObject.tag == "Trigger")
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
