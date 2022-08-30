@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 6875691782723578106}
   - component: {fileID: 8687349633164205104}
   - component: {fileID: 1301656255061082318}
+  - component: {fileID: 801345823}
+  - component: {fileID: 8020418179796534434}
   m_Layer: 7
   m_Name: Model_Photo_Final
   m_TagString: Real
@@ -26,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7174047317525331429}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 101.10976, y: 1.1405368, z: 93.1712}
   m_LocalScale: {x: 20, y: 20, z: 20}
   m_Children: []
@@ -96,3 +98,30 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3303554638677722043, guid: e7037ee5938598741a578dc666304b24, type: 3}
+--- !u!114 &801345823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7174047317525331429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1b8cefa7370f8640857a2b71ad8f71e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fileCam: {fileID: 0}
+  nextScene: iteration 2
+--- !u!65 &8020418179796534434
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7174047317525331429}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.07620001, y: 0.00010000231, z: 0.1016}
+  m_Center: {x: -0.000000029802322, y: 0.00000023841858, z: 0}
