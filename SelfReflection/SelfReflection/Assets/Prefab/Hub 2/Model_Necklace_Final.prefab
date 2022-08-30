@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2493559360281891704}
   - component: {fileID: -238775439360864614}
   - component: {fileID: -4398809355602651789}
+  - component: {fileID: 360395523105768628}
   m_Layer: 7
   m_Name: Model_Necklace_Final
   m_TagString: Real
@@ -28,7 +29,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 702851813047838425}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 105.55185, y: 1.72, z: 93.29648}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
@@ -137,3 +138,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &360395523105768628
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702851813047838425}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.14791778, y: 0.011618995, z: 0.23627101}
+  m_Center: {x: 0, y: 0, z: 0}
