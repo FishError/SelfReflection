@@ -26,7 +26,6 @@ public class SpecificPRSManager : MonoBehaviour
                 completed.Add(s);
             }
         }
-        Debug.Log(completed.Count);
         if (completed.Count == _allSpecifics.Count)
         {
             _onAllObjectInPosition?.Invoke();
