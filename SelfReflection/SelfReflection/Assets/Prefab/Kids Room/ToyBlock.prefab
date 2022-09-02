@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 3663286137163004056}
   - component: {fileID: 973255098606320351}
   - component: {fileID: 1478476840678706599}
-  - component: {fileID: 3335251775749287265}
   - component: {fileID: 1731362758749421910}
   m_Layer: 7
   m_Name: ToyBlock
@@ -116,8 +115,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de92501eb8dabaf49a3ac0d4d74ebec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ethereal: {fileID: 2100000, guid: 2106f5fe2fd3f16478c6094d5d73d112, type: 2}
-  real: {fileID: 2100000, guid: a1c0a9da6c6652144889a26461968c4f, type: 2}
+  ethereal: {fileID: 0}
+  real: {fileID: 0}
   rb: {fileID: 0}
   interactionState: 0
   isInteractable: 1
@@ -164,22 +163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a865ae42fd0a4448b51080a60a48114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3335251775749287265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1055256372386735518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bbf7ff5b9bdbce4782f1c5bcb7c2463, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waitOnPickup: 0.2
-  breakForce: 35
-  pickedUp: 0
-  pickupThroughMirror: {fileID: 0}
 --- !u!65 &1731362758749421910
 BoxCollider:
   m_ObjectHideFlags: 0
