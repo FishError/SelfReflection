@@ -25,6 +25,7 @@ public class Button_Nav : MonoBehaviour
 
     void TaskOnClick()
     {
+        Debug.Log("This has been done");
         if (button.name == "Quit_Button")
         {
             ExitGame();

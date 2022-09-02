@@ -11,23 +11,26 @@ public class AudioSettings : MonoBehaviour
     public Slider musicSlider;
     public Slider sfxSlider = null, masterSlider = null;
 
+    void Start(){
+        Master = FMODUnity.RuntimeManager.GetBus("bus:/");
+        SFX = FMODUnity.RuntimeManager.GetBus("bus:/SFX");
+        Music = FMODUnity.RuntimeManager.GetBus("bus:/Music");
+    }
+
     public void MasterVolumeLevel(float sliderValue)
     {
-        Master = FMODUnity.RuntimeManager.GetBus("bus:/");
         Master.setVolume(sliderValue);
         PlayerPrefs.SetFloat("MasterVol", sliderValue);
     }
 
     public void SFXVolumeLevel(float sliderValue)
     {
-        SFX = FMODUnity.RuntimeManager.GetBus("bus:/SFX");
         SFX.setVolume(sliderValue);
         PlayerPrefs.SetFloat("SfxVol", sliderValue);
     }
 
     public void MusicVolumeLevel(float sliderValue)
     {
-        Music = FMODUnity.RuntimeManager.GetBus("bus:/Music");
         Music.setVolume(sliderValue);
         PlayerPrefs.SetFloat("MusicVol", sliderValue);
         
